@@ -43,6 +43,7 @@ export default {
             components:{default:clue_c},
         },
         {
+            name:'客户管理 > 我的客户 > 数据看板',
             path:'/account/board',
             meta:{
                 flag:true
