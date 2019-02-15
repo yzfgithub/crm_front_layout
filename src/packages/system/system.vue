@@ -141,6 +141,7 @@
     .content{
         flex:1;
         padding-left: 20px;
+        padding-right: 20px;
     }
     .content .path{
         color:#9B9B9D;

@@ -279,6 +279,8 @@
     .content{
         flex:1;
         padding-left: 20px;
+        padding-right: 20px;
+        overflow-y: auto;
     }
     .content .path{
         color:#9B9B9D;
