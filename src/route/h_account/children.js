@@ -2,10 +2,11 @@
 import clue_a from '@/packages/account/clue/clue_a/index'
 import clue_b from '@/packages/account/clue/clue_b/index'
 import clue_c from '@/packages/account/clue/clue_c/index'
+import clue_d from '@/packages/account/clue/clue_d/index'
+import clue_z from '@/packages/account/clue/clue_z/index'
 
 //client
 import board from '@/packages/account/client/board/index'
-import distribution from '@/packages/account/client/distribution/index'
 import follow from '@/packages/account/client/follow/index'
 import device from '@/packages/account/client/device/index'
 import inspection from '@/packages/account/client/inspection/index'
@@ -15,6 +16,10 @@ import payed from '@/packages/account/client/payed/index'
 //clueManage
 import shareManage from '@/packages/account/clueManage/shareManage/index'
 import dealManage from '@/packages/account/clueManage/dealManage/index'
+
+//reviewManage
+import handselManage from '@/packages/account/reviewManage/handselManage/index'
+import orderManage from '@/packages/account/reviewManage/orderManage/index'
 
 export default {
     mappings:[
@@ -43,19 +48,28 @@ export default {
             components:{default:clue_c},
         },
         {
+            name:'客户管理 > 公海 > D类公海',
+            path:'/account/clue_d',
+            meta:{
+                flag:true
+            },
+            components:{default:clue_d},
+        },
+        {
+            name:'客户管理 > 公海 > Z类公海',
+            path:'/account/clue_z',
+            meta:{
+                flag:true
+            },
+            components:{default:clue_z},
+        },
+        {
             name:'客户管理 > 我的客户 > 数据看板',
             path:'/account/board',
             meta:{
                 flag:true
             },
             components:{default:board},
-        },
-        {
-            path:'/account/distribution',
-            meta:{
-                flag:true
-            },
-            components:{default:distribution},
         },
         {
             path:'/account/follow',
@@ -105,6 +119,20 @@ export default {
                 flag:true
             },
             components:{default:dealManage},
+        },
+        {
+            path:'/account/handselManage',
+            meta:{
+                flag:true
+            },
+            components:{default:handselManage},
+        },
+        {
+            path:'/account/orderManage',
+            meta:{
+                flag:true
+            },
+            components:{default:orderManage},
         },
     ]
 }

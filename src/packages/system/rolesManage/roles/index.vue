@@ -1,6 +1,6 @@
 <template>
     <div>
-        distribution
+        roles
     </div>
 
 </template>

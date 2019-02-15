@@ -32,7 +32,7 @@
                         //一级
                         entity: {
                             id: 1,
-                            name: "clue",
+                            name: "employeeManage",
                             icon: "",
                             alias: "员工管理"
                         },
@@ -41,19 +41,19 @@
                             {
                                 entity: {
                                     id: 11,
-                                    name: "/account/clue_a",
+                                    name: "/system/employee",
                                     icon: "el-icon-loading",
                                     alias: "员工管理",
-                                    value: { path: "/account/hello" }
+                                    value: { path: "/order/list" }
                                 }
-                            },
+                            }
                         ]
                     },
                     {
                         //一级
                         entity: {
                             id: 2,
-                            name: "client",
+                            name: "architectureManage",
                             icon: "",
                             alias: "架构管理"
                         },
@@ -62,10 +62,10 @@
                             {
                                 entity: {
                                     id: 21,
-                                    name: "/account/board",
+                                    name: "/system/architecture",
                                     icon: "el-icon-loading",
                                     alias: "架构管理",
-                                    value: { path: "/hello" }
+                                    value: { path: "/order/list" }
                                 }
                             }
                         ]
@@ -74,7 +74,7 @@
                         //一级
                         entity: {
                             id: 3,
-                            name: "clueManage",
+                            name: "rolesManage",
                             icon: "",
                             alias: "角色管理"
                         },
@@ -83,10 +83,10 @@
                             {
                                 entity: {
                                     id: 31,
-                                    name: "/account/shareManage",
+                                    name: "/system/roles",
                                     icon: "el-icon-loading",
                                     alias: "角色管理",
-                                    value: { path: "/hello" }
+                                    value: { path: "/order/list" }
                                 }
                             }
                         ]
@@ -95,7 +95,7 @@
                         //一级
                         entity: {
                             id: 4,
-                            name: "clueManage",
+                            name: "permissionsManage",
                             icon: "",
                             alias: "权限管理"
                         },
@@ -104,14 +104,14 @@
                             {
                                 entity: {
                                     id: 41,
-                                    name: "/account/shareManage",
+                                    name: "/system/permissions",
                                     icon: "el-icon-loading",
                                     alias: "权限管理",
-                                    value: { path: "/hello" }
+                                    value: { path: "/order/list" }
                                 }
                             }
                         ]
-                    },
+                    }
                 ]
             }
         },
@@ -119,12 +119,7 @@
             NavMenu
         },
         methods:{
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
-            }
+
         },
         mounted(){
             // console.log()

@@ -3,13 +3,17 @@
 
         <template v-for="navMenu in navMenus">
             <!-- 最后一级菜单 -->
-            <el-menu-item v-if="!navMenu.childs&&navMenu.entity"
+            <el-menu-item :class="(navMenu.entity.change && navMenu.entity.change!=0)?'li-height':''" v-if="!navMenu.childs&&navMenu.entity"
                           :key="navMenu.entity.id" :data="navMenu" :index="navMenu.entity.name"
             >
                 <div class="sub-menu">
                     <!--<i :class="navMenu.entity.icon"></i>-->
                     <div class="dot"></div>
-                    <span slot="title">{{navMenu.entity.alias}}</span>
+                    <!--<span slot="title">{{navMenu.entity.alias}}({{navMenu.entity.count}})</span>-->
+                    <span slot="title">{{navMenu.entity.alias | navMenuFilter(navMenu.entity)}}</span>
+                    <!--<br/>-->
+                    <div v-if="navMenu.entity.change && navMenu.entity.change!=0" class="change" :class="(navMenu.entity.change && parseInt(navMenu.entity.change)>0)?'add':'minus'">{{navMenu.entity.change | navMenuChangeFilter}}</div>
+                    <!--<span class="num minus">-12</span>-->
                 </div>
 
             </el-menu-item>
@@ -37,7 +41,25 @@
         name: 'NavMenu',
         props: ['navMenus'],
         data() {
-            return {}
+            return {
+
+            }
+        },
+        filters:{
+            navMenuFilter(val,obj){
+                if(obj.count){
+                    return `${val}(${obj.count})`
+                }else{
+                    return `${val}`
+                }
+            },
+            navMenuChangeFilter(val){
+                if(val && parseInt(val)>0){
+                    return '+'+val;
+                }else{
+                    return val;
+                }
+            }
         },
         methods: {}
     }
@@ -86,5 +108,27 @@
     }
     .el-menu-item.is-active span{
         color:rgba(255,255,255,1);
+    }
+    .el-menu-item{
+        position: relative;
+    }
+    .sub-menu .change{
+        position: absolute;
+        left: 48px;
+        top: 40px;
+        line-height: 18px;
+        height: 18px;
+        padding: 0 5px;
+        font-size: 12px;
+        transform: scale(0.8);
+    }
+    .sub-menu .change.add{
+        background-color: #F8542E;
+    }
+    .sub-menu .change.minus{
+        background-color: #F2B313;
+    }
+    .li-height{
+        height: 70px !important;
     }
 </style>

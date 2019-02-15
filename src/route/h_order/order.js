@@ -1,6 +1,5 @@
 import order from '@/packages/order/order'
-// import account from "./account";
-// import klass from "./klass";
+import children from "./children";
 
 export default {
     mappings:[
@@ -10,7 +9,14 @@ export default {
                 flag:true
             },
             components:{default:order},
-            // children: [].concat(account.mappings,klass.mappings)
+        },
+        {
+            path:'/',
+            meta:{
+                flag:true
+            },
+            components:{default:order},
+            children: [].concat(children.mappings)
         }
 
     ]

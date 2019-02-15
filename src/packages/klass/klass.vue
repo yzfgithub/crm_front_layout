@@ -32,146 +32,23 @@
                         //一级
                         entity: {
                             id: 1,
-                            name: "clue",
+                            name: "klassManage",
                             icon: "",
-                            alias: "公海"
+                            alias: "课程管理"
                         },
                         //二级
                         childs: [
                             {
                                 entity: {
                                     id: 11,
-                                    name: "/account/clue_a",
+                                    name: "/klass/list",
                                     icon: "el-icon-loading",
-                                    alias: "A类公海",
+                                    alias: "课列表",
                                     value: { path: "/account/hello" }
                                 }
-                            },
-                            {
-                                entity: {
-                                    id: 12,
-                                    name: "/account/clue_b",
-                                    icon: "el-icon-bell",
-                                    alias: "B类公海",
-                                    value: "/account/system"
-                                }
-                            },
-                            {
-                                entity: {
-                                    id: 13,
-                                    name: "/account/clue_c",
-                                    icon: "el-icon-edit",
-                                    alias: "C类公海",
-                                    value: "/system/menu"
-                                }
                             }
                         ]
-                    },
-                    {
-                        //一级
-                        entity: {
-                            id: 2,
-                            name: "client",
-                            icon: "",
-                            alias: "我的客户"
-                        },
-                        //二级
-                        childs: [
-                            {
-                                entity: {
-                                    id: 21,
-                                    name: "/account/board",
-                                    icon: "el-icon-loading",
-                                    alias: "数据看板",
-                                    value: { path: "/hello" }
-                                }
-                            },
-                            {
-                                entity: {
-                                    id: 22,
-                                    name: "/account/distribution",
-                                    icon: "el-icon-bell",
-                                    alias: "待分配",
-                                    value: "/system/role"
-                                }
-                            },
-                            {
-                                entity: {
-                                    id: 23,
-                                    name: "/account/follow",
-                                    icon: "el-icon-edit",
-                                    alias: "待跟进",
-                                    value: "/system/menu"
-                                }
-                            },
-                            {
-                                entity: {
-                                    id: 24,
-                                    name: "/account/device",
-                                    icon: "el-icon-edit",
-                                    alias: "待设备检测",
-                                    value: "/system/menu"
-                                }
-                            },
-                            {
-                                entity: {
-                                    id: 25,
-                                    name: "/account/inspection",
-                                    icon: "el-icon-edit",
-                                    alias: "待体检",
-                                    value: "/system/menu"
-                                }
-                            },
-                            {
-                                entity: {
-                                    id: 26,
-                                    name: "/account/conversion",
-                                    icon: "el-icon-edit",
-                                    alias: "待转化",
-                                    value: "/system/menu"
-                                }
-                            },
-                            {
-                                entity: {
-                                    id: 27,
-                                    name: "/account/payed",
-                                    icon: "el-icon-edit",
-                                    alias: "已付费",
-                                    value: "/system/menu"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        //一级
-                        entity: {
-                            id: 3,
-                            name: "clueManage",
-                            icon: "",
-                            alias: "线索管理"
-                        },
-                        //二级
-                        childs: [
-                            {
-                                entity: {
-                                    id: 31,
-                                    name: "/account/shareManage",
-                                    icon: "el-icon-loading",
-                                    alias: "分配管理",
-                                    value: { path: "/hello" }
-                                }
-                            },
-                            {
-                                entity: {
-                                    id: 32,
-                                    name: "/account/dealManage",
-                                    icon: "el-icon-bell",
-                                    alias: "奖惩管理",
-                                    value: "/system/role"
-                                }
-                            },
-                        ]
-                    },
+                    }
                 ]
             }
         },
@@ -179,12 +56,7 @@
             NavMenu
         },
         methods:{
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
-            }
+
         },
         mounted(){
             // console.log()
