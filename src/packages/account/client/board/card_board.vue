@@ -44,7 +44,6 @@
                             align:'left',
                         },
                         formatter:function (params) {
-                            console.log(params)
                             var result = '<div style="text-align: center;">'+params[0].name+'</div>';
                             params.forEach(function (item) {
                                 if(item.seriesName=='拨打率'){
@@ -226,6 +225,18 @@
                             crossStyle: {
                                 color: '#999'
                             }
+                        },
+                        formatter:function (params) {
+                            var result = '<div style="text-align: center;">'+params[0].name+'</div>';
+                            params.forEach(function (item) {
+                                if(item.seriesName=='体验率' || item.seriesName=='付费率'){
+                                    result += item.marker + " " + item.seriesName + " : " + parseInt(item.value*100) +"%</br>";
+                                }else{
+                                    result += item.marker + " " + item.seriesName + " : " + item.value +"</br>";
+                                }
+
+                            });
+                            return result;
                         }
                     },
                     toolbox: {
@@ -233,7 +244,7 @@
                     },
                     color:['#FAC000','#FF9500','#F8542E','#FF7360','#9812FF'],
                     legend: {
-                        data:['领取','拨打','废弃','回收','拨打率'],
+                        data:['预约','体验','付费','体验率','付费率'],
                         bottom:10,
                         selectedMode:false,
                         textStyle:{
@@ -313,7 +324,7 @@
                     ],
                     series: [
                         {
-                            name:'领取',
+                            name:'预约',
                             type:'bar',
                             label: {
                                 normal: {
@@ -324,7 +335,7 @@
                             data:[20, 49, 70]
                         },
                         {
-                            name:'拨打',
+                            name:'体验',
                             type:'bar',
                             label: {
                                 normal: {
@@ -335,7 +346,7 @@
                             data:[214, 127, 70.7]
                         },
                         {
-                            name:'废弃',
+                            name:'付费',
                             type:'bar',
                             label: {
                                 normal: {
@@ -346,7 +357,7 @@
                             data:[175.6, 182.2, 48.7]
                         },
                         {
-                            name:'回收',
+                            name:'体验率',
                             type:'line',
                             yAxisIndex: 1,
                             symbol:'circle',
@@ -364,7 +375,7 @@
                             data:[0.8, 0.6, 0.2]
                         },
                         {
-                            name:'拨打率',
+                            name:'付费率',
                             type:'line',
                             yAxisIndex: 1,
                             symbol:'circle',

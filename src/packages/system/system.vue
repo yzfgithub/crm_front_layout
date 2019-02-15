@@ -13,6 +13,7 @@
 
 
         <div class="content">
+            <div class="path">{{this.$route.name}}</div>
             <router-view></router-view>
         </div>
     </div>
@@ -122,8 +123,7 @@
 
         },
         mounted(){
-            // console.log()
-            this.styleObject.height = document.documentElement.clientHeight-60 +'px';
+            this.styleObject.height = document.documentElement.clientHeight-44 +'px';
         }
     }
 </script>
@@ -138,5 +138,14 @@
         /*height: 100%;*/
 
     }
-    .content{flex:1;}
+    .content{
+        flex:1;
+        padding-left: 20px;
+    }
+    .content .path{
+        color:#9B9B9D;
+        font-size: 12px;
+        line-height: 30px;
+        text-align: left;
+    }
 </style>

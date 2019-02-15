@@ -3,6 +3,7 @@ import clue_a from '@/packages/account/clue/clue_a/index'
 import clue_b from '@/packages/account/clue/clue_b/index'
 import clue_c from '@/packages/account/clue/clue_c/index'
 import clue_d from '@/packages/account/clue/clue_d/index'
+import clue_e from '@/packages/account/clue/clue_e/index'
 import clue_z from '@/packages/account/clue/clue_z/index'
 
 //client
@@ -56,6 +57,14 @@ export default {
             components:{default:clue_d},
         },
         {
+            name:'客户管理 > 公海 > E类公海',
+            path:'/account/clue_e',
+            meta:{
+                flag:true
+            },
+            components:{default:clue_e},
+        },
+        {
             name:'客户管理 > 公海 > Z类公海',
             path:'/account/clue_z',
             meta:{
@@ -72,6 +81,7 @@ export default {
             components:{default:board},
         },
         {
+            name:'客户管理 > 我的客户 > 待跟进',
             path:'/account/follow',
             meta:{
                 flag:true
@@ -79,6 +89,7 @@ export default {
             components:{default:follow},
         },
         {
+            name:'客户管理 > 我的客户 > 待设备检测',
             path:'/account/device',
             meta:{
                 flag:true
@@ -86,6 +97,7 @@ export default {
             components:{default:device},
         },
         {
+            name:'客户管理 > 我的客户 > 待体检',
             path:'/account/inspection',
             meta:{
                 flag:true
@@ -93,6 +105,7 @@ export default {
             components:{default:inspection},
         },
         {
+            name:'客户管理 > 我的客户 > 待转化',
             path:'/account/conversion',
             meta:{
                 flag:true
@@ -100,6 +113,7 @@ export default {
             components:{default:conversion},
         },
         {
+            name:'客户管理 > 我的客户 > 待付费',
             path:'/account/payed',
             meta:{
                 flag:true
@@ -107,6 +121,7 @@ export default {
             components:{default:payed},
         },
         {
+            name:'客户管理 > 线索管理 > 分配管理',
             path:'/account/shareManage',
             meta:{
                 flag:true
@@ -114,6 +129,7 @@ export default {
             components:{default:shareManage},
         },
         {
+            name:'客户管理 > 线索管理 > 奖惩管理',
             path:'/account/dealManage',
             meta:{
                 flag:true
@@ -121,6 +137,7 @@ export default {
             components:{default:dealManage},
         },
         {
+            name:'客户管理 > 审批管理 > 赠课管理',
             path:'/account/handselManage',
             meta:{
                 flag:true
@@ -128,6 +145,7 @@ export default {
             components:{default:handselManage},
         },
         {
+            name:'客户管理 > 审批管理 > 订单管理',
             path:'/account/orderManage',
             meta:{
                 flag:true

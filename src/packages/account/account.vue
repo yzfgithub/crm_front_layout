@@ -86,6 +86,17 @@
                             {
                                 entity: {
                                     id: 15,
+                                    name: "/account/clue_e",
+                                    icon: "el-icon-edit",
+                                    alias: "E类公海",
+                                    count:'12761',
+                                    change:'',
+                                    value: "/system/menu"
+                                }
+                            },
+                            {
+                                entity: {
+                                    id: 16,
                                     name: "/account/clue_z",
                                     icon: "el-icon-edit",
                                     alias: "Z类公海",
@@ -116,17 +127,6 @@
                                     value: { path: "/hello" }
                                 }
                             },
-                            // {
-                            //     entity: {
-                            //         id: 22,
-                            //         name: "/account/distribution",
-                            //         icon: "el-icon-bell",
-                            //         alias: "待分配",
-                            //         count:'12761',
-                            //         change:'12',
-                            //         value: "/system/role"
-                            //     }
-                            // },
                             {
                                 entity: {
                                     id: 22,
@@ -218,7 +218,7 @@
                             id: 4,
                             name: "reviewManage",
                             icon: "",
-                            alias: "线索管理"
+                            alias: "审批管理"
                         },
                         //二级
                         childs: [
@@ -255,10 +255,10 @@
         },
         mounted(){
             this.activeIndex = this.$route.path
-            this.styleObject.height = document.documentElement.clientHeight-60 +'px';
+            this.styleObject.height = document.documentElement.clientHeight-44 +'px';
             setTimeout(function () {
-                // console.log(this.menuData)
                 this.menuData[0].childs[0].entity.count = 1000;
+                this.menuData[1].childs[1].entity.change = '-5';
             }.bind(this),5000)
         }
     }
@@ -266,7 +266,7 @@
 <style>
     .content-box{
         display: flex;
-        overflow-y: auto;
+        /*overflow-y: auto;*/
     }
     .el-menu-vertical-demo{
         width: 190px;
@@ -274,8 +274,7 @@
     }
     .left-menu{
         width: 190px;
-        /*height: 100%;*/
-
+        overflow-y: auto;
     }
     .content{
         flex:1;

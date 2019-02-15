@@ -53,6 +53,10 @@
     .el-menu-item.is-active {
 
     }
+    .el-menu-item{
+        height: 44px !important;
+        line-height: 44px !important;
+    }
     .el-menu-item.is-disabled {
         opacity: 1 !important;
         cursor: default !important;
