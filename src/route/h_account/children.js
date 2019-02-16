@@ -6,6 +6,8 @@ import clue_d from '@/packages/account/clue/clue_d/index'
 import clue_e from '@/packages/account/clue/clue_e/index'
 import clue_z from '@/packages/account/clue/clue_z/index'
 
+import clue_detail from '@/packages/account/clue/detail/index'
+
 //client
 import board from '@/packages/account/client/board/index'
 import follow from '@/packages/account/client/follow/index'
@@ -72,6 +74,16 @@ export default {
             },
             components:{default:clue_z},
         },
+        {
+            name:'客户管理 > 公海 > 客户详情',
+            path:'/account/clue_detail/:id',
+            meta:{
+                flag:true
+            },
+            components:{default:clue_detail},
+        },
+
+
         {
             name:'客户管理 > 我的客户 > 数据看板',
             path:'/account/board',

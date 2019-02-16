@@ -266,7 +266,7 @@
 <style>
     .content-box{
         display: flex;
-        /*overflow-y: auto;*/
+        min-height: auto !important;
     }
     .el-menu-vertical-demo{
         width: 190px;

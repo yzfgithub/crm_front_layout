@@ -21,6 +21,9 @@
                         prop="name"
                         label="姓名"
                 >
+                    <template slot-scope="scope">
+                        <span @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="mobile"
@@ -104,6 +107,9 @@
             },
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
+            },
+            pathTo(id){
+                this.$router.push({path:`/account/clue_detail/${id}`});
             }
         }
 
@@ -128,9 +134,6 @@
     }
     .f_head div .num{
         color:#F8542E;
-    }
-    .f_table{
-
     }
     .page{
         margin: 20px 0;
