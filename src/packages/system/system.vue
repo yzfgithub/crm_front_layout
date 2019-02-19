@@ -23,7 +23,7 @@
     export default {
         data(){
             return{
-                activeIndex:'1',
+                activeIndex:'system/employee',
                 styleObject:{
                     height:'auto',
                     minHeight:'768px',
@@ -123,6 +123,7 @@
 
         },
         mounted(){
+            this.activeIndex = this.$route.path;
             this.styleObject.height = document.documentElement.clientHeight-44 +'px';
         }
     }

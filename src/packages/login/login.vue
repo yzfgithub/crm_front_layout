@@ -6,7 +6,7 @@
                 <img src="../../assets/login_left.png" alt="">
             </div>
             <div class="box-right">
-                <div class="title">CRM系统登陆</div>
+                <div class="title">WLC单点登陆登陆</div>
                 <div class="user">
                     <span>账号</span>
                     <div class="input">
@@ -42,15 +42,47 @@
         },
         methods:{
             getCode(){
-                this.$message.success('验证吗发送成功')
+                fetcher.get_code({username:this.account},(response)=>{
+                    this.$message.success('验证吗发送成功')
+                })
+
             },
             login(){
-                fetcher.post({username:this.account,qrcode:this.qrcode},(response)=>{
-                    console.log(response)
+                fetcher.login({user_name:this.account,password:this.qrcode},(response)=>{
+                    var token = response.data.data.token;
+
+                    //单点登陆
+                    // let from = this.getUrlParam('from');
+                    // console.log(from,'from',token)
+                    // if(from){
+                    //     window.location.href = from+'/?token='+token;
+                    //     window.navigate("http://shanghepinpai.com");
+                    // }
+                    //
+                    // if(token){
+                    //     localStorage.setItem('token', token);
+                    //     axios.defaults.headers['Authorization'] = 'Bearer '+ token;
+                    //
+                    //     fetcher.me((response) => {
+                    //       localStorage.setItem('permissions', JSON.stringify(response.data.permissions));
+                    //       localStorage.setItem('applications', JSON.stringify(response.data.applications));
+                    //       localStorage.setItem('user_name',response.data.user_name);
+                    //     this.$router.push({path:'account'})
+                    //     })
+                    // }else{
+                    //     this.$message('用户名或密码错误,请重新输入!');
+                    // }
+                },(err)=>{
+                    this.$message('用户名或密码错误,请重新输入!');
                 })
-                window.localStorage.setItem('token','123142344')
-                this.$router.push({path:'account'})
-            }
+
+            },
+            getUrlParam(name){
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+                if (r!=null) return unescape(r[2]); return null; //返回参数值
+            },
+
         }
     }
 </script>
@@ -106,7 +138,7 @@
     }
     .box-right .title{
         margin-top: 86px;
-        width:152px;
+        width:200px;
         height:28px;
         font-size:24px;
         font-family:PingFangSC-Semibold;

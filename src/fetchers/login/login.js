@@ -12,14 +12,31 @@ import config from '@/config'
 
 
 export default {
-    post(datas, cb, fb){
-        axios.post(config.baseUrl + '/login', {'data': datas})
+    login(params,cb,fb){
+        axios.post(config.sso_host+'/api/auth/login', params)
             .then((response) => {
+                network_util.success(response, cb);
+            })
+            .catch((err) => {
+                network_util.fail(err,fb);
+            })
+    },
+    get_code(user_name, cb, fb){
+        axios.post(config.sso_host+'/api/auth/send_member_new_password', {user_name: user_name})
+            .then( (response) => {
                 network_util.success(response, cb)
             })
             .catch((err) => {
                 network_util.fail(err, fb)
             })
     },
-
+    me(cb, fb){
+        axios.get(config.sso_host+'/api/auth/me')
+            .then( (response) => {
+                network_util.success(response, cb)
+            })
+            .catch((err) => {
+                network_util.fail(err, fb)
+            })
+    },
 };

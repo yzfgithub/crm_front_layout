@@ -4,13 +4,13 @@
             <div class="title">客户详情</div>
             <div class="distributor_box">
                 <div>
-                    <span class="name">王大仁</span>&nbsp;&nbsp;<span>1512976130</span>
+                    <span class="name">{{dataObj.name}}</span>&nbsp;&nbsp;<span>{{dataObj.mobile}}</span>
                 </div>
                <div>
-                   <span>性别</span>&nbsp;&nbsp;<span class="mg-r">女</span>
-                   <span>练琴等级</span>&nbsp;&nbsp;<span class="mg-r">初级</span>
-                   <span>意向度</span>&nbsp;&nbsp;<span class="mg-r">低</span>
-                   <span>性别</span>&nbsp;&nbsp;<span class="mg-r">女</span>
+                   <span>性别：</span><span class="mg-r">{{dataObj.sex}}</span>
+                   <span>练琴等级：</span><span class="mg-r">{{dataObj.level}}</span>
+                   <span>意向度：</span><span class="mg-r">低</span>
+                   <span>线索来源：</span><span class="mg-r">腾讯云1月短信</span>
                </div>
 
             </div>
@@ -50,18 +50,24 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import firstCom from './first'
-    import secondCom from './second'
-    import thirdCom from './third'
-    import fourCom from './four'
-    import fiveCom from './five'
-    import sixCom from './six'
-    import sevenCom from './seven'
-    import eightCom from './eight'
+    import firstCom from '@/components/clue_detail/first'
+    import secondCom from '@/components/clue_detail/second'
+    import thirdCom from '@/components/clue_detail/third'
+    import fourCom from '@/components/clue_detail/four'
+    import fiveCom from '@/components/clue_detail/five'
+    import sixCom from '@/components/clue_detail/six'
+    import sevenCom from '@/components/clue_detail/seven'
+    import eightCom from '@/components/clue_detail/eight'
     export default {
         data(){
             return {
-                activeName:'first'
+                activeName:'first',
+                dataObj:{
+                    name:'albb',
+                    mobile:'18872655172',
+                    level:'low'
+
+                }
             }
         },
         components:{
@@ -116,6 +122,7 @@
     }
     .top .distributor_box span.mg-r{
         margin-right: 40px;
+        color:#666666;
     }
     /*.top .form{*/
         /*margin-left: 40px;*/

@@ -1,3 +1,3 @@
 export default {
-    baseUrl:'http://www.baidu.com'
+    sso_host: 'http://d.sso.kuaipeilian.com',
 }

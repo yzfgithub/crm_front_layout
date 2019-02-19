@@ -23,7 +23,7 @@
     export default {
         data(){
             return{
-                activeIndex:'1',
+                activeIndex:'account/clue_a',
                 styleObject:{
                     height:'auto',
                     minHeight:'768px',

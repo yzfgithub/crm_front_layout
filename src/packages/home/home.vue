@@ -10,10 +10,10 @@
                 text-color="#333"
                 active-text-color="#F8542E">
             <el-menu-item index="0" class="logo" disabled><img src="../../assets/logo.png" alt=""></el-menu-item>
-            <el-menu-item index="/account">客户管理</el-menu-item>
-            <el-menu-item index="/klass">课程管理</el-menu-item>
-            <el-menu-item index="/order">订单管理</el-menu-item>
-            <el-menu-item index="/system">系统管理</el-menu-item>
+            <el-menu-item index="/account/clue_a">客户管理</el-menu-item>
+            <el-menu-item index="/klass/list">课程管理</el-menu-item>
+            <el-menu-item index="/order/list">订单管理</el-menu-item>
+            <el-menu-item index="/system/employee">系统管理</el-menu-item>
 
             <el-menu-item class="last" index="5" disabled>
                 <span>123/123 <img src="../../assets/logo.png" alt=""></span>
@@ -27,7 +27,7 @@
     export default {
         data(){
             return{
-                activeIndex:'/account'
+                activeIndex:'/account/clue_a'
             }
         },
         methods:{

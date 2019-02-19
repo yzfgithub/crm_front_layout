@@ -2,17 +2,17 @@
     <div>
         <div class="top">
             <div class="title">A类公海</div>
-            <query class="form" :clueAForm = 'form'></query>
+            <query class="form" :clueAForm = 'form' @queryBtn="queryBtn"></query>
         </div>
         <div class="bottom">
-            <clueAForm :clueAData="clueAData"></clueAForm>
+            <clueAForm :isZClue="false" :clueAData="clueAData"></clueAForm>
         </div>
     </div>
 
 </template>
 <script type="text/ecmascript-6">
-    import query from '../../../../components/clue_a/query'
-    import clueAForm from '../../../../components/clue_a/form'
+    import query from '@/commons/clue_query_form/query'
+    import clueAForm from '@/commons/clue_table/form'
     export default {
         data(){
             return{
@@ -36,6 +36,11 @@
         },
         components:{
             query,clueAForm
+        },
+        methods:{
+            queryBtn(){
+                console.log(this.form,'form')
+            }
         }
 
     }
