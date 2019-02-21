@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="f_head">
-            <div>已选中 <span class="num">2</span> 项</div>
+            <div>已选中 <span class="num">{{multipleSelectionIds.length}}</span> 项</div>
             <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/create.png" alt=""> <span class="click-span">新建订单</span></div>
             <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/presentation.png" alt=""> <span class="click-span">赠课</span></div>
         </div>

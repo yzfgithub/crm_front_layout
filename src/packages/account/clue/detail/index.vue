@@ -12,7 +12,7 @@
                    <span>意向度：</span><span class="mg-r">低</span>
                    <span>线索来源：</span><span class="mg-r">腾讯云1月短信</span>
                </div>
-                <div class="call-phone">
+                <div class="call-phone" @click="callPhone">
                     <i class="el-icon-phone"></i> &nbsp;拨打
                 </div>
             </div>
@@ -60,6 +60,7 @@
     import sixCom from '@/components/clue_detail/six'
     import sevenCom from '@/components/clue_detail/seven'
     import eightCom from '@/components/clue_detail/eight'
+    import axios from 'axios'
     export default {
         data(){
             return {
@@ -68,7 +69,6 @@
                     name:'albb',
                     mobile:'18872655172',
                     level:'low'
-
                 }
             }
         },
@@ -81,6 +81,12 @@
             },
             handleClick(){
                 console.log('sss')
+            },
+            callPhone(){
+                axios.get('/crm-call/outCall',{params:{FromExten:'1006',Exten:'18910420795'}}).then((response)=>{
+                    console.log('sss')
+                    this.$message('已发起通话，请稍后！')
+                })
             }
         }
     }

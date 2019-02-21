@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="f_head">
-            <div>已选中 <span class="num">2</span> 项</div>
+            <div>已选中 <span class="num">{{multipleSelectionIds.length}}</span> 项</div>
             <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/batch.png" alt=""> <span class="click-span" @click="batchShare">领取分配</span></div>
             <div v-if="!isZClue"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/discard.png" alt=""> <span class="click-span" @click="discard">废弃</span></div>
             <div v-if="isZClue"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/rollback.png" alt=""> <span class="click-span" @click="rollBack">回滚</span></div>
@@ -138,6 +138,7 @@
         data(){
             return{
                 multipleSelection: [],
+                multipleSelectionIds:[],
                 currentPage4: 4,
 
                 dialogType:'',
@@ -162,7 +163,7 @@
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
-                let ids = this.multipleSelection.map(function (item) {
+                let multipleSelectionIds = this.multipleSelection.map(function (item) {
                     return item.id;
                 })
             },

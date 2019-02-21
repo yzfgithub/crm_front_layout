@@ -60,20 +60,18 @@
                     // }
                     //
                     // if(token){
-                    //     localStorage.setItem('token', token);
-                    //     axios.defaults.headers['Authorization'] = 'Bearer '+ token;
+                        localStorage.setItem('token', token);
+                        axios.defaults.headers['Authorization'] = 'Bearer '+ token;
                     //
                     //     fetcher.me((response) => {
                     //       localStorage.setItem('permissions', JSON.stringify(response.data.permissions));
                     //       localStorage.setItem('applications', JSON.stringify(response.data.applications));
                     //       localStorage.setItem('user_name',response.data.user_name);
-                    //     this.$router.push({path:'account'})
+                        this.$router.push({path:'account'})
                     //     })
                     // }else{
                     //     this.$message('用户名或密码错误,请重新输入!');
                     // }
-                },(err)=>{
-                    this.$message('用户名或密码错误,请重新输入!');
                 })
 
             },
@@ -231,5 +229,6 @@
         line-height: 40px;
         color:#fff;
         cursor: pointer;
+        text-align: center;
     }
 </style>

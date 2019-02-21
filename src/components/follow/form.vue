@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="f_head">
-            <div>已选中 <span class="num">2</span> 项</div>
+            <div>已选中 <span class="num">{{multipleSelectionIds.length}}</span> 项</div>
             <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_device.png" alt=""> <span class="click-span">预约设备检测课</span></div>
             <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_tiyan.png" alt=""> <span class="click-span">预约体验课</span></div>
             <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/create.png" alt=""> <span class="click-span">新建订单</span></div>
@@ -135,7 +135,7 @@
                 <!--<el-button type="primary" @click="submitOperate">确 定</el-button>-->
             <!--</div>-->
         <!--</el-dialog>-->
-        <myDialog :visiableBar="visiableBar" :dialogType="dialogType" :title_dailog="title_dailog"></myDialog>
+        <!--<myDialog :visiableBar="visiableBar" :dialogType="dialogType" :title_dailog="title_dailog"></myDialog>-->
     </div>
 </template>
 <script type="text/ecmascript-6">
