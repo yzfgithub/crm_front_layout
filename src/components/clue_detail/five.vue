@@ -16,47 +16,47 @@
             </el-table-column>
             <el-table-column
                     prop="mobile"
-                    label="手机号"
+                    label="学生"
             >
             </el-table-column>
             <el-table-column
                     prop="province"
-                    label="省份"
+                    label="赠课理由"
             >
             </el-table-column>
             <el-table-column
                     prop="created_at"
-                    label="注册时间"
+                    label="赠课数量"
             >
             </el-table-column>
             <el-table-column
                     prop="updated_at"
-                    label="最新修改时间"
+                    label="创建人"
             >
             </el-table-column>
             <el-table-column
                     prop="updated_for"
-                    label="修改人"
+                    label="创建时间"
             >
             </el-table-column>
             <el-table-column
                     prop="state"
-                    label="有效／接通／拨打"
+                    label="审批人"
             >
             </el-table-column>
             <el-table-column
                     prop="delay"
-                    label="搁置时间"
+                    label="审批日期"
             >
             </el-table-column>
             <el-table-column
                     prop="rollback"
-                    label="回滚次数"
+                    label="赠课状态"
             >
             </el-table-column>
             <el-table-column
                     prop="like"
-                    label="意向度"
+                    label="CC"
             >
             </el-table-column>
 

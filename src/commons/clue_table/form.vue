@@ -2,9 +2,9 @@
     <div class="container">
         <div class="f_head">
             <div>已选中 <span class="num">2</span> 项</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> <span class="click-span" @click="batchShare">领取分配</span></div>
-            <div v-if="!isZClue"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> <span class="click-span" @click="discard">废弃</span></div>
-            <div v-if="isZClue"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> <span class="click-span" @click="rollBack">回滚</span></div>
+            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/batch.png" alt=""> <span class="click-span" @click="batchShare">领取分配</span></div>
+            <div v-if="!isZClue"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/discard.png" alt=""> <span class="click-span" @click="discard">废弃</span></div>
+            <div v-if="isZClue"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/rollback.png" alt=""> <span class="click-span" @click="rollBack">回滚</span></div>
         </div>
         <div class="f_table">
             <el-table
@@ -81,24 +81,46 @@
             <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
             </el-pagination>
         </div>
-        <!--<el-dialog :title="title_dailog" :visible.sync="dialogFormVisible">-->
-            <!--<el-form :model="form">-->
-                <!--<el-form-item :label="label_dailog" :label-width="formLabelWidth">-->
-                    <!--<el-select v-if = 'dialog_training' v-model="form.training_id" placeholder="请选择培训师">-->
-                        <!--<el-option v-for="(val, key) in educational_administration_list" :label="val.name" :value="parseInt(val.id)" :key="key"></el-option>-->
-                    <!--</el-select>-->
 
-                    <!--<el-select v-else v-model="form.educational_administration_id" placeholder="请选择教务">-->
-                        <!--<el-option v-for="(val, key) in educational_administration_list" :label="val.name" :value="parseInt(val.id)" :key="key"></el-option>-->
-                    <!--</el-select>-->
+        <el-dialog :title="title_dailog" :visible.sync="dialogFormVisible">
+            <el-form :model="form" label-position="left" class="form-class">
+                <el-form-item v-if="dialogType ==='batch'" label="确认领取并分配该部分线索？分配后将进入CC个人【待跟进】私池">
+                    <!--<span>确认领取并分配该部分线索？分配后将进入CC个人【待跟进】私池</span>-->
+                </el-form-item>
+                <el-form-item v-if="dialogType ==='batch'" label="领取原因" :label-width="formLabelWidth">
+                    <el-select v-if = 'dialog_training' v-model="form.batchReasion_id" placeholder="请选择领取原因">
+                        <el-option v-for="(val, key) in batchReasion_list" :label="val.name" :value="parseInt(val.id)" :key="key"></el-option>
+                    </el-select>
+                </el-form-item>
 
-                <!--</el-form-item>-->
-            <!--</el-form>-->
-            <!--<div slot="footer" class="dialog-footer">-->
-                <!--<el-button @click="dialogFormVisible = false">取 消</el-button>-->
-                <!--<el-button type="primary" @click="change_screens(dailog_search_id)">确 定</el-button>-->
-            <!--</div>-->
-        <!--</el-dialog>-->
+                <el-form-item v-if="dialogType ==='batch'" label="分配给" :label-width="formLabelWidth">
+                    <el-select v-model="form.region" placeholder="请选择活动区域">
+                        <el-option label="区域一" value="shanghai"></el-option>
+                        <el-option label="区域二" value="beijing"></el-option>
+                    </el-select>
+                </el-form-item>
+
+
+                <el-form-item v-if="dialogType ==='discard'">
+                    <span>确认废弃该部分线索？废弃后将进入【Z类公海池】</span>
+                </el-form-item>
+                <el-form-item v-if="dialogType=='discard'" label="废弃原因" :label-width="formLabelWidth">
+                    <el-select v-model="form.discardReason_id" placeholder="请选择废弃原因">
+                        <el-option v-for="(val, key) in discardReason_list" :label="val.name" :value="parseInt(val.id)" :key="key"></el-option>
+                    </el-select>
+                </el-form-item>
+
+
+                <el-form-item v-if="dialogType ==='rollback'">
+                    <span>确认回滚该部分线索？回滚后线索将进入原属公海</span>
+                </el-form-item>
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="submitOperate">确 定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 <script type="text/ecmascript-6">
@@ -117,9 +139,21 @@
             return{
                 multipleSelection: [],
                 currentPage4: 4,
-                // dialogFormVisible: false,
-                // formLabelWidth: '120px',
-                // dialog_training:true,
+
+                dialogType:'',
+                title_dailog:'',
+                dialogFormVisible:false,
+                formLabelWidth: '80px',
+                dialog_training:true,
+                form:{
+                    discardReason:0,
+                    batchReasion:0,
+                    team_id:0,
+                    zu_id:0,
+                    cc_id:0,
+                },
+                batchReasion_list:[{name:'1'},{name:'2'}],
+                discardReason_list:[{name:'1'},{name:'2'}]
             }
         },
         methods:{
@@ -131,17 +165,42 @@
                 let ids = this.multipleSelection.map(function (item) {
                     return item.id;
                 })
-                console.log(this.multipleSelection,ids)
             },
 
             batchShare(){
                 console.log('领取分配')
+                this.title_dailog='领取分配线索'
+                this.dialogType='batch'
+                this.dialogFormVisible=true;
             },
             discard(){
                 console.log('废弃')
+                this.title_dailog='废弃线索'
+                this.dialogType='discard'
+                this.dialogFormVisible=true;
             },
             rollBack(){
+                this.title_dailog='回滚线索'
+                this.dialogType='rollback'
+                this.dialogFormVisible=true;
                 console.log('回滚')
+            },
+            submitOperate(){
+                if(this.dialogType=='batch'){
+                    //领取分配
+
+                    this.dialogFormVisible=false;
+                }else if(this.dialogType=='discard'){
+                    //废弃
+
+                    this.dialogFormVisible=false;
+                }else if(this.dialogType=='discard'){
+                    //回滚
+
+                    this.dialogFormVisible=false;
+                }else{
+                    console.log('error')
+                }
             },
 
             //fenye
@@ -172,6 +231,9 @@
         color:rgba(155,155,157,1);
         line-height:14px;
     }
+    .f_head img{
+        height: 12px;
+    }
     .f_head div{
         display: inline-block;
     }
@@ -185,9 +247,13 @@
     .click-span{
         cursor: pointer;
         margin-left: 5px;
-        color:#666666;
+        /*color:#666666;*/
+        color:#64c0fe;
         font-family:PingFangSC-Medium;
         font-weight:500;
+    }
+    .click-span:hover{
+        color:#64c0fe;
     }
     .form-name{
         color:#30ABF9;
@@ -196,5 +262,11 @@
     .form-mobile{
         color:#6AC230;
         cursor: pointer;
+    }
+    .el-form-item__content{
+        text-align: left !important;
+    }
+    .form-class{
+        margin-left: 10%;
     }
 </style>

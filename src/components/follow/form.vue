@@ -2,12 +2,12 @@
     <div class="container">
         <div class="f_head">
             <div>已选中 <span class="num">2</span> 项</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 预约设备检测课</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 预约体验课</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 新建订单</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 赠课</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 废弃</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 回收分配</div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_device.png" alt=""> <span class="click-span">预约设备检测课</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_tiyan.png" alt=""> <span class="click-span">预约体验课</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/create.png" alt=""> <span class="click-span">新建订单</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/presentation.png" alt=""> <span class="click-span">赠课</span></div>
+            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/discard.png" alt=""> <span class="click-span">废弃</span></div>
+            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/rollback.png" alt=""> <span class="click-span">回收分配</span></div>
         </div>
         <div class="f_table">
             <el-table
@@ -96,9 +96,50 @@
             </el-pagination>
         </div>
 
+        <!--<el-dialog :title="title_dailog" :visible.sync="dialogFormVisible">-->
+            <!--<el-form :model="form" label-position="left" class="form-class">-->
+                <!--<el-form-item v-if="dialogType ==='batch'" label="确认领取并分配该部分线索？分配后将进入CC个人【待跟进】私池">-->
+                    <!--&lt;!&ndash;<span>确认领取并分配该部分线索？分配后将进入CC个人【待跟进】私池</span>&ndash;&gt;-->
+                <!--</el-form-item>-->
+                <!--<el-form-item v-if="dialogType ==='batch'" label="领取原因" :label-width="formLabelWidth">-->
+                    <!--<el-select v-if = 'dialog_training' v-model="form.batchReasion_id" placeholder="请选择领取原因">-->
+                        <!--<el-option v-for="(val, key) in batchReasion_list" :label="val.name" :value="parseInt(val.id)" :key="key"></el-option>-->
+                    <!--</el-select>-->
+                <!--</el-form-item>-->
+
+                <!--<el-form-item v-if="dialogType ==='batch'" label="分配给" :label-width="formLabelWidth">-->
+                    <!--<el-select v-model="form.region" placeholder="请选择活动区域">-->
+                        <!--<el-option label="区域一" value="shanghai"></el-option>-->
+                        <!--<el-option label="区域二" value="beijing"></el-option>-->
+                    <!--</el-select>-->
+                <!--</el-form-item>-->
+
+
+                <!--<el-form-item v-if="dialogType ==='discard'">-->
+                    <!--<span>确认废弃该部分线索？废弃后将进入【Z类公海池】</span>-->
+                <!--</el-form-item>-->
+                <!--<el-form-item v-if="dialogType=='discard'" label="废弃原因" :label-width="formLabelWidth">-->
+                    <!--<el-select v-model="form.discardReason_id" placeholder="请选择废弃原因">-->
+                        <!--<el-option v-for="(val, key) in discardReason_list" :label="val.name" :value="parseInt(val.id)" :key="key"></el-option>-->
+                    <!--</el-select>-->
+                <!--</el-form-item>-->
+
+
+                <!--<el-form-item v-if="dialogType ==='rollback'">-->
+                    <!--<span>确认回滚该部分线索？回滚后线索将进入原属公海</span>-->
+                <!--</el-form-item>-->
+
+            <!--</el-form>-->
+            <!--<div slot="footer" class="dialog-footer">-->
+                <!--<el-button @click="dialogFormVisible = false">取 消</el-button>-->
+                <!--<el-button type="primary" @click="submitOperate">确 定</el-button>-->
+            <!--</div>-->
+        <!--</el-dialog>-->
+        <myDialog :visiableBar="visiableBar" :dialogType="dialogType" :title_dailog="title_dailog"></myDialog>
     </div>
 </template>
 <script type="text/ecmascript-6">
+    import myDialog from '@/commons/client_batch/myDialog'
     export default {
         props:{
             clueAData:{
@@ -109,8 +150,39 @@
         data(){
             return{
                 multipleSelection: [],
-                currentPage4: 4
+                multipleSelectionIds:[],
+                currentPage4: 4,
+
+                // dialogType:'',
+                // title_dailog:'',
+                // dialogFormVisible:false,
+                // formLabelWidth: '80px',
+                // dialog_training:true,
+                // form:{
+                //     discardReason:0,
+                //     batchReasion:0,
+                //     team_id:0,
+                //     zu_id:0,
+                //     cc_id:0,
+                // },
+                // batchReasion_list:[{name:'1'},{name:'2'}],
+                // discardReason_list:[{name:'1'},{name:'2'}]
+                visiableBar:false,
+                dialogType:'yuyue_tiyan',
+                title_dailog: '预约设备检测课',
             }
+        },
+        computed:{
+            isMultipleSelect:function(){
+                if(this.multipleSelectionIds.length>1){
+                    return true
+                }else{
+                    return false
+                }
+            }
+        },
+        components:{
+            myDialog
         },
         methods:{
             tableHeaderColor(){
@@ -118,6 +190,9 @@
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
+                this.multipleSelectionIds = this.multipleSelection.map(function (item) {
+                    return item.id;
+                })
             },
 
             //fenye
@@ -148,6 +223,9 @@
         color:rgba(155,155,157,1);
         line-height:14px;
     }
+    .f_head img{
+        height: 12px;
+    }
     .f_head div{
         display: inline-block;
     }
@@ -157,5 +235,13 @@
     .page{
         margin: 20px 0;
         text-align: right;
+    }
+    .click-span{
+        cursor: pointer;
+        margin-left: 5px;
+        /*color:#666666;*/
+        color:#64c0fe;
+        font-family:PingFangSC-Medium;
+        font-weight:500;
     }
 </style>

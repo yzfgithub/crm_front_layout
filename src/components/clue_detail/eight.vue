@@ -1,25 +1,23 @@
 <template>
-    <div class="first_box">
-        <myTab :title="'家长信息'">
-            <el-steps direction="vertical" :active="1">
-                <el-step title="步骤 1"></el-step>
-                <el-step title="步骤 2"></el-step>
-                <el-step title="步骤 3" description="这是一段很长很长很长的描述性文字"></el-step>
-            </el-steps>
-        </myTab>
-
+    <div class="eight_box">
+        <ul class="timeline">
+            <timeline v-for="item in operations">
+                <span slot="dot" class="mydot"></span>
+                <span>{{item.str}}</span>
+            </timeline>
+        </ul>
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import myTab from '@/commons/myTab/tab'
+    import timeline from '@/commons/timeLine/timeline'
     export default {
         data(){
             return{
-
+                operations:[{str:'abcde'}]
             }
         },
         components:{
-            myTab
+            timeline
         },
         methods:{
 
@@ -27,25 +25,22 @@
     }
 </script>
 <style lang="css">
-    .key{
-        font-size:14px;
-        font-family:PingFangSC-Regular;
-        font-weight:400;
-        color:rgba(155,155,157,1);
-        line-height:14px;
-    }
-    .val{
-        font-size:14px;
-        font-family:PingFangSC-Regular;
-        font-weight:400;
-        color:rgba(102,102,102,1);
-        line-height:14px;
-    }
-    .first_box{
+    .eight_box{
         padding-bottom: 20px;
     }
-    .first_box .my_tab_box:last-of-type
-    {
-        border-bottom-width: 1px;
+    .timeline{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .mydot{
+        display:inline-block;
+        width: 6px;
+        height: 6px;
+        background-color: rgba(102,102,102,1);
+        border-radius: 6px;
+        position: absolute;
+        top: 3px;
+        left: 3px;
     }
 </style>

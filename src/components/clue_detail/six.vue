@@ -1,10 +1,12 @@
 <template>
     <div class="first_box">
-        <myTab :title="'家长信息'">
-            <span class="key">家长姓名：</span><span class="val">暂无</span> &nbsp;&nbsp;&nbsp;
-            <span class="key">家长手机：</span><span class="val">18872616235</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">家长微信：</span><span class="val">暂无</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">省、市、区：</span><span class="val">暂无</span>
+        <myTab :title="'家长信息'" :hasTitle="true">
+            <audio :src="aac_file" controls="controls">
+            </audio>
+            <br />
+            <span class="key">外呼人：</span><span class="val">暂无</span> &nbsp;&nbsp;&nbsp;
+            <span class="key">开始时间：</span><span class="val">18872616235</span>&nbsp;&nbsp;&nbsp;
+            <span class="key">结束时间：</span><span class="val">暂无</span>
         </myTab>
     </div>
 </template>
@@ -13,7 +15,7 @@
     export default {
         data(){
             return{
-
+                aac_file:''
             }
         },
         components:{
@@ -24,7 +26,11 @@
         },
     }
 </script>
-<style lang="css">
+<style lang="css" scoped>
+    audio{
+        width: 247px;
+        height: 40px;
+    }
     .key{
         font-size:14px;
         font-family:PingFangSC-Regular;

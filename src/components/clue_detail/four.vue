@@ -8,7 +8,7 @@
                 :header-cell-style="tableHeaderColor">
             <el-table-column
                     prop="name"
-                    label="姓名"
+                    label="学生"
             >
                 <template slot-scope="scope">
                     <span @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
@@ -16,48 +16,63 @@
             </el-table-column>
             <el-table-column
                     prop="mobile"
-                    label="手机号"
+                    label="产品名称"
             >
             </el-table-column>
             <el-table-column
                     prop="province"
-                    label="省份"
+                    label="订单总金额"
             >
             </el-table-column>
             <el-table-column
                     prop="created_at"
-                    label="注册时间"
+                    label="折扣金额"
             >
             </el-table-column>
             <el-table-column
                     prop="updated_at"
-                    label="最新修改时间"
+                    label="订单金额"
             >
             </el-table-column>
             <el-table-column
                     prop="updated_for"
-                    label="修改人"
+                    label="创建时间"
             >
             </el-table-column>
             <el-table-column
                     prop="state"
-                    label="有效／接通／拨打"
+                    label="支付时间"
             >
             </el-table-column>
             <el-table-column
                     prop="delay"
-                    label="搁置时间"
+                    label="支付方式"
             >
             </el-table-column>
             <el-table-column
                     prop="rollback"
-                    label="回滚次数"
+                    label="订单状态"
             >
             </el-table-column>
             <el-table-column
                     prop="like"
-                    label="意向度"
+                    label="CC"
             >
+            </el-table-column>
+            <el-table-column
+                    prop="like"
+                    label="下单人"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="like"
+                    label="操作"
+            >
+                <template slot-scope="scope">
+                    <span>查看</span>
+                    <span>取消</span>
+                    <span>上传凭证</span>
+                </template>
             </el-table-column>
 
         </el-table>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="box">
         <el-menu
                 :default-active="activeIndex"
                 class="el-menu-demo"
@@ -42,6 +42,9 @@
     }
 </script>
 <style scoped>
+    .box{
+        background-color: #EFF3F5;
+    }
     .el-menu-demo{
         position: relative;
     }

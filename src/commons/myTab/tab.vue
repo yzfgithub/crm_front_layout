@@ -1,7 +1,7 @@
 <template>
     <div class="my_tab_box">
         <div>
-            <span class="title">{{title}}</span>
+            <span v-if="!hasTitle" class="title">{{title}}</span>
         </div>
         <div class="content">
             <slot></slot>
@@ -13,6 +13,10 @@
         props:{
             title:{
                 type:String,
+                require:true
+            },
+            hasTitle:{
+                type:Boolean,
                 require:true
             }
         },

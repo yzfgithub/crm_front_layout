@@ -8,7 +8,7 @@
                 :header-cell-style="tableHeaderColor">
             <el-table-column
                     prop="name"
-                    label="姓名"
+                    label="学生"
             >
                 <template slot-scope="scope">
                     <span @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
@@ -16,48 +16,80 @@
             </el-table-column>
             <el-table-column
                     prop="mobile"
-                    label="手机号"
+                    label="老师"
             >
             </el-table-column>
             <el-table-column
                     prop="province"
-                    label="省份"
+                    label="课类型"
             >
             </el-table-column>
             <el-table-column
                     prop="created_at"
-                    label="注册时间"
+                    label="上课时间"
             >
             </el-table-column>
             <el-table-column
                     prop="updated_at"
-                    label="最新修改时间"
+                    label="排课时间"
             >
             </el-table-column>
             <el-table-column
                     prop="updated_for"
-                    label="修改人"
+                    label="课状态"
             >
             </el-table-column>
             <el-table-column
                     prop="state"
-                    label="有效／接通／拨打"
+                    label="迟到状态"
             >
             </el-table-column>
             <el-table-column
                     prop="delay"
-                    label="搁置时间"
+                    label="旷课状态"
             >
             </el-table-column>
             <el-table-column
                     prop="rollback"
-                    label="回滚次数"
+                    label="曲谱状态"
             >
             </el-table-column>
             <el-table-column
                     prop="like"
-                    label="意向度"
+                    label="课后反馈"
             >
+            </el-table-column>
+            <el-table-column
+                    prop="like"
+                    label="CC"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="like"
+                    label="排课人"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="like"
+                    label="教务"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="like"
+                    label="老师简历"
+            >
+                <template slot-scope="scope">
+                    <span><a href="http://www.baidu.com">老师简历</a></span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="like"
+                    label="操作"
+            >
+                <template slot-scope="scope">
+                    <span><a href="http://www.baidu.com">查看</a></span>
+                    <span><a href="http">建工单</a></span>
+                </template>
             </el-table-column>
 
         </el-table>

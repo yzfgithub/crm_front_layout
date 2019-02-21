@@ -12,7 +12,9 @@
                    <span>意向度：</span><span class="mg-r">低</span>
                    <span>线索来源：</span><span class="mg-r">腾讯云1月短信</span>
                </div>
-
+                <div class="call-phone">
+                    <i class="el-icon-phone"></i> &nbsp;拨打
+                </div>
             </div>
             <div class="close" @click="closeDetail">
                 <i class="el-icon-circle-close"></i>
@@ -105,6 +107,7 @@
         margin:0 20px;
         text-align: left;
         padding: 10px;
+        position: relative;
     }
     .top .distributor_box .name{
         font-size:16px;
@@ -123,6 +126,18 @@
     .top .distributor_box span.mg-r{
         margin-right: 40px;
         color:#666666;
+    }
+    .top .distributor_box .call-phone{
+        position: absolute;
+        top:20px;
+        right:20px;
+        display: inline-block;
+        border:1px solid #6AC230;
+        color:#6AC230;
+        font-size: 12px;
+        padding: 5px 15px;
+        border-radius: 50px;
+        cursor: pointer;
     }
     /*.top .form{*/
         /*margin-left: 40px;*/

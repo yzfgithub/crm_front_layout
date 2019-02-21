@@ -308,7 +308,7 @@
 <style>
     .content-box{
         display: flex;
-        min-height: auto !important;
+        /*min-height: auto !important;*/
     }
     .el-menu-vertical-demo{
         width: 190px;

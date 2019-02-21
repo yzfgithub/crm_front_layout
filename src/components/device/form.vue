@@ -1,14 +1,16 @@
 <template>
     <div class="container">
         <div class="f_head">
-            <div>已选中 <span class="num">2</span> 项</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 预约设备检测课</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 预约体验课</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 新建订单</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 赠课</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 废弃</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 回收分配</div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <i class="el-icon-delete"></i> 取消设备检测课</div>
+            <div>已选中 <span class="num">{{multipleSelectionIds.length}}</span> 项</div>
+
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_device.png" alt=""> <span class="click-span">预约设备检测课</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_tiyan.png" alt=""> <span class="click-span">预约体验课</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/create.png" alt=""> <span class="click-span">新建订单</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/presentation.png" alt=""> <span class="click-span">赠课</span></div>
+            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/discard.png" alt=""> <span class="click-span">废弃</span></div>
+            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/rollback.png" alt=""> <span class="click-span">回收分配</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/quxiao_device.png" alt=""> <span class="click-span">取消设备检测课</span></div>
+
         </div>
         <div class="f_table">
             <el-table
@@ -110,7 +112,17 @@
         data(){
             return{
                 multipleSelection: [],
-                currentPage4: 4
+                multipleSelectionIds:[],
+                currentPage4: 4,
+            }
+        },
+        computed:{
+            isMultipleSelect:function(){
+                if(this.multipleSelectionIds.length>1){
+                    return true
+                }else{
+                    return false
+                }
             }
         },
         methods:{
@@ -119,6 +131,9 @@
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
+                this.multipleSelectionIds = this.multipleSelection.map(function (item) {
+                    return item.id;
+                })
             },
 
             //fenye
@@ -149,6 +164,9 @@
         color:rgba(155,155,157,1);
         line-height:14px;
     }
+    .f_head img{
+        height: 12px;
+    }
     .f_head div{
         display: inline-block;
     }
@@ -158,5 +176,13 @@
     .page{
         margin: 20px 0;
         text-align: right;
+    }
+    .click-span{
+        cursor: pointer;
+        margin-left: 5px;
+        /*color:#666666;*/
+        color:#64c0fe;
+        font-family:PingFangSC-Medium;
+        font-weight:500;
     }
 </style>
