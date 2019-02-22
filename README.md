@@ -1,26 +1,38 @@
-# vue-test
+## 快陪练 CRM 后台管理系统
 
-## Project setup
-```
-npm install
-```
+### 业务背景
+本系统提供给公司的电销团队用，对所有线索进行分类，自动分配给每个销售，帮助他们及时跟进处于不同销售阶段的客户，帮助销售团队提高工作效率，增加企业收益。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+公海顾名思义，所有不属于个人的，由团队共同拥有的客户资源，与私海（个人拥有的，跟进中的客户）相呼应。
 
-### Compiles and minifies for production
-```
-npm run build
-```
+在销售型公司，公海池的存在有非常大的意义，主要包含：
+- 加强企业客户资源的流动，加快跟进客户的节奏，有助于销售团队的全员成长；
+- 可以用不同的销售风格跟进同一客户，为企业增加签单几率；
+- 避免大部分销售公司“优质客户永远掌握在老销售手中”的现象，建设一个企业内部公平的销售平台，给努力的新业务员更多销售机会，提高老业务员的工作积极性
 
-### Lints and fixes files
-```
-npm run lint
-```
+### 技术架构
+前后端分离，基于vue技术栈，使用vue-cli 3.x脚手架搭建，各核心库当前版本为：
+- vue 2.5.22, 
+- vue-router 3.0.1, 
+- vuex 3.0.1, 
+- axios 0.18.0, 
+- echarts: 4.1.0,
+- element-ui: 2.5.4
 
-### Run your unit tests
-```
-npm run test:unit
-```
+### 参与开发
+- 下载源码
+  ```
+    http://gitlab.weilaicheng.com/root/wlc_crm_front.git
+  ```
+- 安装项目有关依赖
+  ```
+  cd wlc_crm_front &&  npm install 
+  ```
+- 启动项目
+  ```
+  npm run serve
+  ```
+- 部署项目 (生成静态文件后，一般通过配置ngnix访问，可用pm2配置本地自动部署)
+  ```
+  npm run build
+  ```
