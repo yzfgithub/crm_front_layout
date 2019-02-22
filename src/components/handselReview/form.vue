@@ -74,6 +74,9 @@
                         prop="rollback"
                         label="操作"
                 >
+                    <template slot-scope="scope">
+                        <a href="javascript:void(0);" @click="reviewOperation">审批</a>
+                    </template>
                 </el-table-column>
 
             </el-table>
@@ -81,6 +84,27 @@
             <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
             </el-pagination>
         </div>
+
+        <el-dialog title="赠课审批" :visible.sync="dialogFormVisible">
+            <el-form :model="form" label-position="left" class="form-class">
+
+                <el-form-item label="">
+                    <el-radio v-model="form.region" label="1">通过</el-radio>
+                    <el-radio v-model="form.region" label="2">不通过</el-radio>
+                </el-form-item>
+                <el-form-item label="不通过原因" :label-width="formLabelWidth">
+                    <el-select v-model="form.region" placeholder="请选择活动区域">
+                        <el-option label="区域一" value="shanghai"></el-option>
+                        <el-option label="区域二" value="beijing"></el-option>
+                    </el-select>
+                </el-form-item>
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="submitOperate">确 定</el-button>
+            </div>
+        </el-dialog>
 
     </div>
 </template>
@@ -95,10 +119,24 @@
         data(){
             return{
                 multipleSelection: [],
-                currentPage4: 4
+                currentPage4: 4,
+
+                dialogFormVisible:false,
+                formLabelWidth: '100px',
+                form:{
+
+                }
             }
         },
         methods:{
+            reviewOperation(){
+                this.dialogFormVisible=true;
+            },
+            submitOperate(){
+                this.dialogFormVisible=false;
+            },
+
+
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
             },

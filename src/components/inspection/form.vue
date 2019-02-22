@@ -2,13 +2,13 @@
     <div class="container">
         <div class="f_head">
             <div>已选中 <span class="num">{{multipleSelectionIds.length}}</span> 项</div>
-            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_device.png" alt=""> <span class="click-span">预约设备检测课</span></div>
-            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_tiyan.png" alt=""> <span class="click-span">预约体验课</span></div>
-            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/create.png" alt=""> <span class="click-span">新建订单</span></div>
-            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/presentation.png" alt=""> <span class="click-span">赠课</span></div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/discard.png" alt=""> <span class="click-span">废弃</span></div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/rollback.png" alt=""> <span class="click-span">回收分配</span></div>
-            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/quxiao_tiyan.png" alt=""> <span class="click-span">取消体验课</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_device.png" alt=""> <span class="click-span" @click="yuyueDeviceClick">预约设备检测课</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_tiyan.png" alt=""> <span class="click-span" @click="yuyueTiyanClick">预约体验课</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/create.png" alt=""> <span class="click-span" @click="createClick">新建订单</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/presentation.png" alt=""> <span class="click-span" @click="presentationClick">赠课</span></div>
+            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/discard.png" alt=""> <span class="click-span" @click="discardClick">废弃</span></div>
+            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/rollback.png" alt=""> <span class="click-span" @click="rollbackClick">回收分配</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/quxiao_tiyan.png" alt=""> <span class="click-span" @click="quxiaoTiyanClick">取消体验课</span></div>
         </div>
         <div class="f_table">
             <el-table
@@ -97,9 +97,24 @@
             </el-pagination>
         </div>
 
+        <yuyue_device :visiableBar="yuyueDeviceBar" @close="closeBtn"></yuyue_device>
+        <yuyue_tiyan :visiableBar="yuyueTiyanBar" @close="closeBtn"></yuyue_tiyan>
+        <create :visiableBar="createBar" @close="closeBtn"></create>
+        <presentation :visiableBar="presentationBar" @close="closeBtn"></presentation>
+        <discard :visiableBar="discardBar" @close="closeBtn"></discard>
+        <rollback :visiableBar="rollbackBar" @close="closeBtn"></rollback>
+        <quxiao_tiyan :visiableBar="quxiaoTiyanBar" @close="closeBtn"></quxiao_tiyan>
+
     </div>
 </template>
 <script type="text/ecmascript-6">
+    import yuyue_device from '@/commons/client_batch/yuyue_device'
+    import yuyue_tiyan from '@/commons/client_batch/yuyue_tiyan'
+    import create from '@/commons/client_batch/create'
+    import presentation from '@/commons/client_batch/presentation'
+    import discard from '@/commons/client_batch/discard'
+    import rollback from '@/commons/client_batch/rollback'
+    import quxiao_tiyan from '@/commons/client_batch/quxiao_tiyan'
     export default {
         props:{
             clueAData:{
@@ -112,6 +127,14 @@
                 multipleSelection: [],
                 multipleSelectionIds:[],
                 currentPage4: 4,
+
+                yuyueDeviceBar:false,
+                yuyueTiyanBar:false,
+                createBar:false,
+                presentationBar:false,
+                discardBar:false,
+                rollbackBar:false,
+                quxiaoTiyanBar:false,
             }
         },
         computed:{
@@ -123,7 +146,42 @@
                 }
             }
         },
+        components:{
+            yuyue_device,yuyue_tiyan,create,presentation,discard,rollback,quxiao_tiyan
+        },
         methods:{
+            yuyueDeviceClick(){
+                this.yuyueDeviceBar = true;
+            },
+            yuyueTiyanClick(){
+                this.yuyueTiyanBar = true;
+            },
+            createClick(){
+                this.createBar = true;
+            },
+            presentationClick(){
+                this.presentationBar = true;
+            },
+            discardClick(){
+                this.discardBar = true;
+            },
+            rollbackClick(){
+                this.rollbackBar = true;
+            },
+            quxiaoTiyanClick(){
+                this.quxiaoTiyanBar = true;
+            },
+            closeBtn(){
+                this.yuyueDeviceBar=false
+                this.yuyueTiyanBar=false
+                this.createBar=false
+                this.presentationBar=false
+                this.discardBar=false
+                this.rollbackBar=false
+                this.quxiaoTiyanBar =false
+            },
+
+
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
             },

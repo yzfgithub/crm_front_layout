@@ -2,12 +2,12 @@
     <div class="container">
         <div class="f_head">
             <div>已选中 <span class="num">{{multipleSelectionIds.length}}</span> 项</div>
-            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_device.png" alt=""> <span class="click-span">预约设备检测课</span></div>
-            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_tiyan.png" alt=""> <span class="click-span">预约体验课</span></div>
-            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/create.png" alt=""> <span class="click-span">新建订单</span></div>
-            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/presentation.png" alt=""> <span class="click-span">赠课</span></div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/discard.png" alt=""> <span class="click-span">废弃</span></div>
-            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/rollback.png" alt=""> <span class="click-span">回收分配</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_device.png" alt=""> <span class="click-span" @click="yuyueDeviceClick">预约设备检测课</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/yuyue_tiyan.png" alt=""> <span class="click-span" @click="yuyueTiyanClick">预约体验课</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/create.png" alt=""> <span class="click-span" @click="createClick">新建订单</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/presentation.png" alt=""> <span class="click-span" @click="presentationClick">赠课</span></div>
+            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/discard.png" alt=""> <span class="click-span" @click="discardClick">废弃</span></div>
+            <div> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/rollback.png" alt=""> <span class="click-span" @click="rollbackClick">回收分配</span></div>
         </div>
         <div class="f_table">
             <el-table
@@ -96,50 +96,23 @@
             </el-pagination>
         </div>
 
-        <!--<el-dialog :title="title_dailog" :visible.sync="dialogFormVisible">-->
-            <!--<el-form :model="form" label-position="left" class="form-class">-->
-                <!--<el-form-item v-if="dialogType ==='batch'" label="确认领取并分配该部分线索？分配后将进入CC个人【待跟进】私池">-->
-                    <!--&lt;!&ndash;<span>确认领取并分配该部分线索？分配后将进入CC个人【待跟进】私池</span>&ndash;&gt;-->
-                <!--</el-form-item>-->
-                <!--<el-form-item v-if="dialogType ==='batch'" label="领取原因" :label-width="formLabelWidth">-->
-                    <!--<el-select v-if = 'dialog_training' v-model="form.batchReasion_id" placeholder="请选择领取原因">-->
-                        <!--<el-option v-for="(val, key) in batchReasion_list" :label="val.name" :value="parseInt(val.id)" :key="key"></el-option>-->
-                    <!--</el-select>-->
-                <!--</el-form-item>-->
-
-                <!--<el-form-item v-if="dialogType ==='batch'" label="分配给" :label-width="formLabelWidth">-->
-                    <!--<el-select v-model="form.region" placeholder="请选择活动区域">-->
-                        <!--<el-option label="区域一" value="shanghai"></el-option>-->
-                        <!--<el-option label="区域二" value="beijing"></el-option>-->
-                    <!--</el-select>-->
-                <!--</el-form-item>-->
-
-
-                <!--<el-form-item v-if="dialogType ==='discard'">-->
-                    <!--<span>确认废弃该部分线索？废弃后将进入【Z类公海池】</span>-->
-                <!--</el-form-item>-->
-                <!--<el-form-item v-if="dialogType=='discard'" label="废弃原因" :label-width="formLabelWidth">-->
-                    <!--<el-select v-model="form.discardReason_id" placeholder="请选择废弃原因">-->
-                        <!--<el-option v-for="(val, key) in discardReason_list" :label="val.name" :value="parseInt(val.id)" :key="key"></el-option>-->
-                    <!--</el-select>-->
-                <!--</el-form-item>-->
-
-
-                <!--<el-form-item v-if="dialogType ==='rollback'">-->
-                    <!--<span>确认回滚该部分线索？回滚后线索将进入原属公海</span>-->
-                <!--</el-form-item>-->
-
-            <!--</el-form>-->
-            <!--<div slot="footer" class="dialog-footer">-->
-                <!--<el-button @click="dialogFormVisible = false">取 消</el-button>-->
-                <!--<el-button type="primary" @click="submitOperate">确 定</el-button>-->
-            <!--</div>-->
-        <!--</el-dialog>-->
-        <!--<myDialog :visiableBar="visiableBar" :dialogType="dialogType" :title_dailog="title_dailog"></myDialog>-->
+        <yuyue_device :visiableBar="yuyueDeviceBar" @close="closeBtn"></yuyue_device>
+        <yuyue_tiyan :visiableBar="yuyueTiyanBar" @close="closeBtn"></yuyue_tiyan>
+        <create :visiableBar="createBar" @close="closeBtn"></create>
+        <presentation :visiableBar="presentationBar" @close="closeBtn"></presentation>
+        <discard :visiableBar="discardBar" @close="closeBtn"></discard>
+        <rollback :visiableBar="rollbackBar" @close="closeBtn"></rollback>
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import myDialog from '@/commons/client_batch/myDialog'
+    import yuyue_device from '@/commons/client_batch/yuyue_device'
+    import yuyue_tiyan from '@/commons/client_batch/yuyue_tiyan'
+    import create from '@/commons/client_batch/create'
+    import presentation from '@/commons/client_batch/presentation'
+    import discard from '@/commons/client_batch/discard'
+    import rollback from '@/commons/client_batch/rollback'
+
+
     export default {
         props:{
             clueAData:{
@@ -153,23 +126,12 @@
                 multipleSelectionIds:[],
                 currentPage4: 4,
 
-                // dialogType:'',
-                // title_dailog:'',
-                // dialogFormVisible:false,
-                // formLabelWidth: '80px',
-                // dialog_training:true,
-                // form:{
-                //     discardReason:0,
-                //     batchReasion:0,
-                //     team_id:0,
-                //     zu_id:0,
-                //     cc_id:0,
-                // },
-                // batchReasion_list:[{name:'1'},{name:'2'}],
-                // discardReason_list:[{name:'1'},{name:'2'}]
-                visiableBar:false,
-                dialogType:'yuyue_tiyan',
-                title_dailog: '预约设备检测课',
+                yuyueDeviceBar:false,
+                yuyueTiyanBar:false,
+                createBar:false,
+                presentationBar:false,
+                discardBar:false,
+                rollbackBar:false,
             }
         },
         computed:{
@@ -182,9 +144,37 @@
             }
         },
         components:{
-            myDialog
+            yuyue_device,yuyue_tiyan,create,presentation,discard,rollback
         },
         methods:{
+            yuyueDeviceClick(){
+                this.yuyueDeviceBar = true;
+            },
+            yuyueTiyanClick(){
+                this.yuyueTiyanBar = true;
+            },
+            createClick(){
+                this.createBar = true;
+            },
+            presentationClick(){
+                this.presentationBar = true;
+            },
+            discardClick(){
+                this.discardBar = true;
+            },
+            rollbackClick(){
+                this.rollbackBar = true;
+            },
+            closeBtn(){
+                this.yuyueDeviceBar=false
+                this.yuyueTiyanBar=false
+                this.createBar=false
+                this.presentationBar=false
+                this.discardBar=false
+                this.rollbackBar=false
+            },
+
+            //
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
             },

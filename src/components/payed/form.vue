@@ -2,8 +2,8 @@
     <div class="container">
         <div class="f_head">
             <div>已选中 <span class="num">{{multipleSelectionIds.length}}</span> 项</div>
-            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/create.png" alt=""> <span class="click-span">新建订单</span></div>
-            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/presentation.png" alt=""> <span class="click-span">赠课</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/create.png" alt=""> <span class="click-span" @click="createClick">新建订单</span></div>
+            <div v-if="!isMultipleSelect"> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <img src="../../assets/presentation.png" alt=""> <span class="click-span" @click="presentationClick">赠课</span></div>
         </div>
         <div class="f_table">
             <el-table
@@ -87,9 +87,13 @@
             </el-pagination>
         </div>
 
+        <create :visiableBar="createBar" @close="closeBtn"></create>
+        <presentation :visiableBar="presentationBar" @close="closeBtn"></presentation>
     </div>
 </template>
 <script type="text/ecmascript-6">
+    import create from '@/commons/client_batch/create'
+    import presentation from '@/commons/client_batch/presentation'
     export default {
         props:{
             clueAData:{
@@ -102,6 +106,9 @@
                 multipleSelection: [],
                 multipleSelectionIds:[],
                 currentPage4: 4,
+
+                createBar:false,
+                presentationBar:false,
             }
         },
         computed:{
@@ -113,7 +120,23 @@
                 }
             }
         },
+        components:{
+           create,presentation
+        },
         methods:{
+            createClick(){
+                this.createBar = true;
+            },
+            presentationClick(){
+                this.presentationBar = true;
+            },
+            closeBtn(){
+                this.createBar=false
+                this.presentationBar=false
+
+            },
+
+
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
             },
