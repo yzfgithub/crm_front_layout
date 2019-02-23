@@ -67,7 +67,14 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
+    import fetcher from '@/fetchers/account/clue/clue'
     export default {
+        props:{
+            tabName:{
+                type:String,
+                require:true
+            }
+        },
         data(){
             return{
                 clueAData:[
@@ -86,10 +93,27 @@
                 currentPage4: 4
             }
         },
+        watch:{
+            tabName:{
+                handler(val,oldVal){
+                    if(val!=oldVal && val == 'five'){
+                        this.load();
+                    }
+                }
+            }
+        },
         methods:{
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
             },
+
+            load(){
+                fetcher.getCommunicationRecord({clueSubjectId:this.$route.params.id},(response)=>{
+                    if(response.data.code==100000){
+                        this.data = response.data.data;
+                    }
+                })
+            }
             //fenye
             // handleSizeChange(val) {
             //     console.log(`每页 ${val} 条`);

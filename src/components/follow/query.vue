@@ -28,14 +28,13 @@
         </el-form-item>
         <el-form-item label="跟进状态">
             <el-select v-model="formInline.region" placeholder="活动区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+                <el-option label="全部" value="" key=""></el-option>
+                <el-option v-for="(val,key) in follow_status" :label="val" :key="key" :value="val"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="归属人">
-            <el-select v-model="formInline.region" placeholder="活动区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+            <el-select v-model="formInline.region" placeholder="请选择废弃原因">
+                <el-option v-for="(val,key) in follow_status" :label="val" :key="key" :value="val"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item>
@@ -44,6 +43,7 @@
     </el-form>
 </template>
 <script>
+    import meta from '@/utils/meta'
     export default {
         props:{
             clueAForm:{
@@ -53,6 +53,7 @@
         },
         data() {
             return {
+                follow_status:meta.follow_status,
                 formInline: {
                     user: '',
                     region: ''

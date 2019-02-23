@@ -28,8 +28,8 @@
         </el-form-item>
         <el-form-item label="检测状态">
             <el-select v-model="formInline.region" placeholder="活动区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+                <el-option label="全部" value="" key=""></el-option>
+                <el-option v-for="(val,key) in follow_device_detection_status" :label="val" :key="key" :value="val"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="归属人">
@@ -43,7 +43,8 @@
         </el-form-item>
     </el-form>
 </template>
-<script>
+<script type="text/ecmascript-6">
+    import meta from '@/utils/meta'
     export default {
         props:{
             clueAForm:{
@@ -53,6 +54,7 @@
         },
         data() {
             return {
+                follow_device_detection_status:meta.follow_device_detection_status,
                 formInline: {
                     user: '',
                     region: ''

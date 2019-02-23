@@ -10,17 +10,39 @@
 </template>
 <script type="text/ecmascript-6">
     import timeline from '@/commons/timeLine/timeline'
+    import fetcher from '@/fetchers/account/clue/clue'
     export default {
+        props:{
+            tabName:{
+                type:String,
+                require:true
+            }
+        },
         data(){
             return{
                 operations:[{str:'abcde'},{str:'desfag'}]
+            }
+        },
+        watch:{
+            tabName:{
+                handler(val,oldVal){
+                    if(val!=oldVal && val == 'seven'){
+                        this.load();
+                    }
+                }
             }
         },
         components:{
             timeline
         },
         methods:{
-
+            load(){
+                fetcher.getCommunicationRecord({clueSubjectId:this.$route.params.id},(response)=>{
+                    if(response.data.code==100000){
+                        this.data = response.data.data;
+                    }
+                })
+            }
         },
     }
 </script>

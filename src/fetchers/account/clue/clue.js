@@ -22,4 +22,14 @@ export default {
                 network_util.fail(err,fb);
             })
     },
+    //沟通记录列表
+    getCommunicationRecord(params,cb,fb){
+        axios.get(config.hostUrl+'/communicationrecord/get/list',{params:params})
+            .then((response) => {
+                network_util.success(response, cb);
+            })
+            .catch((err) => {
+                network_util.fail(err,fb);
+            })
+    },
 };

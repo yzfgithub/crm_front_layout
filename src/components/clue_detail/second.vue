@@ -1,40 +1,10 @@
 <template>
     <div>
         <div class="second_box">
-            <myTab class="second_tab" :title="'王大力-1组-1队-北京-phone'">
-                <span class="val">无人接听</span> &nbsp;&nbsp;&nbsp;
-                <span class="val">2018-01-20 13:24</span>&nbsp;&nbsp;&nbsp;
-                <span class="key">备注：</span><span class="val">备注备注备注备注备注备注</span>
-            </myTab>
-            <myTab class="second_tab" :title="'张铁蛋-2组-1队-北京-phone'">
-                <span class="val">无人接听</span> &nbsp;&nbsp;&nbsp;
-                <span class="val">2018-01-20 13:24</span>&nbsp;&nbsp;&nbsp;
-                <span class="key">备注：</span><span class="val">备注备注备注备注备注备注</span>
-            </myTab>
-            <myTab class="second_tab" :title="'张铁蛋-2组-1队-北京-phone'">
-                <span class="val">无人接听</span> &nbsp;&nbsp;&nbsp;
-                <span class="val">2018-01-20 13:24</span>&nbsp;&nbsp;&nbsp;
-                <span class="key">备注：</span><span class="val">备注备注备注备注备注备注</span>
-            </myTab>
-            <myTab class="second_tab" :title="'张铁蛋-2组-1队-北京-phone'">
-                <span class="val">无人接听</span> &nbsp;&nbsp;&nbsp;
-                <span class="val">2018-01-20 13:24</span>&nbsp;&nbsp;&nbsp;
-                <span class="key">备注：</span><span class="val">备注备注备注备注备注备注</span>
-            </myTab>
-            <myTab class="second_tab" :title="'张铁蛋-2组-1队-北京-phone'">
-                <span class="val">无人接听</span> &nbsp;&nbsp;&nbsp;
-                <span class="val">2018-01-20 13:24</span>&nbsp;&nbsp;&nbsp;
-                <span class="key">备注：</span><span class="val">备注备注备注备注备注备注</span>
-            </myTab>
-            <myTab class="second_tab" :title="'张铁蛋-2组-1队-北京-phone'">
-                <span class="val">无人接听</span> &nbsp;&nbsp;&nbsp;
-                <span class="val">2018-01-20 13:24</span>&nbsp;&nbsp;&nbsp;
-                <span class="key">备注：</span><span class="val">备注备注备注备注备注备注</span>
-            </myTab>
-            <myTab class="second_tab" :title="'张铁蛋-2组-1队-北京-phone'">
-                <span class="val">无人接听</span> &nbsp;&nbsp;&nbsp;
-                <span class="val">2018-01-20 13:24</span>&nbsp;&nbsp;&nbsp;
-                <span class="key">备注：</span><span class="val">备注备注备注备注备注备注</span>
+            <myTab v-for="item in data" class="second_tab" :title="item.ccInfoName+'-'+item.teamInfoName+'-'+item.parentName+'-'+item.grandparentName+'-'+item.mode">
+                <span class="val">{{item.status}}</span> &nbsp;&nbsp;&nbsp;
+                <span class="val">{{item.time}}</span>&nbsp;&nbsp;&nbsp;
+                <span class="key">备注：</span><span class="val">{{item.remark}}</span>
             </myTab>
         </div>
         <!--<el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">-->
@@ -43,10 +13,27 @@
 </template>
 <script type="text/ecmascript-6">
     import myTab from '@/commons/myTab/tab'
+    import fetcher from '@/fetchers/account/clue/clue'
     export default {
+        props:{
+            tabName:{
+                type:String,
+                require:true
+            }
+        },
         data(){
             return{
-                currentPage4: 4
+                currentPage4: 4,
+                data:[]
+            }
+        },
+        watch:{
+            tabName:{
+                handler(val,oldVal){
+                    if(val!=oldVal && val == 'second'){
+                        this.load();
+                    }
+                }
             }
         },
         components:{
@@ -63,7 +50,17 @@
             // pathTo(id){
             //     this.$router.push({path:`/account/clue_detail/${id}`});
             // }
+            load(){
+                fetcher.getCommunicationRecord({clueSubjectId:this.$route.params.id},(response)=>{
+                    if(response.data.code==100000){
+                        this.data = response.data.data;
+                    }
+                })
+            }
         },
+        mounted(){
+            this.load();
+        }
     }
 </script>
 <style lang="css" scoped>

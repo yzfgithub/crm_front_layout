@@ -93,7 +93,7 @@
                 </el-form-item>
                 <el-form-item v-if="dialogType ==='batch'" label="领取原因" :label-width="formLabelWidth">
                     <el-select v-if = 'dialog_training' v-model="form.batchReasion_id" placeholder="请选择领取原因">
-                        <el-option v-for="(val, key) in batchReasion_list" :label="val.name" :value="parseInt(val.id)" :key="key"></el-option>
+                        <el-option v-for="(val, key) in receive_reason" :label="val" :value="val" :key="key"></el-option>
                     </el-select>
                 </el-form-item>
 
@@ -148,6 +148,7 @@
         data(){
             return{
                 discard_reason:meta.discard_reason,
+                receive_reason:meta.receive_reason,
                 multipleSelection: [],
                 multipleSelectionIds:[],
                 currentPage4: 4,

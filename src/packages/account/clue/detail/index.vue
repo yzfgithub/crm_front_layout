@@ -4,13 +4,13 @@
             <div class="title">客户详情</div>
             <div class="distributor_box">
                 <div>
-                    <span class="name">{{dataObj.name}}</span>&nbsp;&nbsp;<span>{{dataObj.mobile}}</span>
+                    <span class="name">{{dataObj.parentalChildInfoEntity.childName}}</span>&nbsp;&nbsp;<span>{{dataObj.parentalChildInfoEntity.parentalPhone}}</span>
                 </div>
                <div>
-                   <span>性别：</span><span class="mg-r">{{dataObj.sex}}</span>
-                   <span>练琴等级：</span><span class="mg-r">{{dataObj.level}}</span>
-                   <span>意向度：</span><span class="mg-r">低</span>
-                   <span>线索来源：</span><span class="mg-r">腾讯云1月短信</span>
+                   <span>性别：</span><span class="mg-r">{{dataObj.parentalChildInfoEntity.childGender}}</span>
+                   <span>练琴等级：</span><span class="mg-r">{{dataObj.parentalChildInfoEntity.grade}}</span>
+                   <span>意向度：</span><span class="mg-r">{{dataObj.clueSubjectEntity.intentionality}}</span>
+                   <span>线索来源：</span><span class="mg-r">{{dataObj.channelInfoEntity.name}}</span>
                </div>
                 <div class="call-phone" @click="callPhone">
                     <i class="el-icon-phone"></i> &nbsp;拨打
@@ -23,28 +23,28 @@
         <div class="bottom">
             <el-tabs class="tab_box" v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="基本信息" name="first">
-                    <firstCom></firstCom>
+                    <firstCom :tabName="activeName"></firstCom>
                 </el-tab-pane>
                 <el-tab-pane label="沟通记录（2）" name="second">
-                    <secondCom></secondCom>
+                    <secondCom :tabName="activeName"></secondCom>
                 </el-tab-pane>
                 <el-tab-pane label="课程记录（2）" name="third">
-                    <thirdCom></thirdCom>
+                    <thirdCom :tabName="activeName"></thirdCom>
                 </el-tab-pane>
                 <el-tab-pane label="订单记录（2）" name="fourth">
-                    <fourCom></fourCom>
+                    <fourCom :tabName="activeName"></fourCom>
                 </el-tab-pane>
                 <el-tab-pane label="赠课记录（2）" name="fifth">
-                    <fiveCom></fiveCom>
+                    <fiveCom :tabName="activeName"></fiveCom>
                 </el-tab-pane>
                 <el-tab-pane label="电联语音（2）" name="sixth">
-                    <sixCom></sixCom>
+                    <sixCom :tabName="activeName"></sixCom>
                 </el-tab-pane>
                 <el-tab-pane label="操作日志（2）" name="seventh">
-                    <sevenCom></sevenCom>
+                    <sevenCom :tabName="activeName"></sevenCom>
                 </el-tab-pane>
                 <el-tab-pane label="来源记录（2）" name="eighth">
-                    <eightCom></eightCom>
+                    <eightCom :tabName="activeName"></eightCom>
                 </el-tab-pane>
             </el-tabs>
             <!--<clueAForm :clueAData="clueAData"></clueAForm>-->
@@ -67,9 +67,9 @@
             return {
                 activeName:'first',
                 dataObj:{
-                    name:'albb',
-                    mobile:'18872655172',
-                    level:'low'
+                    channelInfoEntity:{},
+                    clueSubjectEntity:{},
+                    parentalChildInfoEntity:{}
                 }
             }
         },
@@ -80,8 +80,8 @@
             closeDetail(){
                 history.back();
             },
-            handleClick(){
-                console.log('sss')
+            handleClick(tab,event){
+                this.activeName = tab.name;
             },
             callPhone(){
                 axios.get('/crm-call/outCall',{params:{FromExten:'1006',Exten:'18910420795'}}).then((response)=>{
@@ -92,6 +92,8 @@
             load(){
                 console.log(this.$route)
                 fetcher.details(this.$route.params.id,(response)=>{
+                    this.dataObj = response.data.data;
+                    console.log(this.dataObj)
 
                 })
             }
