@@ -13,6 +13,7 @@
 <script type="text/ecmascript-6">
     import query from '@/components/clue_rank/query'
     import clueAForm from '@/components/clue_rank/form'
+    import axios from 'axios'
     export default {
         data(){
             return{
@@ -36,7 +37,12 @@
         },
         components:{
             query,clueAForm
-        }
+        },
+        mounted(){
+            axios.get('http://192.168.2.59:8082/crm-order/orderList',{params:{pageNum:1}}).then((response)=>{
+                console.log(response)
+            })
+        },
 
     }
 </script>

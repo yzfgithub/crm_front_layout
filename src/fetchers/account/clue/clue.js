@@ -5,7 +5,7 @@ import config from '@/config'
 
 export default {
     list(params,cb,fb){
-        axios.get(config.hostUrl+'/cluesubject/list', {params:params})
+        axios.get(config.hostUrl+'/crm-customer/cluesubject/list', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -14,7 +14,7 @@ export default {
             })
     },
     details(id,cb,fb){
-        axios.get(config.hostUrl+'/cluesubject/get/'+id)
+        axios.get(config.hostUrl+'/crm-customer/cluesubject/get/'+id)
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -24,7 +24,7 @@ export default {
     },
     //沟通记录列表
     getCommunicationRecord(params,cb,fb){
-        axios.get(config.hostUrl+'/communicationrecord/get/list',{params:params})
+        axios.get(config.hostUrl+'/crm-customer/communicationrecord/get/list',{params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })

@@ -2,10 +2,10 @@
     <div>
         <div class="top">
             <div class="title">订单列表</div>
-            <query class="form" :clueAForm = 'form'></query>
+            <query class="form" :orderForm = 'form'></query>
         </div>
         <div class="bottom">
-            <clueAForm :clueAData="clueAData"></clueAForm>
+            <clueAForm :orderList="orderList" :meta="meta"></clueAForm>
         </div>
     </div>
 
@@ -13,29 +13,35 @@
 <script type="text/ecmascript-6">
     import query from '@/components/orderManage/query'
     import clueAForm from '@/components/orderManage/form'
+    import fetcher from '@/fetchers/order/order'
     export default {
         data(){
             return{
-                form:{
-
+                form:{},
+                meta:{
+                    current_page: 1,
+                    total: 0,
                 },
-                clueAData:[
-                    {id:'11111',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'22222',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'33333',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'44444',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'55555',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'66666',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'77777',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'88888',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'99999',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'12345',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'23456',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                ]
+                orderList:[]
             }
         },
         components:{
             query,clueAForm
+        },
+        methods:{
+            load(){//  discard： Z公海'是'
+                fetcher.list(Object.assign(this.form,{pageNum:this.meta.current_page}),(response)=>{
+                    console.log(response.data)
+                    this.orderList = response.data.data;
+                    this.meta={
+                        current_page:response.data.data.current_page,
+                        total: response.data.data.total
+                    }
+                })
+            },
+        },
+        mounted(){
+            // this.load();
         }
 
     }

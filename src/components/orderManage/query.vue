@@ -1,26 +1,26 @@
 <template>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true" :model="orderForm" class="demo-form-inline">
         <el-form-item label="学生">
-            <el-input v-model="clueAForm.name"></el-input>
+            <el-input v-model="orderForm.name"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-            <el-input v-model="clueAForm.mobile"></el-input>
+            <el-input v-model="orderForm.mobile"></el-input>
         </el-form-item>
         <el-form-item label="CC">
-            <el-select v-model="formInline.region" placeholder="支付方式">
+            <el-select v-model="orderForm.region" placeholder="支付方式">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="订单状态">
-            <el-select v-model="formInline.region" placeholder="订单状态">
+            <el-select v-model="orderForm.region" placeholder="订单状态">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="创建时间">
             <el-date-picker
-                    v-model="clueAForm.updateTime"
+                    v-model="orderForm.updateTime"
                     type="daterange"
                     range-separator="至"
                     start-placeholder="开始日期"
@@ -29,7 +29,7 @@
         </el-form-item>
         <el-form-item label="支付时间">
             <el-date-picker
-                    v-model="clueAForm.registerTime"
+                    v-model="orderForm.registerTime"
                     type="daterange"
                     range-separator="至"
                     start-placeholder="开始日期"
@@ -37,19 +37,19 @@
             </el-date-picker>
         </el-form-item>
         <el-form-item label="销售团队">
-            <el-select v-model="formInline.region" placeholder="订单状态">
+            <el-select v-model="orderForm.region" placeholder="订单状态">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="销售小组">
-            <el-select v-model="formInline.region" placeholder="订单状态">
+            <el-select v-model="orderForm.region" placeholder="订单状态">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="CC">
-            <el-select v-model="formInline.region" placeholder="订单状态">
+            <el-select v-model="orderForm.region" placeholder="订单状态">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
             </el-select>
@@ -62,7 +62,7 @@
 <script>
     export default {
         props:{
-            clueAForm:{
+            orderForm:{
                 type:Object,
                 require:true,
             }
