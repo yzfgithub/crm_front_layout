@@ -95,13 +95,13 @@
             <el-form :model="form" label-position="left" class="form-class">
 
                 <el-form-item label="">
-                    <el-radio v-model="form.region" label="1">通过</el-radio>
-                    <el-radio v-model="form.region" label="2">不通过</el-radio>
+                    <el-radio v-model="form.result" label="1">通过</el-radio>
+                    <el-radio v-model="form.result" label="2">不通过</el-radio>
                 </el-form-item>
-                <el-form-item label="不通过原因" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+
+                <el-form-item label="不通过原因" :label-width="formLabelWidth" v-if="form.result=='2'">
+                    <el-select v-model="form.failed_order_review_reason" placeholder="请选择废弃原因">
+                        <el-option v-for="(val,key) in failed_order_review_reasons" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
 
@@ -115,6 +115,7 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
+    import meta from '@/utils/meta'
     export default {
         props:{
             clueAData:{
@@ -124,14 +125,13 @@
         },
         data(){
             return{
+                failed_order_review_reasons:meta.failed_order_review_reasons,
                 multipleSelection: [],
                 currentPage4: 4,
 
                 dialogFormVisible:false,
                 formLabelWidth: '100px',
-                form:{
-
-                }
+                form:{}
             }
         },
         methods:{

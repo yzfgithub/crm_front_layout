@@ -6,8 +6,7 @@
 
             <el-form-item label="回收原因" :label-width="formLabelWidth">
                 <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                    <el-option v-for="(val, key) in recover_reason" :label='val' :key="key" :value='parseInt(key)'></el-option>
                 </el-select>
             </el-form-item>
 
@@ -37,6 +36,7 @@
     </el-dialog>
 </template>
 <script type="text/ecmascript-6">
+    import meta from '@/utils/meta'
     export default {
         props:{
             visiableBar:{
@@ -54,6 +54,7 @@
         },
         data(){
             return{
+                recover_reason:meta.recover_reason,
                 dialogFormVisible:false,
                 formLabelWidth: '80px',
 

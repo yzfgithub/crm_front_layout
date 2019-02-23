@@ -9,7 +9,7 @@
             </el-form-item>
             <el-form-item label="废弃原因" :label-width="formLabelWidth">
                 <el-select v-model="form.discardReason_id" placeholder="请选择废弃原因">
-                    <el-option v-for="(val, key) in discardReason_list" :label="val.name" :value="parseInt(val.id)" :key="key"></el-option>
+                    <el-option v-for="(val, key) in discard_reason" :label='val' :key="key" :value='parseInt(key)'></el-option>
                 </el-select>
             </el-form-item>
 
@@ -24,6 +24,7 @@
     </el-dialog>
 </template>
 <script type="text/ecmascript-6">
+    import meta from '@/utils/meta'
     export default {
         props:{
             visiableBar:{
@@ -41,6 +42,7 @@
         },
         data(){
             return{
+                discard_reason:meta.discard_reason,
                 dialogFormVisible:false,
                 formLabelWidth: '80px',
                 discardReason_list:[{name:'YZF',id:2},{name:'YZF',id:2}],

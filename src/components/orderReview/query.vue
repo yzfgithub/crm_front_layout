@@ -14,8 +14,8 @@
         </el-form-item>
         <el-form-item label="订单状态">
             <el-select v-model="formInline.region" placeholder="活动区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+                <el-option label="全部" value="" key=""></el-option>
+                <el-option v-for="(val,key) in order_status" :label="val" :key="key" :value="val"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="创建时间">
@@ -41,7 +41,8 @@
         </el-form-item>
     </el-form>
 </template>
-<script>
+<script type="text/ecmascript-6">
+    import meta from '@/utils/meta'
     export default {
         props:{
             clueAForm:{
@@ -51,6 +52,7 @@
         },
         data() {
             return {
+                order_status:meta.order_status,
                 formInline: {
                     user: '',
                     region: ''

@@ -1,12 +1,11 @@
 <template>
-    <el-dialog :title="title_dailog" :visible="visiableBar" @close='closeDialog'>
+    <el-dialog title="预约体验课" :visible="visiableBar" @close='closeDialog'>
         <el-form :model="form" label-position="left" class="form-class">
 
 
             <el-form-item label="科目" :label-width="formLabelWidth">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                <el-select v-model="form.region1" placeholder="请选择活动区域">
+                    <el-option v-for="(val,key) in subjects" :label="val" :key="key" :value="val"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="上课日期">
@@ -24,24 +23,20 @@
             </el-form-item>
 
             <el-form-item label="教师性别">
-                <el-radio v-model="form.region" label="1">无</el-radio>
-                <el-radio v-model="form.region" label="2">男</el-radio>
-                <el-radio v-model="form.region" label="2">女</el-radio>
+
+                <el-radio v-model="form.region" label="">无</el-radio>
+                <el-radio v-model="form.region" v-for="(val,key) in sex" :label="val" :value="val" :key="key"></el-radio>
             </el-form-item>
 
-            <el-form-item>
-                <el-checkbox-group
-                        v-model="form.region"
-                        :min="1"
-                        :max="2">
-                    <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+            <el-form-item label="擅长考级">
+                <el-checkbox-group v-model="exam" @change="handleCheckedCitiesChange">
+                    <el-checkbox v-for="(val,key) in good_at_exam" :label="val" :key="key">{{val}}</el-checkbox>
                 </el-checkbox-group>
             </el-form-item>
 
             <el-form-item label="教师风格">
-                <el-radio v-model="form.region" label="1">无</el-radio>
-                <el-radio v-model="form.region" label="2">严肃</el-radio>
-                <el-radio v-model="form.region" label="2">温柔</el-radio>
+                <el-radio v-model="form.region" label="">无</el-radio>
+                <el-radio v-model="form.region" v-for="(val,key) in teacher_style" :label="val" :value="val" :key="key"></el-radio>
             </el-form-item>
 
             <el-form-item>
@@ -56,6 +51,7 @@
     </el-dialog>
 </template>
 <script type="text/ecmascript-6">
+    import meta from '@/utils/meta'
     export default {
         props:{
             visiableBar:{
@@ -73,6 +69,12 @@
         },
         data(){
             return{
+                subjects:meta.subjects,
+                sex:meta.sex,
+                good_at_exam:meta.good_at_exam,
+                teacher_style:meta.teacher_style,
+                exam:[],
+
                 dialogFormVisible:false,
                 formLabelWidth: '80px',
 
@@ -88,6 +90,7 @@
             }
         },
         methods:{
+            handleCheckedCitiesChange(val){console.log(val)},
             submitOperate(){
                 this.$emit('close')
             },

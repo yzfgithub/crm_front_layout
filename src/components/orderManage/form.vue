@@ -155,7 +155,7 @@
                 console.log('调接口提交')
 
             },
-            // submitUpload(options){
+            submitUpload(options){
             //     axios.get('/api/get_upload_assume_role')
             //         .then( (response) => {
             //             let Oss = OSS.Wrapper;
@@ -185,7 +185,7 @@
             //         .catch((err) => {
             //             console.error(err);
             //         })
-            // },
+            },
 
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
