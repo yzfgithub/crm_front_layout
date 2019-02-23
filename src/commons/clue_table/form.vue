@@ -19,20 +19,20 @@
                         width="55">
                 </el-table-column>
                 <el-table-column
-                        prop="name"
+                        prop="childName"
                         label="姓名"
                 >
                     <template slot-scope="scope">
-                        <span class="form-name" @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
+                        <span class="form-name" @click="pathTo(scope.row.id)">{{scope.row.childName}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="mobile"
+                        prop="parentalPhone"
                         label="手机号"
                 >
                     <template slot-scope="scope">
-                        <span class="form-mobile">
-                            {{scope.row.mobile}} <i class="el-icon-phone"></i>
+                        <span class="form-mobile" @click="callPhone">
+                            {{scope.row.parentalPhone}} <i class="el-icon-phone"></i>
                         </span>
                     </template>
                 </el-table-column>
@@ -42,22 +42,22 @@
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="created_at"
+                        prop="registeredTime"
                         label="注册时间"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="updated_at"
+                        prop="lastUpdatedTime"
                         label="最新修改时间"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="updated_for"
+                        prop="lastUpdater"
                         label="修改人"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="state"
+                        prop="status"
                         label="有效／接通／拨打"
                 >
                 </el-table-column>
@@ -65,20 +65,24 @@
                         prop="delay"
                         label="搁置时间"
                 >
+                    <template slot-scope="scope">
+                        <span>{{delayTime(scope.row)}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
-                        prop="rollback"
+                        prop="rollBackNum"
                         label="回滚次数"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="like"
+                        prop="intentionality"
                         label="意向度"
                 >
                 </el-table-column>
 
             </el-table>
-            <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+            <!--:page-sizes="[20, 3000]   layout：sizes"-->
+            <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="meta.current_page" :page-size="20" layout="total, prev, pager, next, jumper" :total="meta.total">
             </el-pagination>
         </div>
 
@@ -105,8 +109,8 @@
                     <span>确认废弃该部分线索？废弃后将进入【Z类公海池】</span>
                 </el-form-item>
                 <el-form-item v-if="dialogType=='discard'" label="废弃原因" :label-width="formLabelWidth">
-                    <el-select v-model="form.discardReason_id" placeholder="请选择废弃原因">
-                        <el-option v-for="(val, key) in discardReason_list" :label="val.name" :value="parseInt(val.id)" :key="key"></el-option>
+                    <el-select v-model="form.discardCause" placeholder="请选择废弃原因">
+                        <el-option v-for="(val,key) in discard_reason" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
 
@@ -124,6 +128,8 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
+    import meta from '@/utils/meta'
+    import moment from 'moment'
     export default {
         props:{
             clueAData:{
@@ -133,10 +139,15 @@
             isZClue:{
                 type:Boolean,
                 require:true
+            },
+            meta:{
+                type:Object,
+                require:true
             }
         },
         data(){
             return{
+                discard_reason:meta.discard_reason,
                 multipleSelection: [],
                 multipleSelectionIds:[],
                 currentPage4: 4,
@@ -158,6 +169,22 @@
             }
         },
         methods:{
+            delayTime(obj){
+                let hour =parseInt(moment().diff(moment(obj.lastUpdatedTime))/(1000*60*60));
+                console.log(hour)
+                if(hour/24>0){
+                    return Math.floor(hour/24)+'天 '+hour%24+'小时'
+                }else{
+                    return hour%24+'小时'
+                }
+            },
+            callPhone(){
+                // axios.get('/crm-call/outCall',{params:{FromExten:'1006',Exten:'18910420795'}}).then((response)=>{
+                //     console.log('sss')
+                //     this.$message('已发起通话，请稍后！')
+                // })
+            },
+
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
             },
@@ -187,15 +214,15 @@
                 console.log('回滚')
             },
             submitOperate(){
-                if(this.dialogType=='batch'){
+                if(this.dialogType==='batch'){
                     //领取分配
 
                     this.dialogFormVisible=false;
-                }else if(this.dialogType=='discard'){
+                }else if(this.dialogType==='discard'){
                     //废弃
 
                     this.dialogFormVisible=false;
-                }else if(this.dialogType=='discard'){
+                }else if(this.dialogType==='discard'){
                     //回滚
 
                     this.dialogFormVisible=false;

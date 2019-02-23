@@ -61,6 +61,7 @@
     import sevenCom from '@/components/clue_detail/seven'
     import eightCom from '@/components/clue_detail/eight'
     import axios from 'axios'
+    import fetcher from '@/fetchers/account/clue/clue'
     export default {
         data(){
             return {
@@ -87,7 +88,16 @@
                     console.log('sss')
                     this.$message('已发起通话，请稍后！')
                 })
+            },
+            load(){
+                console.log(this.$route)
+                fetcher.details(this.$route.params.id,(response)=>{
+
+                })
             }
+        },
+        mounted(){
+            this.load()
         }
     }
 </script>

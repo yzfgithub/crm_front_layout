@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="top">
-            <div class="title">A类公海</div>
-            <query class="form" :clueAForm = 'form' @queryBtn="queryBtn"></query>
+            <div class="title">Z类公海</div>
+            <query :isZClue="true" class="form" :clueAForm = 'form' @queryBtn="queryBtn"></query>
         </div>
         <div class="bottom">
-            <clueAForm :isZClue="true" :clueAData="clueAData"></clueAForm>
+            <clueAForm :isZClue="true" :clueAData="clueAData" :meta="meta"></clueAForm>
         </div>
     </div>
 
@@ -13,25 +13,18 @@
 <script type="text/ecmascript-6">
     import query from '@/commons/clue_query_form/query'
     import clueAForm from '@/commons/clue_table/form'
+    import fetcher from '@/fetchers/account/clue/clue'
     export default {
         data(){
             return{
                 form:{
 
                 },
-                clueAData:[
-                    {id:'11111',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'22222',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'33333',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'44444',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'55555',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'66666',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'77777',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'88888',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'99999',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'12345',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'23456',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                ]
+                meta:{
+                    current_page: 1,
+                    total: 0,
+                },
+                clueAData:[]
             }
         },
         components:{
@@ -39,8 +32,31 @@
         },
         methods:{
             queryBtn(){
-                console.log(this.form,'form')
-            }
+                this.meta.current_page =1;
+                this.load();
+            },
+            load(){//  discard： Z公海'是'
+                console.log(this.form,Object.assign({},this.form,{discard:'是',poolId:'Z',pageNum:this.meta.current_page}))
+                fetcher.list(Object.assign(this.form,{},{discard:'是',poolId:'Z',pageNum:this.meta.current_page}),(response)=>{
+                    if(response.data.code === 100000){
+                        let ret = response.data.data;
+                        this.clueAData = ret.records;
+                        this.meta={
+                            current_page:ret.current,
+                            total: ret.total
+                        }
+                    }else{
+                        this.clueAData = [];
+                        this.meta={
+                            current_page: 1,
+                            total: 0,
+                        }
+                    }
+                })
+            },
+        },
+        mounted(){
+            this.load();
         }
 
     }
