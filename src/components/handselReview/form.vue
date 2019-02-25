@@ -22,7 +22,7 @@
                         label="学生"
                 >
                     <template slot-scope="scope">
-                        <span @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
+                        <span class="form-name" @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -124,7 +124,7 @@
                 multipleSelection: [],
                 currentPage4: 4,
 
-                dialogFormVisible:true,
+                dialogFormVisible:false,
                 formLabelWidth: '100px',
                 form:{}
             }
@@ -179,5 +179,9 @@
     .page{
         margin: 20px 0;
         text-align: right;
+    }
+    .form-name{
+        color:#30ABF9;
+        cursor: pointer;
     }
 </style>

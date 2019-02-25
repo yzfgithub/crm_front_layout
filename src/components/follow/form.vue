@@ -26,7 +26,7 @@
                         label="姓名"
                 >
                     <template slot-scope="scope">
-                        <span @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
+                        <span class="form-name" @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -89,9 +89,7 @@
                         label="跟进状态"
                 >
                 </el-table-column>
-
             </el-table>
-
             <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
             </el-pagination>
         </div>
@@ -238,5 +236,9 @@
         color:#64c0fe;
         font-family:PingFangSC-Medium;
         font-weight:500;
+    }
+    .form-name{
+        color:#30ABF9;
+        cursor: pointer;
     }
 </style>

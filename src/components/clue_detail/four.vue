@@ -70,10 +70,45 @@
             >
                 <template slot-scope="scope">
                     <a class="light-blue" href="javascript:void(0);" @click="toOrderDetail(scope.row.id)"> 查看 </a>
+                    <a class="hard-yellow" href="javascript:void(0);" @click="cancelOrder(scope.row.id)"> 取消 </a>
+                    <a class="light-blue" href="javascript:void(0);" @click="uploadImg(scope.row.id)"> 上传凭证 </a>
                 </template>
             </el-table-column>
 
         </el-table>
+
+        <el-dialog title="取消订单" :visible.sync="cancelOrderDialog">
+            <el-form label-position="left" class="form-class">
+                <el-form-item>
+                    <span>确认取消该订单？取消后用户将无法完成支付</span>
+                </el-form-item>
+                <el-form-item label="取消原因" :label-width="formLabelWidth">
+                    <el-select v-model="cancel_reason" placeholder="请选择取消原因">
+                        <el-option v-for="(val, key) in cancel_order_reason" :label="val" :value="val" :key="key"></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click='cancelOrderDialog = false'>取 消</el-button>
+                <el-button type="primary" @click="submitCancelOrder">确 定</el-button>
+            </div>
+        </el-dialog>
+
+        <el-dialog title="上传凭证" :visible.sync="uploadDialog">
+            <el-form label-position="left" class="form-class">
+                <el-form-item label="" prop="cover">
+                    <el-upload ref="upload" action="" :http-request="submitUpload">
+                        <el-button slot="trigger" size="small" type="primary">选择文件</el-button>
+                    </el-upload>
+                    <el-input v-model="cover" :disabled="true" ref="xml"></el-input>
+                </el-form-item>
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click='uploadDialog = false'>取 消</el-button>
+                <el-button type="primary" @click="submit">确 定</el-button>
+            </div>
+        </el-dialog>
 
     </div>
 </template>
@@ -125,6 +160,53 @@
             toOrderDetail(id){
                 this.$router.push({path:`/order/detail/${id}`});
             },
+            cancelOrder(id){
+                this.cancelOrderDialog=true;
+                console.log('cancelOrder');
+            },
+            submitCancelOrder(){
+                console.log('cancel ok')
+            },
+
+
+            uploadImg(id){
+                this.uploadDialog=true;
+            },
+            submit(){
+                console.log('img upload')
+            },
+            submitUpload(options){
+                //     axios.get('/api/get_upload_assume_role')
+                //         .then( (response) => {
+                //             let Oss = OSS.Wrapper;
+                //
+                //             var ossClient = new Oss({
+                //                 region: config.oss_region,
+                //                 accessKeyId: response.data.data.AccessKeyId,
+                //                 accessKeySecret: response.data.data.AccessKeySecret,
+                //                 stsToken: response.data.data.SecurityToken,
+                //                 bucket: config.oss_bucket,
+                //                 endpoint: config.oss_endpoint,
+                //             });
+                //             var contens = options.file.name.split('.')
+                //             var ext = contens[contens.length - 1];
+                //             var filename = 'poster/' + Math.random().toString(36).substr(2) + '.' + ext;
+                //             var ret = ossClient.multipartUpload(filename, options.file, {}).then( (result) => {
+                //                 this.$emit('upload', result.name)
+                //                 // this.poster.filepath = filename
+                //                 // vm.$message({
+                //                 //     type: 'success',
+                //                 //     message: '图片上传成功'
+                //                 // });
+                //             }).catch((err) => {
+                //                 console.log(err)
+                //             })
+                //         })
+                //         .catch((err) => {
+                //             console.error(err);
+                //         })
+            },
+
 
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'

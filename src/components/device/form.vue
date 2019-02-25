@@ -29,7 +29,7 @@
                         label="姓名"
                 >
                     <template slot-scope="scope">
-                        <span @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
+                        <span class="form-name" @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -247,5 +247,9 @@
         color:#64c0fe;
         font-family:PingFangSC-Medium;
         font-weight:500;
+    }
+    .form-name{
+        color:#30ABF9;
+        cursor: pointer;
     }
 </style>
