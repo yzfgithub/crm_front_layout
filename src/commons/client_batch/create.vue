@@ -36,14 +36,6 @@
                 type:Boolean,
                 require:true,
             },
-            dialogType:{
-                type:String,
-                require:true,
-            },
-            title_dailog:{
-                type:String,
-                require:true,
-            }
         },
         data(){
             return{

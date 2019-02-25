@@ -15,13 +15,13 @@
             <span class="key">备注：</span><span class="val">{{dataObj.parentalChildInfoEntity.remark}}</span>
         </myTab>
         <myTab class="first_tab" :title="'练琴信息'">
-            <span class="key">错音：</span><span class="val">{{dataObj.parentalChildInfoEntity.remark}}</span> &nbsp;&nbsp;&nbsp;
-            <span class="key">节奏：</span><span class="val">{{dataObj.parentalChildInfoEntity.remark}}</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">识谱：</span><span class="val">{{dataObj.parentalChildInfoEntity.remark}}</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">手型：</span><span class="val">{{dataObj.parentalChildInfoEntity.remark}}</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">兴趣：</span><span class="val">{{dataObj.parentalChildInfoEntity.remark}}</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">连贯性：</span><span class="val">{{dataObj.parentalChildInfoEntity.remark}}</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">指法：</span><span class="val">{{dataObj.parentalChildInfoEntity.remark}}</span>
+            <span class="key">错音问题,</span>
+            <span class="key">&nbsp;节奏问题,</span>
+            <span class="key">&nbsp;识谱问题,</span>
+            <span class="key">&nbsp;手型问题,</span>
+            <span class="key">&nbsp;兴趣问题,</span>
+            <span class="key">&nbsp;连贯性问题,</span>
+            <span class="key">&nbsp;指法问题</span>
         </myTab>
         <myTab class="first_tab" :title="'线索信息'">
             <span class="key">来源：</span><span class="val">{{dataObj.channelInfoEntity.name}}</span> &nbsp;&nbsp;&nbsp;
@@ -64,7 +64,7 @@
             tabName:{
                 handler(val,oldVal){
                     if(val!=oldVal && val == 'first'){
-                        this.load();
+                        // this.load();
                     }
                 }
             }
@@ -82,7 +82,6 @@
                 }
             },
             load(){
-                console.log(this.$route)
                 fetcher.details(this.$route.params.id,(response)=>{
                     this.dataObj = response.data.data;
 
@@ -90,7 +89,7 @@
             },
         },
         mounted(){
-            this.load();
+            // this.load();
         }
     }
 </script>

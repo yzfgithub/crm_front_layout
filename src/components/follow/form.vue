@@ -100,7 +100,7 @@
         <yuyue_tiyan :visiableBar="yuyueTiyanBar" @close="closeBtn"></yuyue_tiyan>
         <create :visiableBar="createBar" @close="closeBtn"></create>
         <presentation :visiableBar="presentationBar" @close="closeBtn"></presentation>
-        <discard :visiableBar="discardBar" @close="closeBtn"></discard>
+        <myDiscard :visiableBar="discardBar" @close="closeBtn"></myDiscard>
         <rollback :visiableBar="rollbackBar" @close="closeBtn"></rollback>
     </div>
 </template>
@@ -109,7 +109,7 @@
     import yuyue_tiyan from '@/commons/client_batch/yuyue_tiyan'
     import create from '@/commons/client_batch/create'
     import presentation from '@/commons/client_batch/presentation'
-    import discard from '@/commons/client_batch/discard'
+    import myDiscard from '@/commons/client_batch/discard'
     import rollback from '@/commons/client_batch/rollback'
 
 
@@ -144,7 +144,12 @@
             }
         },
         components:{
-            yuyue_device,yuyue_tiyan,create,presentation,discard,rollback
+            yuyue_device,
+            yuyue_tiyan,
+            create,
+            presentation,
+            rollback,
+            myDiscard
         },
         methods:{
             yuyueDeviceClick(){

@@ -57,7 +57,7 @@
     import thirdCom from '@/components/clue_detail/third'
     import fourCom from '@/components/clue_detail/four'
     import fiveCom from '@/components/clue_detail/five'
-    import sixCom from '@/components/clue_detail/six'
+    // import sixCom from '@/components/clue_detail/six'
     import sevenCom from '@/components/clue_detail/seven'
     import eightCom from '@/components/clue_detail/eight'
     import axios from 'axios'
@@ -74,7 +74,7 @@
             }
         },
         components:{
-            firstCom,secondCom,thirdCom,fourCom,fiveCom,sixCom,sevenCom,eightCom
+            firstCom,secondCom,thirdCom,fourCom,fiveCom,sevenCom,eightCom
         },
         methods:{
             closeDetail(){
@@ -90,17 +90,16 @@
                 })
             },
             load(){
-                console.log(this.$route)
                 fetcher.details(this.$route.params.id,(response)=>{
                     this.dataObj = response.data.data;
                     console.log(this.dataObj)
 
                 })
-            }
+            },
         },
         mounted(){
-            this.load()
-        }
+            // this.load()
+        },
     }
 </script>
 <style scoped>

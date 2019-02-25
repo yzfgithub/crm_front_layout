@@ -76,9 +76,9 @@
                         label="操作"
                 >
                     <template slot-scope="scope">
-                        <a href="javascript:void(0);" @click="toOrderDetail(scope.row.id)">查看</a>
-                        <a href="javascript:void(0);">取消</a>
-                        <a href="javascript:void(0);">上传凭证</a>
+                        <a class="light-blue" href="javascript:void(0);" @click="toOrderDetail(scope.row.id)"> 查看 </a>
+                        <a class="hard-yellow" href="javascript:void(0);" @click="cancelOrder(scope.row.id)"> 取消 </a>
+                        <a class="light-blue" href="javascript:void(0);" @click="uploadImg(scope.row.id)"> 上传凭证 </a>
                     </template>
                 </el-table-column>
 
@@ -88,24 +88,24 @@
             </el-pagination>
         </div>
 
-        <el-dialog title="取消订单" :visible="dialogFormVisible">
+        <el-dialog title="取消订单" :visible.sync="cancelOrderDialog">
             <el-form label-position="left" class="form-class">
                 <el-form-item>
-                    <span>确认废弃该部分线索？废弃后将进入【Z类公海池】</span>
+                    <span>确认取消该订单？取消后用户将无法完成支付</span>
                 </el-form-item>
-                <el-form-item label="废弃原因" :label-width="formLabelWidth">
-                    <el-select v-model="cancel_reason" placeholder="请选择废弃原因">
+                <el-form-item label="取消原因" :label-width="formLabelWidth">
+                    <el-select v-model="cancel_reason" placeholder="请选择取消原因">
                         <el-option v-for="(val, key) in cancel_order_reason" :label="val" :value="val" :key="key"></el-option>
                     </el-select>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click='dialogFormVisible = false'>取 消</el-button>
-                <el-button type="primary" @click="submitOperate">确 定</el-button>
+                <el-button @click='cancelOrderDialog = false'>取 消</el-button>
+                <el-button type="primary" @click="submitCancelOrder">确 定</el-button>
             </div>
         </el-dialog>
 
-        <el-dialog title="上传凭证" :visible="dialogFormVisible">
+        <el-dialog title="上传凭证" :visible.sync="uploadDialog">
             <el-form label-position="left" class="form-class">
                 <el-form-item label="" prop="cover">
                     <el-upload ref="upload" action="" :http-request="submitUpload">
@@ -116,8 +116,8 @@
 
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click='dialogFormVisible = false'>取 消</el-button>
-                <el-button type="primary" @click="submitOperate">确 定</el-button>
+                <el-button @click='uploadDialog = false'>取 消</el-button>
+                <el-button type="primary" @click="submit">确 定</el-button>
             </div>
         </el-dialog>
 
@@ -138,15 +138,15 @@
         },
         data(){
             return{
-                cancel_order_reason:meta.cancel_order_reason,
-                cancel_reason:'',
-                cover:'',//UPload
-
 
                 multipleSelection: [],
                 currentPage4: 4,
 
-                dialogFormVisible:false,
+                cancel_order_reason:meta.cancel_order_reason,
+                cancel_reason:'',
+                cover:'',//UPload
+                cancelOrderDialog:false,
+                uploadDialog:false,
                 formLabelWidth: '80px',
             }
         },
@@ -154,10 +154,20 @@
             toOrderDetail(id){
                 this.$router.push({path:`/order/detail/${id}`});
             },
+            cancelOrder(id){
+                this.cancelOrderDialog=true;
+                console.log('cancelOrder');
+            },
+            submitCancelOrder(){
+              console.log('cancel ok')
+            },
 
-            submitOperate(){
-                console.log('调接口提交')
 
+            uploadImg(id){
+                this.uploadDialog=true;
+            },
+            submit(){
+                console.log('img upload')
             },
             submitUpload(options){
             //     axios.get('/api/get_upload_assume_role')
@@ -214,23 +224,17 @@
         margin: 0 20px;
         padding: 20px 0;
     }
-    .f_head{
-        text-align: left;
-        height:30px;
-        font-size:14px;
-        font-family:PingFangSC-Regular;
-        font-weight:400;
-        color:rgba(155,155,157,1);
-        line-height:14px;
-    }
     .f_head div{
         display: inline-block;
-    }
-    .f_head div .num{
-        color:#F8542E;
     }
     .page{
         margin: 20px 0;
         text-align: right;
+    }
+    .light-blue{
+        color:#1CB5ED;
+    }
+    .hard-yellow{
+        color:#F8542E;
     }
 </style>

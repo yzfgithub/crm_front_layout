@@ -74,23 +74,6 @@
                     label="教务"
             >
             </el-table-column>
-            <el-table-column
-                    prop="like"
-                    label="老师简历"
-            >
-                <template slot-scope="scope">
-                    <span><a href="http://www.baidu.com">老师简历</a></span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    prop="like"
-                    label="操作"
-            >
-                <template slot-scope="scope">
-                    <span><a href="http://www.baidu.com">查看</a></span>
-                    <span><a href="http">建工单</a></span>
-                </template>
-            </el-table-column>
 
         </el-table>
 

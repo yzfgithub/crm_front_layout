@@ -101,7 +101,7 @@
         <yuyue_tiyan :visiableBar="yuyueTiyanBar" @close="closeBtn"></yuyue_tiyan>
         <create :visiableBar="createBar" @close="closeBtn"></create>
         <presentation :visiableBar="presentationBar" @close="closeBtn"></presentation>
-        <discard :visiableBar="discardBar" @close="closeBtn"></discard>
+        <myDiscard :visiableBar="discardBar" @close="closeBtn"></myDiscard>
         <rollback :visiableBar="rollbackBar" @close="closeBtn"></rollback>
         <quxiao_tiyan :visiableBar="quxiaoTiyanBar" @close="closeBtn"></quxiao_tiyan>
 
@@ -112,7 +112,7 @@
     import yuyue_tiyan from '@/commons/client_batch/yuyue_tiyan'
     import create from '@/commons/client_batch/create'
     import presentation from '@/commons/client_batch/presentation'
-    import discard from '@/commons/client_batch/discard'
+    import myDiscard from '@/commons/client_batch/discard'
     import rollback from '@/commons/client_batch/rollback'
     import quxiao_tiyan from '@/commons/client_batch/quxiao_tiyan'
     export default {
@@ -147,7 +147,13 @@
             }
         },
         components:{
-            yuyue_device,yuyue_tiyan,create,presentation,discard,rollback,quxiao_tiyan
+            yuyue_device,
+            yuyue_tiyan,
+            create,
+            presentation,
+            myDiscard,
+            rollback,
+            quxiao_tiyan
         },
         methods:{
             yuyueDeviceClick(){

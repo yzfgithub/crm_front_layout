@@ -2,8 +2,6 @@
     <el-dialog title="回收分配线索" :visible="visiableBar" @close='closeDialog'>
         <el-form :model="form" label-position="left" class="form-class">
 
-
-
             <el-form-item>
                 <span>确认废弃该部分线索？废弃后将进入【Z类公海池】</span>
             </el-form-item>
@@ -12,8 +10,6 @@
                     <el-option v-for="(val, key) in discard_reason" :label='val' :key="key" :value='parseInt(key)'></el-option>
                 </el-select>
             </el-form-item>
-
-
 
 
         </el-form>
@@ -31,14 +27,6 @@
                 type:Boolean,
                 require:true,
             },
-            dialogType:{
-                type:String,
-                require:true,
-            },
-            title_dailog:{
-                type:String,
-                require:true,
-            }
         },
         data(){
             return{

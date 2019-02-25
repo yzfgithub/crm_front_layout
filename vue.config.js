@@ -4,7 +4,7 @@ module.exports = {
     productionSourceMap: false,
     // assetsDir: "static",
     devServer: {
-        open: true,
+        open: false,
         port: 8080,
         // proxy: {
         //     '/api': {

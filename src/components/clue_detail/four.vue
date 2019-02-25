@@ -69,20 +69,17 @@
                     label="操作"
             >
                 <template slot-scope="scope">
-                    <span><a href="javascript:void(0);" @click="toOrderDetail(scope.row.id)">查看</a></span>
-                    <span>取消</span>
-                    <span>上传凭证</span>
+                    <a class="light-blue" href="javascript:void(0);" @click="toOrderDetail(scope.row.id)"> 查看 </a>
                 </template>
             </el-table-column>
 
         </el-table>
 
-        <!--<el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">-->
-        <!--</el-pagination>-->
     </div>
 </template>
 <script type="text/ecmascript-6">
     import fetcher from '@/fetchers/account/clue/clue'
+    import meta from '@/utils/meta'
     export default {
         props:{
             tabName:{
@@ -105,7 +102,14 @@
                     {id:'55555',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
                     {id:'55555',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
                 ],
-                currentPage4: 4
+                currentPage4: 4,
+
+                cancel_order_reason:meta.cancel_order_reason,
+                cancel_reason:'',
+                cover:'',//UPload
+                cancelOrderDialog:false,
+                uploadDialog:false,
+                formLabelWidth: '80px',
             }
         },
         watch:{
@@ -119,9 +123,8 @@
         },
         methods:{
             toOrderDetail(id){
-                console.log('error')
+                this.$router.push({path:`/order/detail/${id}`});
             },
-
 
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
@@ -149,5 +152,10 @@
     }
 </script>
 <style scoped>
-
+    .light-blue{
+        color:#1CB5ED;
+    }
+    .hard-yellow{
+        color:#F8542E;
+    }
 </style>

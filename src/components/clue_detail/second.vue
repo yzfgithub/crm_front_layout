@@ -71,7 +71,7 @@
             }
         },
         mounted(){
-            this.load();
+            // this.load();
         }
     }
 </script>

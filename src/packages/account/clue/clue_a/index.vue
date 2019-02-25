@@ -25,7 +25,7 @@
                     total: 0,
                 },
 
-                clueAData:[]
+                clueAData:[{childName:'S'}]
             }
         },
         components:{

@@ -75,7 +75,7 @@
                         label="操作"
                 >
                     <template slot-scope="scope">
-                        <a href="javascript:void(0);" @click="reviewOperation">审批</a>
+                        <a href="javascript:void(0);" @click="reviewOperation(scope.row.id)">审批</a>
                     </template>
                 </el-table-column>
 
@@ -130,7 +130,7 @@
             }
         },
         methods:{
-            reviewOperation(){
+            reviewOperation(id){
                 this.dialogFormVisible=true;
             },
             submitOperate(){

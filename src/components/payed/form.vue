@@ -121,7 +121,8 @@
             }
         },
         components:{
-           create,presentation
+           create,
+            presentation
         },
         methods:{
             createClick(){
