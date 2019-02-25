@@ -37,9 +37,9 @@
                 <el-tab-pane label="赠课记录（2）" name="fifth">
                     <fiveCom :tabName="activeName"></fiveCom>
                 </el-tab-pane>
-                <el-tab-pane label="电联语音（2）" name="sixth">
-                    <sixCom :tabName="activeName"></sixCom>
-                </el-tab-pane>
+                <!--<el-tab-pane label="电联语音（2）" name="sixth">-->
+                    <!--<sixCom :tabName="activeName"></sixCom>-->
+                <!--</el-tab-pane>-->
                 <el-tab-pane label="操作日志（2）" name="seventh">
                     <sevenCom :tabName="activeName"></sevenCom>
                 </el-tab-pane>

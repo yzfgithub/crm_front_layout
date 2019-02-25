@@ -1,10 +1,20 @@
 <template>
     <div>
         <div class="second_box">
-            <myTab v-for="item in data" class="second_tab" :title="item.ccInfoName+'-'+item.teamInfoName+'-'+item.parentName+'-'+item.grandparentName+'-'+item.mode">
-                <span class="val">{{item.status}}</span> &nbsp;&nbsp;&nbsp;
-                <span class="val">{{item.time}}</span>&nbsp;&nbsp;&nbsp;
-                <span class="key">备注：</span><span class="val">{{item.remark}}</span>
+            <myTab v-for="(item,key) in data" class="second_tab" :title="item.ccInfoName+'-'+item.teamInfoName+'-'+item.parentName+'-'+item.grandparentName+'-'+item.mode" :key="key">
+
+                <audio v-if="item.mode === '电话'" :src="item.voiceUrl" controls="controls">
+                </audio>
+                <div>
+                    <span v-if="item.mode === '电话'" class="key">外呼人：</span><span class="val">{{item.ccInfoName}}</span> &nbsp;&nbsp;&nbsp;
+                    <span v-if="item.mode === '电话'" class="key">开始时间：</span><span class="val">{{item.startTime}}</span>&nbsp;&nbsp;&nbsp;
+                    <span v-if="item.mode === '电话'" class="key">结束时间：</span><span class="val">{{item.endTime}}</span>
+                </div>
+               <div>
+                   <span class="val">{{item.status}}</span> &nbsp;&nbsp;&nbsp;
+                   <span class="val">{{item.time}}</span>&nbsp;&nbsp;&nbsp;
+                   <span class="key">备注：</span><span class="val">{{item.remark}}</span>
+               </div>
             </myTab>
         </div>
         <!--<el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">-->
@@ -24,7 +34,9 @@
         data(){
             return{
                 currentPage4: 4,
-                data:[]
+                data:[
+                    {aac_file: 'asdf',str1:'aaa',str2:'sss',str3:'ssda',status:'asd',time:'sdfa',remark:'sdf'}
+                ]
             }
         },
         watch:{
@@ -64,6 +76,11 @@
     }
 </script>
 <style lang="css" scoped>
+    audio{
+        width: 247px;
+        height: 40px;
+        margin-bottom:10px;
+    }
     .key{
         font-size:14px;
         font-family:PingFangSC-Regular;
@@ -88,5 +105,8 @@
     .second_box .second_tab:last-of-type
     {
         border-bottom-width: 1px;
+    }
+    .second_tab div{
+        margin-bottom:10px;
     }
 </style>

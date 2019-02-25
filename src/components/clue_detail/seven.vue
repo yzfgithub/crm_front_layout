@@ -1,7 +1,7 @@
 <template>
     <div class="seven_box">
         <ul class="timeline">
-            <timeline v-for="item in operations">
+            <timeline v-for="(item,key) in operations" :key="key">
                 <span slot="dot" class="mydot"></span>
                 <span>{{item.str}}</span>
             </timeline>

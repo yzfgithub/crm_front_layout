@@ -69,7 +69,7 @@
                     label="操作"
             >
                 <template slot-scope="scope">
-                    <span>查看</span>
+                    <span><a href="javascript:void(0);" @click="toOrderDetail(scope.row.id)">查看</a></span>
                     <span>取消</span>
                     <span>上传凭证</span>
                 </template>
@@ -118,6 +118,11 @@
             }
         },
         methods:{
+            toOrderDetail(id){
+                console.log('error')
+            },
+
+
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
             },
