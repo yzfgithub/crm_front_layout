@@ -22,14 +22,14 @@
                     current_page: 1,
                     total: 0,
                 },
-                orderList:[]
+                orderList:[{name:'yzf'},{name:'ysd'}]
             }
         },
         components:{
             query,clueAForm
         },
         methods:{
-            load(){//  discard： Z公海'是'
+            load(){
                 fetcher.list(Object.assign(this.form,{pageNum:this.meta.current_page}),(response)=>{
                     console.log(response.data)
                     this.orderList = response.data.data;

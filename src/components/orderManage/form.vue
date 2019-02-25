@@ -76,7 +76,7 @@
                         label="操作"
                 >
                     <template slot-scope="scope">
-                        <a href="javascript:void(0);">查看</a>
+                        <a href="javascript:void(0);" @click="toOrderDetail(scope.row.id)">查看</a>
                         <a href="javascript:void(0);">取消</a>
                         <a href="javascript:void(0);">上传凭证</a>
                     </template>
@@ -151,6 +151,10 @@
             }
         },
         methods:{
+            toOrderDetail(id){
+                this.$router.push({path:`/order/detail/${id}`});
+            },
+
             submitOperate(){
                 console.log('调接口提交')
 
