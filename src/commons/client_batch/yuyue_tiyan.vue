@@ -39,7 +39,7 @@
                 <el-radio v-model="form.region" v-for="(val,key) in teacher_style" :label="val" :value="val" :key="key"></el-radio>
             </el-form-item>
 
-            <el-form-item>
+            <el-form-item label="孩子信息">
                 <el-input v-model="form.region" placeholder="请输入内容"></el-input>
             </el-form-item>
 

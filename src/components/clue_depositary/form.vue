@@ -44,13 +44,30 @@
                         prop="updated_at"
                         label="操作"
                 >
+                    <template slot-scope="scope">
+                        <a href="javascript:void(0);" @click="edit(scope.row.id)">编辑</a>
+                    </template>
                 </el-table-column>
-
             </el-table>
 
             <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
             </el-pagination>
         </div>
+
+        <el-dialog title="渠道组编辑" :visible.sync="defaultFormVisiable">
+            <el-form :model="form" label-position="left" class="form-class" :inline="true">
+
+                <el-form-item label="库容编辑" :label-width="formLabelWidth">
+                    <el-input-number v-model="input" @change="handleChange" label="库容配额"></el-input-number>
+                </el-form-item>
+
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click='defaultFormVisiable=false'>取 消</el-button>
+                <el-button type="primary" @click="onSubmit">确 定</el-button>
+            </div>
+        </el-dialog>
 
     </div>
 </template>
@@ -65,10 +82,27 @@
         data(){
             return{
                 multipleSelection: [],
-                currentPage4: 4
+                currentPage4: 4,
+
+                defaultFormVisiable:false,
+                formLabelWidth: '80px',
+                form:{
+                    discardReason:0,
+                    batchReasion:0,
+                    team_id:0,
+                    zu_id:0,
+                    cc_id:0,
+                },
             }
         },
         methods:{
+            onSubmit(){
+                console.log('ok')
+                this.defaultFormVisiable=false;
+            },
+            edit(id){
+                this.defaultFormVisiable=true
+            },
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
             },

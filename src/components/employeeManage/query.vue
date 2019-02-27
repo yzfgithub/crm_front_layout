@@ -33,7 +33,8 @@
             onSubmit() {
                 console.log('submit!');
             },
-            createEmployee(){
+            createEmployee(id){
+                this.$router.push({path:'/system/employee/new'})
                 //to add new
             }
         }

@@ -49,6 +49,7 @@
                 console.log('submit!');
             },
             createEmployee(){
+                this.$router.push({path:'/system/architecture/new'})
                 //to add new
             }
         }

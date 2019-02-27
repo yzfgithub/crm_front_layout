@@ -39,7 +39,6 @@
         },
         data(){
             return{
-                dialogFormVisible:false,
                 formLabelWidth: '80px',
                 dialog_training:true,
                 form:{

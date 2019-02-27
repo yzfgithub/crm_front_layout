@@ -2,10 +2,10 @@
     <div>
         <div class="top">
             <div class="title">线索分配</div>
-            <query class="form" :clueAForm = 'form'></query>
+            <query class="form" :clueAForm = 'form' @openEdit="openEdit"></query>
         </div>
         <div class="bottom">
-            <clueAForm :clueAData="clueAData"></clueAForm>
+            <clueAForm :clueAData="clueAData" ref="clueAssign"></clueAForm>
         </div>
     </div>
 
@@ -36,6 +36,11 @@
         },
         components:{
             query,clueAForm
+        },
+        methods:{
+            openEdit(){
+                this.$refs.clueAssign.openEdit();
+            }
         }
 
     }

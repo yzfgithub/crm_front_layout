@@ -16,6 +16,10 @@
         <el-form-item>
             <el-button type="primary" @click="onSubmit">查询</el-button>
         </el-form-item>
+
+        <el-form-item class="new_create">
+            <el-button type="success" @click = 'createEmployee'>新建团队</el-button>
+        </el-form-item>
     </el-form>
 </template>
 <script>
@@ -37,7 +41,15 @@
         methods: {
             onSubmit() {
                 console.log('submit!');
+            },
+            createEmployee(){
+               this.$emit('openEdit')
             }
         }
     }
 </script>
+<style type="css">
+    .new_create{
+        float: right;
+    }
+</style>

@@ -34,6 +34,7 @@
                 // console.log('submit!');
             },
             createEmployee(){
+                this.$router.push({path:'/system/roles/new'})
                 //to add new
             }
         }

@@ -29,6 +29,10 @@
                         prop="created_at"
                         label="操作"
                 >
+                    <template slot-scope="scope">
+                        <a href="javascript:void(0);" @click="showEmployee(scope.row.id)">查看</a>
+                        <a href="javascript:void(0);" @click="editEmployee(scope.row.id)">编辑</a>
+                    </template>
                 </el-table-column>
 
             </el-table>
@@ -54,6 +58,13 @@
             }
         },
         methods:{
+            showEmployee(id){
+                this.$router.push({path:'/system/roles/show/'+id})
+            },
+            editEmployee(id){
+                this.$router.push({path:'/system/roles/edit/'+id})
+            },
+
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
             },
