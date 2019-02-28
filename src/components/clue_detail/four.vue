@@ -78,12 +78,12 @@
         </el-table>
 
         <el-dialog title="取消订单" :visible.sync="cancelOrderDialog">
-            <el-form label-position="left" class="form-class">
+            <el-form label-position="left" class="form-class" :model="form">
                 <el-form-item>
                     <span>确认取消该订单？取消后用户将无法完成支付</span>
                 </el-form-item>
                 <el-form-item label="取消原因" :label-width="formLabelWidth">
-                    <el-select v-model="cancel_reason" placeholder="请选择取消原因">
+                    <el-select v-model="form.cancel_reason" placeholder="请选择取消原因">
                         <el-option v-for="(val, key) in cancel_order_reason" :label="val" :value="val" :key="key"></el-option>
                     </el-select>
                 </el-form-item>
@@ -102,7 +102,6 @@
                     </el-upload>
                     <el-input v-model="cover" :disabled="true" ref="xml"></el-input>
                 </el-form-item>
-
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click='uploadDialog = false'>取 消</el-button>
@@ -120,6 +119,10 @@
             tabName:{
                 type:String,
                 require:true
+            },
+            show_edit:{
+                type:Boolean,
+                require:true,
             }
         },
         data(){
@@ -140,7 +143,7 @@
                 currentPage4: 4,
 
                 cancel_order_reason:meta.cancel_order_reason,
-                cancel_reason:'',
+                form:{},
                 cover:'',//UPload
                 cancelOrderDialog:false,
                 uploadDialog:false,

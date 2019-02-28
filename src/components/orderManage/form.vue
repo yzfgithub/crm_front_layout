@@ -232,6 +232,11 @@
         text-align: right;
     }
     .light-blue{
+        color:#30ABF9;
+        cursor: pointer;
+        margin: 0 5px;
+    }
+    .light-blue{
         color:#1CB5ED;
     }
     .hard-yellow{

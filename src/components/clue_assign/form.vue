@@ -11,9 +11,6 @@
                         prop="name"
                         label="线索标签"
                 >
-                    <template slot-scope="scope">
-                        <span @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
-                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="mobile"
@@ -45,13 +42,13 @@
                         label="操作"
                 >
                     <template slot-scope="scope">
-                        <a href="javascript:void(0);" @click="edit(scope.row.id)">编辑</a>
+                        <span class="light-blue" @click="edit(scope.row.id)">编辑</span>
                     </template>
                 </el-table-column>
 
             </el-table>
 
-            <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+            <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-size="20" layout="total, prev, pager, next, jumper" :total="400">
             </el-pagination>
         </div>
 
@@ -157,13 +154,6 @@
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
             },
-            pathTo(id){
-                this.$router.push({path:`/account/clue_detail/${id}`});
-            },
-            openEdit(){
-                this.defaultFormVisiable=true;
-                this.form={}
-            }
         }
 
     }
@@ -173,23 +163,13 @@
         margin: 0 20px;
         padding: 20px 0;
     }
-    .f_head{
-        text-align: left;
-        height:30px;
-        font-size:14px;
-        font-family:PingFangSC-Regular;
-        font-weight:400;
-        color:rgba(155,155,157,1);
-        line-height:14px;
-    }
-    .f_head div{
-        display: inline-block;
-    }
-    .f_head div .num{
-        color:#F8542E;
-    }
     .page{
         margin: 20px 0;
         text-align: right;
+    }
+    .light-blue{
+        color:#30ABF9;
+        cursor: pointer;
+        margin: 0 5px;
     }
 </style>

@@ -88,6 +88,8 @@
                >
                </el-table-column>
            </el-table>
+           <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-size="20" layout="total, prev, pager, next, jumper" :total="400">
+           </el-pagination>
        </div>
    </div>
 </template>
@@ -102,6 +104,8 @@
         },
         data() {
             return {
+                currentPage4:1,
+
                 clueOption:{
                     title:{
                         text:'线索统计\n',
@@ -476,12 +480,20 @@
                             data:[0.55, 0.78, .12]
                         }
                     ]
-                }
+                },
             }
         },
         methods: {
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
+            },
+
+            //fenye
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
             },
         },
         mounted(){
@@ -503,5 +515,9 @@
     .kanban-table{
         margin:0 20px;
         padding: 20px 0;
+    }
+    .page{
+        margin: 20px 0;
+        text-align: right;
     }
 </style>

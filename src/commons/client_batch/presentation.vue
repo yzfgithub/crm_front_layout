@@ -4,13 +4,13 @@
 
 
             <el-form-item label="赠课理由" :label-width="formLabelWidth">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
+                <el-select v-model="form.give_klass_reasons" placeholder="请选择赠课理由">
                     <el-option v-for="(val,key) in give_klass_reasons" :label="val" :key="key" :value="val"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="赠课数量" :label-width="formLabelWidth">
-                <el-input-number v-model="form.region" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
+                <el-input-number v-model="form.num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -35,11 +35,7 @@
                 formLabelWidth: '80px',
                 dialog_training:true,
                 form:{
-                    discardReason:0,
-                    batchReasion:0,
-                    team_id:0,
-                    zu_id:0,
-                    cc_id:0,
+                   num:1,
                 },
                 batchReasion_list:[{name:'1'},{name:'2'}],
                 discardReason_list:[{name:'1'},{name:'2'}]

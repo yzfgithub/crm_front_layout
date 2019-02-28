@@ -42,9 +42,10 @@
         }
     }
 </script>
-<style type="css">
+<style type="css" scoped>
     .table{
-        width: 300px;
+        width: 300px !important;
+        min-height: 500px !important;
         max-width: 100%;
         margin-bottom: 1rem;
         background-color: transparent;

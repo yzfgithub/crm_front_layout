@@ -27,7 +27,7 @@
                         label="姓名"
                 >
                     <template slot-scope="scope">
-                        <span class="form-name" @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
+                        <span class="light-blue" @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -93,7 +93,7 @@
 
             </el-table>
 
-            <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+            <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-size="20" layout="total, prev, pager, next, jumper" :total="400">
             </el-pagination>
         </div>
 
@@ -206,7 +206,7 @@
                 console.log(`当前页: ${val}`);
             },
             pathTo(id){
-                this.$router.push({path:`/account/clue_detail/${id}`});
+                this.$router.push({path:`/account/client_detail/${id}`});
             }
         }
 
@@ -247,8 +247,9 @@
         font-family:PingFangSC-Medium;
         font-weight:500;
     }
-    .form-name{
+    .light-blue{
         color:#30ABF9;
         cursor: pointer;
+        margin: 0 5px;
     }
 </style>

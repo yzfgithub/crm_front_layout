@@ -12,8 +12,8 @@
 
 </template>
 <script type="text/ecmascript-6">
-    import query from './query'
-    import card from './card_board'
+    import query from '@/components/board/query'
+    import card from '@/components/board/card_board'
     export default {
         data(){
             return{

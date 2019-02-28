@@ -11,9 +11,6 @@
                         prop="name"
                         label="一级渠道"
                 >
-                    <template slot-scope="scope">
-                        <span @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
-                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="mobile"
@@ -70,13 +67,13 @@
                         label="操作"
                 >
                     <template slot-scope="scope">
-                        <a href="javascript:void(0);" @click="edit(scope.row.id)">编辑</a>
+                        <span class="light-blue" @click="edit(scope.row.id)">编辑</span>
                     </template>
                 </el-table-column>
 
             </el-table>
 
-            <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+            <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-size="20" layout="total, prev, pager, next, jumper" :total="400">
             </el-pagination>
         </div>
 
@@ -85,34 +82,33 @@
 
 
                 <el-form-item label="一级渠道" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
+                    <el-select v-model="form.region1" placeholder="请选择活动区域">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="二级渠道" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
+                    <el-select v-model="form.region2" placeholder="请选择活动区域">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
                 </el-form-item>
                 <br/>
                 <el-form-item label="渠道组" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
+                    <el-select v-model="form.region3" placeholder="请选择活动区域">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="统计时长" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                    <el-select v-model="form.region4" placeholder="请选择统计时长">
+                        <el-option v-for="(val,key) in statistics_duration" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
                 <br/>
                 <el-form-item label="生效日期">
                     <el-date-picker
-                            v-model="form.reservations_date"
+                            v-model="form.region5"
                             type="date"
                             placeholder="请选择日期"
                             value-format='yyyy-MM-dd'>
@@ -120,62 +116,58 @@
                 </el-form-item>
                 <br/>
                 <el-form-item label="是否参与排名" >
-                    <el-radio v-model="form.region" label="">是</el-radio>
-                    <el-radio v-model="form.region" label="">否</el-radio>
+                    <el-radio v-model="form.region6" label="">是</el-radio>
+                    <el-radio v-model="form.region6" label="">否</el-radio>
                 </el-form-item>
                 <br/>
                 <el-form-item label="是否A+类线索标签">
-                    <el-radio v-model="form.region" label="">是</el-radio>
-                    <el-radio v-model="form.region" label="">否</el-radio>
+                    <el-radio v-model="form.region7" label="">是</el-radio>
+                    <el-radio v-model="form.region7" label="">否</el-radio>
                 </el-form-item>
                 <br/>
                 <el-form-item label="注册用户数得分权重" label-width="150">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                    <el-select v-model="form.region8" placeholder="请选择统计时长">
+                        <el-option v-for="(val,key) in weight_score" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="注册预约率得分权重" label-width="150">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                    <el-select v-model="form.region9" placeholder="请选择统计时长">
+                        <el-option v-for="(val,key) in weight_score" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="预约体验率得分权重" label-width="150">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                    <el-select v-model="form.region10" placeholder="请选择统计时长">
+                        <el-option v-for="(val,key) in weight_score" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="体验转化率得分权重" label-width="150">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                    <el-select v-model="form.region11" placeholder="请选择统计时长">
+                        <el-option v-for="(val,key) in weight_score" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="新签客单价得分权重" label-width="150">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
+                    <el-select v-model="form.region12" placeholder="请选择活动区域">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
                 </el-form-item>
-
+                <br/>
                 <el-form-item label="A类线索" :label-width="formLabelWidth">
-                    第<el-input class="clue-num" v-model="input" placeholder="请输入内容"></el-input>
-                    ～<el-input class="clue-num" v-model="input" placeholder="请输入内容"></el-input>
-                    名
+                    第&nbsp;<el-input class="clue-num" disabled placeholder="请输入内容" :value="1"></el-input>
+                    &nbsp;～&nbsp;<el-input class="clue-num" v-model="form.region13" placeholder="请输入内容"></el-input>
+                    &nbsp;名
                 </el-form-item>
                 <br/>
                 <el-form-item label="B类线索" :label-width="formLabelWidth">
-                    第<el-input class="clue-num" v-model="input" placeholder="请输入内容"></el-input>
-                    ～<el-input class="clue-num" v-model="input" placeholder="请输入内容"></el-input>
-                    名
+                    第&nbsp;<el-input class="clue-num" v-model="form.region14" placeholder="请输入内容"></el-input>
+                    &nbsp;～&nbsp;<el-input class="clue-num" v-model="form.region15" placeholder="请输入内容"></el-input>
+                    &nbsp;名
                 </el-form-item>
                 <br/>
                 <el-form-item label="C类线索" :label-width="formLabelWidth">
-                    第<el-input class="clue-num" v-model="input" placeholder="请输入内容"></el-input>
-                    ～<el-input class="clue-num" v-model="input" placeholder="请输入内容"></el-input>
-                    名
+                    第&nbsp;<el-input class="clue-num" v-model="form.region16" placeholder="请输入内容"></el-input>
+                    &nbsp;～&nbsp;<el-input class="clue-num" disabled value="末" placeholder="请输入内容"></el-input>
+                    &nbsp;名
                 </el-form-item>
 
 
@@ -192,6 +184,7 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
+    import meta from '@/utils/meta'
     export default {
         props:{
             clueAData:{
@@ -201,6 +194,9 @@
         },
         data(){
             return{
+                statistics_duration:meta.statistics_duration,
+                weight_score:meta.weight_score,
+
                 multipleSelection: [],
                 currentPage4: 4,
 
@@ -234,9 +230,6 @@
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
             },
-            pathTo(id){
-                this.$router.push({path:`/account/clue_detail/${id}`});
-            }
         }
 
     }
@@ -246,26 +239,16 @@
         margin: 0 20px;
         padding: 20px 0;
     }
-    .f_head{
-        text-align: left;
-        height:30px;
-        font-size:14px;
-        font-family:PingFangSC-Regular;
-        font-weight:400;
-        color:rgba(155,155,157,1);
-        line-height:14px;
-    }
-    .f_head div{
-        display: inline-block;
-    }
-    .f_head div .num{
-        color:#F8542E;
-    }
     .page{
         margin: 20px 0;
         text-align: right;
     }
     .clue-num{
         width: 60px;
+    }
+    .light-blue{
+        color:#30ABF9;
+        cursor: pointer;
+        margin: 0 5px;
     }
 </style>

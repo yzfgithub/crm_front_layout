@@ -5,21 +5,23 @@
 
 
             <el-form-item label="回收原因" :label-width="formLabelWidth">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
+                <el-select v-model="form.region" placeholder="请选择回收原因">
                     <el-option v-for="(val, key) in recover_reason" :label='val' :key="key" :value='parseInt(key)'></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="分配给" :label-width="formLabelWidth">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
+                <el-select style="margin-bottom: 10px;" v-model="form.region" placeholder="请选择团队">
                     <el-option label="区域一" value="shanghai"></el-option>
                     <el-option label="区域二" value="beijing"></el-option>
                 </el-select>
-                <el-select v-model="form.region" placeholder="请选择活动区域">
+                <br/>
+                <el-select style="margin-bottom: 10px;" v-model="form.region" placeholder="请选择小组">
                     <el-option label="区域一" value="shanghai"></el-option>
                     <el-option label="区域二" value="beijing"></el-option>
                 </el-select>
-                <el-select v-model="form.region" placeholder="请选择活动区域">
+                <br/>
+                <el-select v-model="form.region" placeholder="请选择CC">
                     <el-option label="区域一" value="shanghai"></el-option>
                     <el-option label="区域二" value="beijing"></el-option>
                 </el-select>

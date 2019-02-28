@@ -4,7 +4,7 @@
 
 
             <el-form-item label="科目" :label-width="formLabelWidth">
-                <el-select v-model="form.region1" placeholder="请选择活动区域">
+                <el-select v-model="form.region1" placeholder="请选择科目">
                     <el-option v-for="(val,key) in subjects" :label="val" :key="key" :value="val"></el-option>
                 </el-select>
             </el-form-item>
@@ -12,18 +12,18 @@
                 <el-date-picker
                         v-model="form.reservations_date"
                         type="date"
-                        placeholder="请选择日期"
+                        placeholder="选择上课日期"
                         value-format='yyyy-MM-dd'>
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="上课时间">
-                <el-select v-model="form.reservations_time" placeholder="请选择开始时间">
+                <el-select v-model="form.reservations_time" placeholder="选择上课时间">
                     <el-option v-for="(val, key) in training_time" :label='val' :key="key" :value='parseInt(key)'></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="教师性别">
-
+<!--别忘了默认设置未''-->
                 <el-radio v-model="form.region" label="">无</el-radio>
                 <el-radio v-model="form.region" v-for="(val,key) in sex" :label="val" :value="val" :key="key"></el-radio>
             </el-form-item>
@@ -46,7 +46,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click='closeDialog'>取 消</el-button>
-            <el-button type="primary" @click="submitOperate">确 定</el-button>
+            <el-button type="primary" @click="submitOperate">开始匹配</el-button>
         </div>
     </el-dialog>
 </template>

@@ -38,10 +38,93 @@
             <span class="key">回滚次数：</span><span class="val">{{dataObj.clueSubjectEntity.rollBackNum}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span class="key">市场线索反馈：</span><span class="val">{{dataObj.clueSubjectEntity.feedback}}</span>
         </myTab>
+        <div class="edit-btn" @click="openEdit">
+            <el-button type="primary">编辑信息 <i class="el-icon-edit"></i></el-button>
+        </div>
+
+
+        <el-dialog title="完善客户基本信息" :visible.sync="editVisible">
+            <el-form label-position="left" class="form-class" :model="form">
+                <el-form-item label="市场线索反馈" :label-width="formLabelWidth">
+                    <el-select v-model="form.market_feedback" placeholder="请选择市场线索反馈">
+                        <el-option v-for="(val, key) in market_feedback" :label="val" :value="val" :key="key"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="异业合作反馈" :label-width="formLabelWidth">
+                    <el-select v-model="form.bussiness_feedback" placeholder="请选择异业合作反馈">
+                        <el-option v-for="(val, key) in bussiness_feedback" :label="val" :value="val" :key="key"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="意向度" :label-width="formLabelWidth">
+                    <el-select v-model="form.intentionality" placeholder="请选择取消原因">
+                        <el-option v-for="(val, key) in intentionality" :label="val" :value="val" :key="key"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="家长姓名" :label-width="formLabelWidth">
+                    <el-input style="width: 194px;" v-model="form.parentName" placeholder="请输入家长姓名"></el-input>
+                </el-form-item>
+                <el-form-item label="家长手机号" :label-width="formLabelWidth">
+                    <el-input style="width: 194px;" v-model="form.parentPhone" placeholder="请输入家长手机号"></el-input>
+                </el-form-item>
+                <el-form-item label="家长微信号" :label-width="formLabelWidth">
+                    <el-input style="width: 194px;" v-model="form.parentWechat" placeholder="请输入家长微信号"></el-input>
+                </el-form-item>
+                <el-form-item label="学生姓名" :label-width="formLabelWidth">
+                    <el-input style="width: 194px;" v-model="form.childName" placeholder="请输入学生姓名"></el-input>
+                </el-form-item>
+                <el-form-item label="联系电话" :label-width="formLabelWidth">
+                    <el-input style="width: 194px;" v-model="form.phone" placeholder="请输入联系电话"></el-input>
+                </el-form-item>
+                <el-form-item label="性别" :label-width="formLabelWidth">
+                    <el-select v-model="form.sex" placeholder="请选择性别">
+                        <el-option v-for="(val, key) in sex" :label="val" :value="val" :key="key"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="年龄" :label-width="formLabelWidth">
+                    <el-date-picker
+                            v-model="form.value1"
+                            type="date"
+                            style="width: 194px"
+                            placeholder="请选择出生日期">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="琴龄" :label-width="formLabelWidth">
+                    <el-select v-model="form.learning_time" placeholder="请选择琴龄">
+                        <el-option v-for="(val, key) in learning_time" :label="val" :value="val" :key="key"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="计划考级" :label-width="formLabelWidth">
+                    <el-select v-model="form.planning_examination" placeholder="请选择计划考级">
+                        <el-option v-for="(val, key) in planning_examination" :label="val" :value="val" :key="key"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="考级教材" :label-width="formLabelWidth">
+                    <el-select v-model="form.exam_material" placeholder="请选择考级教材">
+                        <el-option v-for="(val, key) in exam_material" :label="val" :value="val" :key="key"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="练琴问题" :label-width="formLabelWidth">
+                    <el-select v-model="form.piano_practice_problem" placeholder="请选择练琴问题">
+                        <el-option v-for="(val, key) in piano_practice_problem" :label="val" :value="val" :key="key"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="备注" :label-width="formLabelWidth">
+                    <el-input v-model="form.remark" placeholder="填写备注"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click='cancelOrderDialog = false'>取 消</el-button>
+                <el-button type="primary" @click="submitCancelOrder">确 定</el-button>
+            </div>
+        </el-dialog>
+
+
+
     </div>
 </template>
 <script type="text/ecmascript-6">
     import myTab from '@/commons/myTab/tab'
+    import meta from '@/utils/meta'
     import fetcher from '@/fetchers/account/clue/clue'
     import moment from 'moment'
     export default {
@@ -53,11 +136,23 @@
         },
         data(){
             return{
+                market_feedback:meta.market_feedback,
+                bussiness_feedback:meta.bussiness_feedback,
+                intentionality:meta.intentionality,
+                sex:meta.sex,
+                learning_time:meta.learning_time,
+                planning_examination:meta.planning_examination,
+                exam_material:meta.exam_material,
+                piano_practice_problem:meta.piano_practice_problem,
                 dataObj:{
                     channelInfoEntity:{},
                     clueSubjectEntity:{},
                     parentalChildInfoEntity:{}
-                }
+                },
+
+                editVisible:false,
+                formLabelWidth: '100px',
+                form:{},
             }
         },
         watch:{
@@ -73,6 +168,14 @@
             myTab
         },
         methods:{
+            openEdit(){
+                this.editVisible=true;
+            },
+            submitCancelOrder(){
+                console.log('提交修改')
+                this.editVisible=false;
+            },
+
             delayTime(val){
                 let hour =parseInt(moment().diff(moment(val))/(1000*60*60));
                 if(hour/24>0){
@@ -110,6 +213,12 @@
     }
     .first_box{
         padding-bottom: 20px;
+        position: relative;
+    }
+    .first_box .edit-btn{
+        position: absolute;
+        right: 10px;
+        top:20px;
     }
     .first_tab{
         border:1px solid rgba(239,243,245,1);

@@ -16,6 +16,8 @@ import inspection from '@/packages/account/client/inspection/index'
 import conversion from '@/packages/account/client/conversion/index'
 import payed from '@/packages/account/client/payed/index'
 
+import client_detail from '@/packages/account/client/detail/index'
+
 //clueManage
 import shareManage from '@/packages/account/clueManage/shareManage/index'
 import clueRank from '@/packages/account/clueManage/shareManage/clue_rank/index'
@@ -27,6 +29,8 @@ import dealManage from '@/packages/account/clueManage/dealManage/index'
 //reviewManage
 import handselReview from '@/packages/account/reviewManage/handselReview/index'
 import orderReview from '@/packages/account/reviewManage/orderReview/index'
+
+import review_detail from '@/packages/account/reviewManage/detail/index'
 
 export default {
     mappings:[
@@ -86,8 +90,6 @@ export default {
             },
             components:{default:clue_detail},
         },
-
-
         {
             name:'客户管理 > 我的客户 > 数据看板',
             path:'/account/board',
@@ -136,7 +138,14 @@ export default {
             },
             components:{default:payed},
         },
-
+        {
+            name:'客户管理 > 我的客户 > 客户详情',
+            path:'/account/client_detail/:id',
+            meta:{
+                flag:true
+            },
+            components:{default:client_detail},
+        },
         {
             name:'客户管理 > 线索管理 > 分配管理',
             path:'/account/shareManage',
@@ -201,6 +210,14 @@ export default {
                 flag:true
             },
             components:{default:orderReview},
+        },
+        {
+            name:'客户管理 > 审批管理 > 客户详情',
+            path:'/account/review_detail/:id',
+            meta:{
+                flag:true
+            },
+            components:{default:review_detail},
         },
     ]
 }

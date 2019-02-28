@@ -1,6 +1,6 @@
 <template>
     <div>
-        <detail :show_edit="false"></detail>
+        <detail :show_edit="true"></detail>
     </div>
 </template>
 <script type="text/ecmascript-6">

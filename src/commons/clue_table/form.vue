@@ -98,7 +98,17 @@
                 </el-form-item>
 
                 <el-form-item v-if="dialogType ==='batch'" label="分配给" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
+                    <el-select style="margin-bottom: 10px;" v-model="form.region" placeholder="请选择团队">
+                        <el-option label="区域一" value="shanghai"></el-option>
+                        <el-option label="区域二" value="beijing"></el-option>
+                    </el-select>
+                    <br/>
+                    <el-select style="margin-bottom: 10px;" v-model="form.region" placeholder="请选择小组">
+                        <el-option label="区域一" value="shanghai"></el-option>
+                        <el-option label="区域二" value="beijing"></el-option>
+                    </el-select>
+                    <br/>
+                    <el-select v-model="form.region" placeholder="请选择CC">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>

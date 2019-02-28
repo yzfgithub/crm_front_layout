@@ -74,11 +74,23 @@
                     label="教务"
             >
             </el-table-column>
+            <el-table-column  v-if="show_edit"
+                    prop="like"
+                    label="老师简历"
+            >
+                <a href="javascript:void(0);">复制链接</a>
+
+            </el-table-column>
+            <el-table-column v-if="show_edit"
+                    prop="like"
+                    label="操作"
+            >
+                <a href="javascript:void(0);">查看</a>
+                <br>
+                <a href="javascript:void(0);">建工单</a>
+            </el-table-column>
 
         </el-table>
-
-        <!--<el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">-->
-        <!--</el-pagination>-->
     </div>
 </template>
 <script type="text/ecmascript-6">
@@ -88,6 +100,10 @@
             tabName:{
                 type:String,
                 require:true
+            },
+            show_edit:{
+                type:Boolean,
+                require:true,
             }
         },
         data(){

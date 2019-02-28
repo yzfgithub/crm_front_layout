@@ -4,7 +4,7 @@
 
 
             <el-form-item label="科目" :label-width="formLabelWidth">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
+                <el-select v-model="form.region" placeholder="请选择科目">
                     <el-option v-for="(val,key) in subjects" :label="val" :key="key" :value="val"></el-option>
                 </el-select>
             </el-form-item>
@@ -12,12 +12,12 @@
                 <el-date-picker
                         v-model="form.reservations_date"
                         type="date"
-                        placeholder="请选择日期"
+                        placeholder="选择上课日期"
                         value-format='yyyy-MM-dd'>
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="上课时间">
-                <el-select v-model="form.reservations_time" placeholder="请选择开始时间">
+                <el-select v-model="form.reservations_time" placeholder="选择上课时间">
                     <el-option v-for="(val, key) in training_time" :label='val' :key="key" :value='parseInt(key)'></el-option>
                 </el-select>
             </el-form-item>
