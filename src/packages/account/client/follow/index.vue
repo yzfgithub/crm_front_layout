@@ -2,7 +2,7 @@
     <div>
         <div class="top">
             <div class="title">待跟进</div>
-            <query class="form" :clueAForm = 'form'></query>
+            <query class="form" :queryForm = 'form'></query>
         </div>
         <div class="bottom">
             <clueAForm :clueAData="clueAData"></clueAForm>

@@ -1,51 +1,51 @@
 <template>
-    <el-form :inline="true" :model="orderForm" class="demo-form-inline">
+    <el-form :inline="true" :model="queryForm" class="demo-form-inline">
         <el-form-item label="学生">
-            <el-input v-model="orderForm.name" placeholder="请输入学生姓名"></el-input>
+            <el-input v-model="queryForm.name" placeholder="请输入学生姓名"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-            <el-input v-model="orderForm.mobile" placeholder="请输入学生手机号"></el-input>
+            <el-input v-model="queryForm.mobile" placeholder="请输入学生手机号"></el-input>
         </el-form-item>
-        <el-form-item label="支付方式">
-            <el-select v-model="orderForm.region" placeholder="请选择CC">
+        <el-form-item label="课类型">
+            <el-select v-model="queryForm.region" placeholder="请选择课类型">
                 <el-option label="全部" value="" key=""></el-option>
-                <el-option v-for="(val,key) in pay_type" :label="val" :key="key" :value="val"></el-option>
+                <el-option v-for="(val,key) in klass_type" :label="val" :key="key" :value="val"></el-option>
             </el-select>
         </el-form-item>
-        <el-form-item label="订单状态">
-            <el-select v-model="orderForm.region" placeholder="请选择订单状态">
+        <el-form-item label="课状态">
+            <el-select v-model="queryForm.region" placeholder="请选择课状态">
                 <el-option label="全部" value="" key=""></el-option>
-                <el-option v-for="(val,key) in pay_status" :label="val" :key="key" :value="val"></el-option>
+                <el-option v-for="(val,key) in klass_status" :label="val" :key="key" :value="val"></el-option>
             </el-select>
         </el-form-item>
-        <el-form-item label="创建时间">
-            <el-date-picker v-model="orderForm.updateStartDate" type="date" value-format="yyyy/MM/dd" placeholder="选择开始时间" ref="start_date">
+        <el-form-item label="上课时间">
+            <el-date-picker v-model="queryForm.updateStartDate" type="date" value-format="yyyy/MM/dd" placeholder="选择开始时间" ref="start_date">
             </el-date-picker>
             &nbsp;&nbsp;
-            <el-date-picker v-model="orderForm.updateEndDate" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
+            <el-date-picker v-model="queryForm.updateEndDate" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
             </el-date-picker>
         </el-form-item>
-        <el-form-item label="支付时间">
-            <el-date-picker v-model="orderForm.updateStartDate" type="date" value-format="yyyy/MM/dd" placeholder="选择开始时间" ref="start_date">
+        <el-form-item label="排课时间">
+            <el-date-picker v-model="queryForm.updateStartDate" type="date" value-format="yyyy/MM/dd" placeholder="选择开始时间" ref="start_date">
             </el-date-picker>
             &nbsp;&nbsp;
-            <el-date-picker v-model="orderForm.updateEndDate" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
+            <el-date-picker v-model="queryForm.updateEndDate" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
             </el-date-picker>
         </el-form-item>
         <el-form-item label="销售团队">
-            <el-select v-model="orderForm.region" placeholder="请选择销售团队">
+            <el-select v-model="queryForm.region" placeholder="请选择销售团队">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="销售小组">
-            <el-select v-model="orderForm.region" placeholder="请选择销售团队">
+            <el-select v-model="queryForm.region" placeholder="请选择销售团队">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="CC">
-            <el-select v-model="orderForm.region" placeholder="请选择CC">
+            <el-select v-model="queryForm.region" placeholder="请选择CC">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
             </el-select>
@@ -59,15 +59,15 @@
     import meta from '@/utils/meta'
     export default {
         props:{
-            orderForm:{
+            queryForm:{
                 type:Object,
                 require:true,
             }
         },
         data() {
             return {
-                pay_type:meta.pay_type,
-                pay_status:meta.pay_status,
+                klass_type:meta.klass_type,
+                klass_status:meta.klass_status,
                 formInline: {
                     user: '',
                     region: ''

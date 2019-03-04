@@ -47,7 +47,7 @@
             </el-pagination>
         </div>
 
-        <el-dialog title="渠道组编辑" :visible.sync="defaultFormVisiable">
+        <el-dialog title="排班编辑" :visible.sync="defaultFormVisiable">
             <el-form :model="form" label-position="left" class="form-class" :inline="true">
 
                 <el-form-item label="库容编辑" :label-width="formLabelWidth">

@@ -21,6 +21,11 @@ if (token != null) {
     axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
 }
 
+Vue.prototype.can = function(permission){
+    var permissions = localStorage.getItem('permissions') || []
+    return permission ? permissions.indexOf(permission) != -1 : true;
+}
+
 new Vue({
   render: h => h(App),
   router,

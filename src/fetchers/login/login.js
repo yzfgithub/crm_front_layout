@@ -1,5 +1,5 @@
 import axios from 'axios'
-import network_util from '@/utils/netword_util'
+import network_util from '@/utils/network_util'
 import config from '@/config'
 //
 // axios.interceptors.request.use((config) => {

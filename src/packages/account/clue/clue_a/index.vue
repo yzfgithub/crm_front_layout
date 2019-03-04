@@ -5,7 +5,7 @@
             <query :isZClue="false" class="form" :clueAForm = 'form' @queryBtn="queryBtn"></query>
         </div>
         <div class="bottom">
-            <clueAForm :isZClue="false" :clueAData="clueAData" :meta="meta"></clueAForm>
+            <clueAForm :isZClue="false" :clueAData="clueAData" :meta="meta" @clearmultiple="clearmultiple" @currentPage="currentPage" @maxPage="maxPage"></clueAForm>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
                     total: 0,
                 },
 
-                clueAData:[{childName:'S'}]
+                clueAData:[{childName:'S',id:'111',checked:false,allSelect:true},{childName:'S',id:'222',checked:false,allSelect:true},{childName:'S',id:'333',checked:false,allSelect:true}]
             }
         },
         components:{
@@ -40,7 +40,17 @@
                 fetcher.list(Object.assign(this.form,{discard:'否',poolId:'A',pageNum:this.meta.current_page}),(response)=>{
                     if(response.data.code === 100000){
                         let ret = response.data.data;
-                        this.clueAData = ret.records;
+
+                        this.clueAData = ret.records.map((item,idx)=>{
+                            return Object.assign(item,{
+                                checked:(this.meta.current_page-1)*20+idx+1>1000?false:true
+                            })
+                        })
+                        //如果上限选中，初始化设置为 checked ：true
+
+
+
+
                         this.meta={
                             current_page:ret.current,
                             total: ret.total
@@ -54,6 +64,19 @@
                     }
                 })
             },
+            clearmultiple(){
+                this.clueAData=this.clueAData.map(item=>{return Object.assign(item,{checked:false})})
+            },
+            currentPage(){
+                this.clueAData=this.clueAData.map(item=>{return Object.assign(item,{checked:true})})
+                this.clueAData[0].a=true;
+            },
+            maxPage(){
+                this.clueAData=this.clueAData.map(item=>{return Object.assign(item,{checked:true})})
+                //重置第一页
+                this.load();
+            },
+
         },
         mounted(){
             this.load();

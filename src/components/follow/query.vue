@@ -1,34 +1,34 @@
 <template>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true" :model="queryForm" class="demo-form-inline">
         <el-form-item label="姓名">
-            <el-input v-model="clueAForm.name" placeholder="请输入姓名"></el-input>
+            <el-input v-model="queryForm.name" placeholder="请输入姓名"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-            <el-input v-model="clueAForm.mobile" placeholder="请输入手机号"></el-input>
+            <el-input v-model="queryForm.phone" placeholder="请输入手机号"></el-input>
         </el-form-item>
 
         <el-form-item label="注册时间">
-            <el-date-picker v-model="clueAForm.registerStartDate" type="date" value-format="yyyy/MM/dd" placeholder="选择开始时间" ref="start_date">
+            <el-date-picker v-model="queryForm.registedStartDate" type="date" value-format="yyyy/MM/dd" placeholder="选择开始时间" ref="start_date">
             </el-date-picker>
             &nbsp;&nbsp;
-            <el-date-picker v-model="clueAForm.registerEndDate" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
+            <el-date-picker v-model="queryForm.registedEndDate" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
             </el-date-picker>
         </el-form-item>
         <el-form-item label="修改时间">
-            <el-date-picker v-model="clueAForm.registerStartDate" type="date" value-format="yyyy/MM/dd" placeholder="选择开始时间" ref="start_date">
+            <el-date-picker v-model="queryForm.updatedStartDate" type="date" value-format="yyyy/MM/dd" placeholder="选择开始时间" ref="start_date">
             </el-date-picker>
             &nbsp;&nbsp;
-            <el-date-picker v-model="clueAForm.registerEndDate" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
+            <el-date-picker v-model="queryForm.updatedEndDate" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
             </el-date-picker>
         </el-form-item>
         <el-form-item label="跟进状态">
-            <el-select v-model="formInline.region" placeholder="请选择跟进状态">
+            <el-select v-model="queryForm.status" placeholder="请选择跟进状态">
                 <el-option label="全部" value="" key=""></el-option>
                 <el-option v-for="(val,key) in follow_status" :label="val" :key="key" :value="val"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="归属人">
-            <el-select v-model="formInline.region" placeholder="请选择归属人">
+            <el-select v-model="queryForm.userId" placeholder="请选择归属人">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
             </el-select>
@@ -42,7 +42,7 @@
     import meta from '@/utils/meta'
     export default {
         props:{
-            clueAForm:{
+            queryForm:{
                 type:Object,
                 require:true,
             }

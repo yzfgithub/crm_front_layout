@@ -56,47 +56,104 @@
             <el-form :model="form" label-position="left" class="form-class">
 
                 <el-form-item label="线索标签" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                    <el-select v-model="form.clue_labels" placeholder="请选择活动区域">
+                        <el-option v-for="(val,key) in clue_labels" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="分配时间">
-                    <el-date-picker v-model="form.startDate" type="date" value-format="yyyy/MM/dd" placeholder="请选择开始时间" ref="start_date">
-                    </el-date-picker>
+                <!--<el-form-item label="分配时间" :label-width="formLabelWidth">-->
+                    <!--<el-time-select-->
+                            <!--v-model="form.startTime"-->
+                            <!--:picker-options="{-->
+                                <!--start: '08:30',-->
+                                <!--step: '00:15',-->
+                                <!--end: '18:30'-->
+                              <!--}"-->
+                            <!--placeholder="选择时间">-->
+                    <!--</el-time-select>-->
+                    <!--&nbsp;-&nbsp;-->
+                    <!--<el-time-select-->
+                            <!--v-model="form.endTime"-->
+                            <!--:picker-options="{-->
+                                <!--start: '08:30',-->
+                                <!--step: '00:15',-->
+                                <!--end: '18:30'-->
+                              <!--}"-->
+                            <!--placeholder="选择时间">-->
+                    <!--</el-time-select>-->
+                    <!--&nbsp;&nbsp;-->
+                    <!--<el-button type="success" icon="el-icon-plus" circle></el-button>-->
+                <!--</el-form-item>-->
+                <el-form-item :label="key==0?'分配时间':''" :label-width="formLabelWidth" v-for="(item,key) in shareDurationObj" :key="key">
+                    <el-time-select
+                            v-model="item.startTime"
+                            :picker-options="{
+                                start: '08:30',
+                                step: '00:15',
+                                end: '18:30'
+                              }"
+                            placeholder="选择时间">
+                    </el-time-select>
                     &nbsp;-&nbsp;
-                    <el-date-picker v-model="form.endDate" type="date" value-format="yyyy/MM/dd" placeholder="请选择结束时间">
-                    </el-date-picker>
+                    <el-time-select
+                            v-model="item.endTime"
+                            :picker-options="{
+                                start: '08:30',
+                                step: '00:15',
+                                end: '18:30'
+                              }"
+                            placeholder="选择时间">
+                    </el-time-select>
+                    &nbsp;&nbsp;
+                    <!--<i @click="deleteCard(item.id)" class="el-icon-circle-close-outline close-el"></i>-->
+                    <el-button v-if="key<shareDurationObj.length-1" type="danger" icon="el-icon-delete" circle @click="deleteDuration(key)"></el-button>
+                    <el-button v-if="key==shareDurationObj.length-1" type="success" icon="el-icon-plus" circle @click="addDuration"></el-button>
                 </el-form-item>
-                <el-form-item label="分配间隔" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                </el-form-item>
+
                 <el-form-item label="重复" :label-width="formLabelWidth">
                     <el-checkbox-group
-                            v-model="form.week"
-                            :min="1"
-                            :max="2">
-                        <el-checkbox v-for="city in [A,B,C,D,E,F]" :label="city" :key="city">{{city}}</el-checkbox>
+                            v-model="form.week">
+                        <el-checkbox v-for="(val,key) in repeat_date" :label="val" :key="key">{{val}}</el-checkbox>
                     </el-checkbox-group>
                 </el-form-item>
+                <el-form-item label="分配间隔" :label-width="formLabelWidth">
+                    <el-select v-model="form.repeat_duration" placeholder="请选择活动区域">
+                        <el-option v-for="(val,key) in repeat_duration" :label="val" :key="key" :value="val"></el-option>
+                    </el-select>
+                </el-form-item>
                 <el-form-item label="分配对象" :label-width="formLabelWidth">
-                    <!--<el-tabs v-model="activeName" @tab-click="handleClick">-->
-                        <!--<el-tab-pane label="用户管理" name="first">销售中心</el-tab-pane>-->
-                        <!--<el-tab-pane label="配置管理" name="second">销售团队</el-tab-pane>-->
-                        <!--<el-tab-pane label="角色管理" name="third">销售小组</el-tab-pane>-->
-                        <!--<el-tab-pane label="定时任务补偿" name="fourth">CC</el-tab-pane>-->
-                    <!--</el-tabs>-->
+                    <el-tabs v-model="activeName">
+                        <el-tab-pane label="销售中心" name="first">
+                            <el-checkbox-group
+                                    v-model="sale_center">
+                                <el-checkbox v-for="(val,key) in sale_center_list" :label="val.id" :key="key">{{val.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </el-tab-pane>
+                        <el-tab-pane label="销售团队" name="second">
+                            <el-checkbox-group
+                                    v-model="sale_group">
+                                <el-checkbox v-for="(val,key) in sale_group_list" :label="val.id" :key="key">{{val.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </el-tab-pane>
+                        <el-tab-pane label="销售小组" name="third">
+                            <el-checkbox-group
+                                    v-model="sale_team">
+                                <el-checkbox v-for="(val,key) in sale_team_list" :label="val.id" :key="key">{{val.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </el-tab-pane>
+                        <el-tab-pane label="CC" name="fourth">
+                            <el-checkbox-group
+                                    v-model="sale_cc">
+                                <el-checkbox v-for="(val,key) in sale_cc_list" :label="val.id" :key="key">{{val.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </el-tab-pane>
+                    </el-tabs>
                 </el-form-item>
                 <el-form-item label="分配数量" :label-width="formLabelWidth">
                     <el-input-number v-model="form.num1" label="描述文字"></el-input-number>
                 </el-form-item>
                 <el-form-item label="生效状态" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                    <el-select v-model="form.effective_status" placeholder="请选择活动区域">
+                        <el-option v-for="(val,key) in effective_status" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
 
@@ -113,6 +170,7 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
+    import meta from '@/utils/meta'
     export default {
         props:{
             clueAData:{
@@ -122,6 +180,10 @@
         },
         data(){
             return{
+                clue_labels:meta.clue_labels,
+                repeat_date:meta.repeat_date,
+                repeat_duration:meta.repeat_duration,
+                effective_status:meta.effective_status,
                 multipleSelection: [],
                 currentPage4: 4,
 
@@ -133,10 +195,61 @@
                     team_id:0,
                     zu_id:0,
                     cc_id:0,
+                    num1:1
                 },
+                activeName:'first',
+                sale_center:[],
+                sale_group:[],
+                sale_team:[],
+                sale_cc:[],
+                centerList:[{name:'中心1',id:1},{name:'中心2',id:2}],
+                groupList:[{name:'团队1',id:10,p_id:1},{name:'团队2',id:11,p_id:1},{name:'团队3',id:12,p_id:2},{name:'团队4',id:13,p_id:2}],
+                teamList:[{name:'小组1',id:100,p_id:10,},{name:'小组2',id:101,p_id:10},{name:'小组3',id:102,p_id:11},{name:'小组4',id:103,p_id:11},{name:'小组5',id:104,p_id:12},{name:'小组6',id:105,p_id:12},{name:'小组7',id:106,p_id:13},{name:'小组7',id:107,p_id:13}],
+                ccList:[{name:'cc1',id:1000,p_id:100},{name:'cc2',id:1001,p_id:100},{name:'cc3',id:1002,p_id:101},{name:'cc4',id:1003,p_id:101},{name:'cc5',id:1004,p_id:102},{name:'cc6',id:1005,p_id:102},{name:'cc7',id:1006,p_id:103},{name:'cc8',id:1007,p_id:103},{name:'cc9',id:1008,p_id:104},{name:'cc10',id:1009,p_id:104},{name:'cc11',id:1010,p_id:105},{name:'cc12',id:1011,p_id:105},{name:'cc13',id:1012,p_id:106},{name:'cc14',id:1013,p_id:106},{name:'cc15',id:1014,p_id:107},{name:'cc16',id:1015,p_id:107}],
+
+                shareDurationObj:[{startTime:'',endTime:''}]
             }
         },
+        computed:{
+            sale_center_list:function () {
+                return this.centerList;
+            },
+            sale_group_list:function () {
+                if(this.sale_center.length){
+                    return this.groupList.filter(item=>{return this.sale_center.indexOf(item.p_id)>-1})
+                }else{
+                    return this.groupList;
+                }
+
+            },
+            sale_team_list:function () {
+                if(this.sale_group.length){
+                    return this.teamList.filter(item=>{return this.sale_group.indexOf(item.p_id)>-1})
+                }else if(this.sale_center.length){
+                    return this.teamList.filter(item=>{return this.sale_group.indexOf(item.p_p_id)>-1})
+                }else{
+                    return this.teamList;
+                }
+            },
+            sale_cc_list:function () {
+                if(this.sale_team.length){
+                    return this.ccList.filter(item=>{return this.sale_team.indexOf(item.p_id)>-1})
+                }else if(this.sale_group.length){
+                    return this.ccList.filter(item=>{return this.sale_team.indexOf(item.p_p_id)>-1})
+                }else if(this.sale_center.length){
+                    return this.ccList.filter(item=>{return this.sale_team.indexOf(item.p_p_p_id)>-1})
+                }else{
+                    return this.ccList;
+                }
+            },
+        },
         methods:{
+            deleteDuration(key){
+               this.shareDurationObj.splice(key,1)
+            },
+            addDuration(){
+                this.shareDurationObj.push({startTime:'',endTime:''})
+            },
             onSubmit(){
                 console.log('ok')
                 this.defaultFormVisiable=false;

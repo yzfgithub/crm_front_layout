@@ -2,7 +2,7 @@
     <div>
         <div class="top">
             <div class="title">待设备检测</div>
-            <query class="form" :clueAForm = 'form'></query>
+            <query class="form" :queryForm = 'form'></query>
         </div>
         <div class="bottom">
             <clueAForm :clueAData="clueAData"></clueAForm>
