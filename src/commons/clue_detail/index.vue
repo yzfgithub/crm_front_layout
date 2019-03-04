@@ -4,13 +4,13 @@
             <div class="title">客户详情</div>
             <div class="distributor_box">
                 <div>
-                    <span class="name">{{dataObj.parentalChildInfoEntity.childName}}</span>&nbsp;&nbsp;<span>{{dataObj.parentalChildInfoEntity.parentalPhone}}</span>
+                    <span class="name">{{dataObj.name}}</span>&nbsp;&nbsp;<span>{{dataObj.phone}}</span>
                 </div>
                <div>
-                   <span>性别：</span><span class="mg-r">{{dataObj.parentalChildInfoEntity.childGender}}</span>
-                   <span>练琴等级：</span><span class="mg-r">{{dataObj.parentalChildInfoEntity.grade}}</span>
-                   <span>意向度：</span><span class="mg-r">{{dataObj.clueSubjectEntity.intentionality}}</span>
-                   <span>线索来源：</span><span class="mg-r">{{dataObj.channelInfoEntity.name}}</span>
+                   <span>性别：</span><span class="mg-r">{{dataObj.gender}}</span>
+                   <span>练琴等级：</span><span class="mg-r">{{dataObj.grade}}</span>
+                   <span>意向度：</span><span class="mg-r">{{dataObj.intentionality}}</span>
+                   <span>线索来源：</span><span class="mg-r">{{dataObj.channelName}}</span>
                </div>
                 <div class="call-phone" @click="callPhone">
                     <i class="el-icon-phone"></i> &nbsp;拨打
@@ -96,15 +96,14 @@
                 })
             },
             load(){
-                fetcher.details(this.$route.params.id,(response)=>{
+                fetcher.clue_top({clueId:this.$route.params.id},(response)=>{
                     this.dataObj = response.data.data;
                     console.log(this.dataObj)
-
                 })
             },
         },
         mounted(){
-            // this.load()
+            this.load()
         },
     }
 </script>

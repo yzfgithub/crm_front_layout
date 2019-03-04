@@ -1,11 +1,19 @@
 <template>
     <div class="seven_box">
         <ul class="timeline">
-            <timeline v-for="(item,key) in operations" :key="key">
+            <timeline v-for="(item,key) in dataList" :key="key">
                 <span slot="dot" class="mydot"></span>
-                <span>{{item.str}}</span>
+                <div v-if="item.type === '废弃'">
+                    <span>【{{item.time}}】</span> &nbsp;&nbsp; <span>{{item.user}}</span> &nbsp; 因 <span style="color:orangered">【{{item.reason}}】</span>  将 所属公海从 【{{item.fromCluePool}}】 更新为 【{{item.toCluePool}}】
+                </div>
+                <div v-else>
+                    <span>【{{item.time}}】</span> &nbsp;&nbsp;<span>{{item.fromUser}}</span> &nbsp; 将 客户归属人  从 【{{item.fromUser}}】 更新为 【{{item.toUser}}】
+                </div>
+
             </timeline>
         </ul>
+        <el-pagination class="page" @current-change="handleCurrentChange" :current-page="meta.current_page" :page-size="20" layout="total, prev, pager, next, jumper" :total="meta.total">
+        </el-pagination>
     </div>
 </template>
 <script type="text/ecmascript-6">
@@ -20,13 +28,17 @@
         },
         data(){
             return{
-                operations:[{str:'abcde'},{str:'desfag'}]
+                meta:{
+                    current_page:1,
+                    total:0
+                },
+                dataList:[],
             }
         },
         watch:{
             tabName:{
                 handler(val,oldVal){
-                    if(val!=oldVal && val == 'seven'){
+                    if(val!=oldVal && val == 'seventh'){
                         this.load();
                     }
                 }
@@ -36,14 +48,31 @@
             timeline
         },
         methods:{
+            handleCurrentChange(val){
+
+            },
             load(){
-                fetcher.getCommunicationRecord({clueSubjectId:this.$route.params.id},(response)=>{
+                fetcher.operation_logs({clueId:this.$route.params.id,pageNum:this.meta.current_page},(response)=>{
                     if(response.data.code==100000){
-                        this.data = response.data.data;
+                        this.dataList = response.data.data.records;
+                        console.log(this.dataList)
+                        this.meta={
+                            current_page:ret.current,
+                            total: ret.total
+                        }
+                    }else{
+                        this.dataList = [];
+                        this.meta={
+                            current_page: 1,
+                            total: 0,
+                        }
                     }
                 })
             }
         },
+        mounted(){
+            this.load()
+        }
     }
 </script>
 <style lang="css">

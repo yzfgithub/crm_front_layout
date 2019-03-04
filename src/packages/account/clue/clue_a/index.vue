@@ -25,7 +25,7 @@
                     total: 0,
                 },
 
-                clueAData:[{childName:'S',id:'111',checked:false,allSelect:true},{childName:'S',id:'222',checked:false,allSelect:true},{childName:'S',id:'333',checked:false,allSelect:true}]
+                clueAData:[]
             }
         },
         components:{
@@ -37,7 +37,7 @@
                 this.load();
             },
             load(){//  discard： Z公海'是'
-                fetcher.list(Object.assign(this.form,{discard:'否',poolId:'A',pageNum:this.meta.current_page}),(response)=>{
+                fetcher.list(Object.assign(this.form,{cluePoolId:'A',pageNum:this.meta.current_page}),(response)=>{
                     if(response.data.code === 100000){
                         let ret = response.data.data;
 

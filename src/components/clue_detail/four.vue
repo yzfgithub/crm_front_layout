@@ -153,7 +153,7 @@
         watch:{
             tabName:{
                 handler(val,oldVal){
-                    if(val!=oldVal && val == 'four'){
+                    if(val!=oldVal && val == 'fourth'){
                         this.load();
                     }
                 }

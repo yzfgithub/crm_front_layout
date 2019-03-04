@@ -5,37 +5,57 @@
             <query class="form" :queryForm = 'form'></query>
         </div>
         <div class="bottom">
-            <clueAForm :clueAData="clueAData"></clueAForm>
+            <followForm :dataList="dataList" :meta="meta" @pageChange="pageChange" @onSubmit="load"></followForm>
         </div>
     </div>
 
 </template>
 <script type="text/ecmascript-6">
     import query from '@/components/follow/query'
-    import clueAForm from '@/components/follow/form'
+    import followForm from '@/components/follow/form'
+    import fetcher from '@/fetchers/account/client/client'
     export default {
         data(){
             return{
                 form:{
 
                 },
-                clueAData:[
-                    {id:'11111',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'22222',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'33333',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'44444',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'55555',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'66666',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'77777',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'88888',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'99999',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'12345',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'23456',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                ]
+                meta:{
+                    current_page:1,
+                    total:0,
+                },
+                dataList:[]
             }
         },
         components:{
-            query,clueAForm
+            query,followForm
+        },
+        methods:{
+            pageChange(){
+                this.current_page=1;
+                this.load();
+            },
+            load(){
+                fetcher.stage_list(Object.assign(this.form,{stage:'待跟进',pageSize:this.meta.current_page}),(response)=>{
+                    if(response.data.code === 100000){
+                        this.dataList = response.data.data.records;
+
+                        this.meta={
+                            current_page:ret.current,
+                            total: ret.total
+                        }
+                    }else{
+                        this.clueAData = [];
+                        this.meta={
+                            current_page: 1,
+                            total: 0,
+                        }
+                    }
+                })
+            },
+        },
+        mounted(){
+            this.load()
         }
 
     }

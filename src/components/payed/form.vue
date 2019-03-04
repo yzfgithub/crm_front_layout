@@ -26,7 +26,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="mobile"
+                        prop="phone"
                         label="手机号"
                 >
                 </el-table-column>
@@ -36,22 +36,22 @@
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="province"
+                        prop="userName"
                         label="归属人"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="created_at"
+                        prop="registedDate"
                         label="注册时间"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="updated_at"
+                        prop="updatedDate"
                         label="最新修改时间"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="updated_for"
+                        prop="updater"
                         label="修改人"
                 >
                 </el-table-column>
@@ -59,19 +59,28 @@
                         prop="state"
                         label="有效／接通／拨打"
                 >
+                    <template slot-scope="scope">
+                        {{scope.row.validNum}}/{{scope.row.connectedNum}}/{{scope.row.dialledNum}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="state"
                         label="设备／体验／正式"
                 >
+                    <template slot-scope="scope">
+                        {{scope.row.testNum}}/{{scope.row.experienceNum}}/{{scope.row.formalNum}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="delay"
                         label="搁置时间"
                 >
+                    <template slot-scope="scope">
+                        {{delayTime(scope.row.updatedDate)}}
+                    </template>
                 </el-table-column>
                 <el-table-column
-                        prop="rollback"
+                        prop="rollBackNum"
                         label="回滚次数"
                 >
                 </el-table-column>
@@ -83,7 +92,7 @@
 
             </el-table>
 
-            <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-size="20" layout="total, prev, pager, next, jumper" :total="400">
+            <el-pagination class="page" @current-change="handleCurrentChange" :current-page="meta.current_page" :page-size="20" layout="total, prev, pager, next, jumper" :total="meta.total">
             </el-pagination>
         </div>
 
@@ -94,11 +103,16 @@
 <script type="text/ecmascript-6">
     import create from '@/commons/client_batch/create'
     import presentation from '@/commons/client_batch/presentation'
+    import tool from '@/utils/tool'
     export default {
         props:{
             clueAData:{
                 type:Array,
                 require:true
+            },
+            meta:{
+                type:Object,
+                require:true,
             }
         },
         data(){
@@ -149,14 +163,14 @@
             },
 
             //fenye
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                thie.$emit('pageChange')
             },
             pathTo(id){
                 this.$router.push({path:`/account/client_detail/${id}`});
+            },
+            delayTime(val){
+                return tool.delayTime(val)
             }
         }
 

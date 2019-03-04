@@ -58,7 +58,7 @@
         },
         methods: {
             onSubmit() {
-                console.log('submit!');
+                this.$emit('onSubmit')
             }
         }
     }

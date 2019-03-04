@@ -110,27 +110,29 @@
                 </tr>
                     <tr v-for="(item,key) in dataList" :key="key" class="my_tb_tr">
                         <td class="my_tb_td"><el-checkbox v-model="item.checked"></el-checkbox></td>
+
                         <td class="my_tb_td">
-                            <span class="form-name" @click="pathTo(item.id)">{{item.childName}}</span>
+                            <span class="form-name" @click="pathTo(item.id)">{{item.name}}</span>
                         </td>
 
-                        <td class="my_tb_td">{{item.name}}</td>
+
                         <td class="my_tb_td">
                              <span class="form-mobile" @click="callPhone">
-                            {{item.parentalPhone}} <i class="el-icon-phone"></i>
+                            {{item.phone}} <i class="el-icon-phone"></i>
                         </span>
                         </td>
+                        <td class="my_tb_td">{{item.province}}</td>
 
-                        <td class="my_tb_td">2</td>
-                        <td class="my_tb_td">3</td>
+                        <td class="my_tb_td">{{item.registedDate}}</td>
+                        <td class="my_tb_td">{{item.updatedDate}}</td>
 
-                        <td class="my_tb_td">4</td>
-                        <td class="my_tb_td">5</td>
+                        <td class="my_tb_td">{{item.updater}}</td>
+                        <td class="my_tb_td">{{item.validNum}}/{{item.connectedNum}}/{{item.dialledNum}}</td>
 
-                        <td class="my_tb_td">6</td>
-                        <td class="my_tb_td">7</td>
+                        <td class="my_tb_td">{{delayTime(item.updatedDate)}}</td>
+                        <td class="my_tb_td">{{item.rollBackNum}}</td>
 
-                        <td class="my_tb_td">{{item.name}}</td>
+                        <td class="my_tb_td">{{item.intentionality}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -199,7 +201,7 @@
 </template>
 <script type="text/ecmascript-6">
     import meta from '@/utils/meta'
-    import moment from 'moment'
+    import tool from '@/utils/tool'
     export default {
         props:{
             clueAData:{
@@ -340,13 +342,8 @@
             // },
 
 
-            delayTime(obj){
-                let hour =parseInt(moment().diff(moment(obj.lastUpdatedTime))/(1000*60*60));
-                if(hour/24>0){
-                    return Math.floor(hour/24)+'天 '+hour%24+'小时'
-                }else{
-                    return hour%24+'小时'
-                }
+            delayTime(val){
+                return tool.delayTime(val)
             },
             callPhone(){
                 // axios.get('/crm-call/outCall',{params:{FromExten:'1006',Exten:'18910420795'}}).then((response)=>{

@@ -36,7 +36,7 @@
                 this.load();
             },
             load(){//  discard： Z公海'是'
-                console.log(this.form,Object.assign({},this.form,{discard:'是',poolId:'Z',pageNum:this.meta.current_page}))
+                console.log(this.form,Object.assign({},this.form,{cluePoolId:'Z',pageNum:this.meta.current_page}))
                 fetcher.list(Object.assign(this.form,{},{discard:'是',poolId:'Z',pageNum:this.meta.current_page}),(response)=>{
                     if(response.data.code === 100000){
                         let ret = response.data.data;

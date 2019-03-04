@@ -25,4 +25,13 @@ export default {
     zero_pad (value) {
         return value < 10 ? '0' + value : value
     },
+    delayTime(val){
+
+        let hour =parseInt(moment().diff(moment(val))/(1000*60*60));
+        if(hour/24>0){
+            return Math.floor(hour/24)+'天 '+hour%24+'小时'
+        }else{
+            return hour%24+'小时'
+        }
+    },
 }

@@ -1,42 +1,36 @@
 <template>
     <div class="first_box">
         <myTab class="first_tab" :title="'家长信息'">
-            <span class="key">家长姓名：</span><span class="val">{{dataObj.parentalChildInfoEntity.parental_name}}</span> &nbsp;&nbsp;&nbsp;
-            <span class="key">家长手机：</span><span class="val">{{dataObj.parentalChildInfoEntity.parental_phone}}</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">家长微信：</span><span class="val">{{dataObj.parentalChildInfoEntity.parental_weixin}}</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">省、市、区：</span><span class="val">{{dataObj.parentalChildInfoEntity.province}} {{dataObj.parentalChildInfoEntity.city}} {{dataObj.parentalChildInfoEntity.area}}</span>
+            <span class="key">家长姓名：</span><span class="val">{{details.parentalChildDetailsVO.parentalName}}</span> &nbsp;&nbsp;&nbsp;
+            <span class="key">家长手机：</span><span class="val">{{details.parentalChildDetailsVO.parentalPhone}}</span>&nbsp;&nbsp;&nbsp;
+            <span class="key">家长微信：</span><span class="val">{{details.parentalChildDetailsVO.parentalWeixin}}</span>&nbsp;&nbsp;&nbsp;
+            <span class="key">省、市、区：</span><span class="val">{{details.parentalChildDetailsVO.province}} {{details.parentalChildDetailsVO.city}} {{details.parentalChildDetailsVO.area}}</span>
         </myTab>
         <myTab class="first_tab" :title="'学生信息'">
-            <span class="key">性别：</span><span class="val">{{dataObj.parentalChildInfoEntity.child_gender}}</span> &nbsp;&nbsp;&nbsp;
-            <span class="key">年龄：</span><span class="val">{{dataObj.parentalChildInfoEntity.child_age}}</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">琴龄：</span><span class="val">{{dataObj.parentalChildInfoEntity.child_piano_age}}</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">计划等级：</span><span class="val">{{dataObj.parentalChildInfoEntity.grading_test}}</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">考级教材：</span><span class="val">{{dataObj.parentalChildInfoEntity.teaching_material}}</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">备注：</span><span class="val">{{dataObj.parentalChildInfoEntity.remark}}</span>
+            <span class="key">性别：</span><span class="val">{{details.parentalChildDetailsVO.childGender}}</span> &nbsp;&nbsp;&nbsp;
+            <span class="key">年龄：</span><span class="val">{{details.parentalChildDetailsVO.childAge}}</span>&nbsp;&nbsp;&nbsp;
+            <span class="key">琴龄：</span><span class="val">{{details.parentalChildDetailsVO.childPianoAge}}</span>&nbsp;&nbsp;&nbsp;
+            <span class="key">计划等级：</span><span class="val">{{details.parentalChildDetailsVO.gradingTest}}</span>&nbsp;&nbsp;&nbsp;
+            <span class="key">考级教材：</span><span class="val">{{details.parentalChildDetailsVO.teachingMaterial}}</span>&nbsp;&nbsp;&nbsp;
+            <span class="key">备注：</span><span class="val">{{details.parentalChildDetailsVO.remark}}</span>
         </myTab>
         <myTab class="first_tab" :title="'练琴信息'">
-            <span class="key">错音问题,</span>
-            <span class="key">&nbsp;节奏问题,</span>
-            <span class="key">&nbsp;识谱问题,</span>
-            <span class="key">&nbsp;手型问题,</span>
-            <span class="key">&nbsp;兴趣问题,</span>
-            <span class="key">&nbsp;连贯性问题,</span>
-            <span class="key">&nbsp;指法问题</span>
+            <span class="key">{{details.parentalChildDetailsVO.learningProblems}}</span>
         </myTab>
         <myTab class="first_tab" :title="'线索信息'">
-            <span class="key">来源：</span><span class="val">{{dataObj.channelInfoEntity.name}}</span> &nbsp;&nbsp;&nbsp;
-            <span class="key">状态：</span><span class="val">{{dataObj.clueSubjectEntity.status}}</span>&nbsp;&nbsp;&nbsp;
-            <span class="key">注册时间：</span><span class="val">{{dataObj.clueSubjectEntity.registeredTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <!--<span class="key">预约体验课时间：</span><span class="val">{{dataObj.clueSubjectEntity.remark}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-            <span class="key">创建时间：</span><span class="val">{{dataObj.clueSubjectEntity.createdTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="key">最新修改时间：</span><span class="val">{{dataObj.clueSubjectEntity.lastUpdatedTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="key">搁置时长：</span><span class="val">{{delayTime(dataObj.clueSubjectEntity.lastUpdatedTime)}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <!--<span class="key">客户归属人：</span><span class="val">{{dataObj.parentalChildInfoEntity.remark}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-            <!--<span class="key">所属公海：</span><span class="val">{{dataObj.parentalChildInfoEntity.remark}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-            <span class="key">意向度：</span><span class="val">{{dataObj.clueSubjectEntity.intentionality}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="key">有效/接通/拨打：</span><span class="val">{{dataObj.clueSubjectEntity.validNum}}/{{dataObj.clueSubjectEntity.connectedNum}}/{{dataObj.clueSubjectEntity.dialledNum}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="key">回滚次数：</span><span class="val">{{dataObj.clueSubjectEntity.rollBackNum}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="key">市场线索反馈：</span><span class="val">{{dataObj.clueSubjectEntity.feedback}}</span>
+            <span class="key">来源：</span><span class="val">{{details.clueDetailsVO.channelName}}</span> &nbsp;&nbsp;&nbsp;
+            <span class="key">状态：</span><span class="val">{{details.clueDetailsVO.status}}</span>&nbsp;&nbsp;&nbsp;
+            <span class="key">注册时间：</span><span class="val">{{details.clueDetailsVO.registeredTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="key">预约体验课时间：</span><span class="val">{{details.clueDetailsVO.reservationTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="key">创建时间：</span><span class="val">{{details.clueDetailsVO.createdTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="key">最新修改时间：</span><span class="val">{{details.clueDetailsVO.lastUpdatedTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="key">搁置时长：</span><span class="val">{{delayTime(details.clueDetailsVO.lastUpdatedTime)}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="key">客户归属人：</span><span class="val">{{details.clueDetailsVO.userName}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="key">所属公海：</span><span class="val">{{details.clueDetailsVO.cluePoolName}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="key">意向度：</span><span class="val">{{details.clueDetailsVO.intentionality}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="key">有效/接通/拨打：</span><span class="val">{{details.clueDetailsVO.validNum}}/{{details.clueDetailsVO.connectedNum}}/{{details.clueDetailsVO.dialledNum}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="key">回滚次数：</span><span class="val">{{details.clueDetailsVO.rollBackNum}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="key">市场线索反馈：</span><span class="val">{{details.clueDetailsVO.feedback}}</span>
         </myTab>
         <div class="edit-btn" @click="openEdit">
             <el-button type="primary">编辑信息 <i class="el-icon-edit"></i></el-button>
@@ -126,6 +120,7 @@
     import myTab from '@/commons/myTab/tab'
     import meta from '@/utils/meta'
     import fetcher from '@/fetchers/account/clue/clue'
+    import tool from '@/utils/tool'
     import moment from 'moment'
     export default {
         props:{
@@ -144,10 +139,9 @@
                 planning_examination:meta.planning_examination,
                 exam_material:meta.exam_material,
                 piano_practice_problem:meta.piano_practice_problem,
-                dataObj:{
-                    channelInfoEntity:{},
-                    clueSubjectEntity:{},
-                    parentalChildInfoEntity:{}
+                details:{
+                    clueDetailsVO:{},
+                    parentalChildDetailsVO:{}
                 },
 
                 editVisible:false,
@@ -159,7 +153,7 @@
             tabName:{
                 handler(val,oldVal){
                     if(val!=oldVal && val == 'first'){
-                        // this.load();
+                        this.load();
                     }
                 }
             }
@@ -176,23 +170,19 @@
                 this.editVisible=false;
             },
 
+
             delayTime(val){
-                let hour =parseInt(moment().diff(moment(val))/(1000*60*60));
-                if(hour/24>0){
-                    return Math.floor(hour/24)+'天 '+hour%24+'小时'
-                }else{
-                    return hour%24+'小时'
-                }
+                return tool.delayTime(val)
             },
             load(){
-                fetcher.details(this.$route.params.id,(response)=>{
-                    this.dataObj = response.data.data;
+                fetcher.details({clueId:this.$route.params.id},(response)=>{
+                    this.details = response.data.data;
 
                 })
             },
         },
         mounted(){
-            // this.load();
+            this.load();
         }
     }
 </script>

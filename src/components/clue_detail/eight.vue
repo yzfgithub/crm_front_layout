@@ -1,9 +1,13 @@
 <template>
     <div class="eight_box">
         <ul class="timeline">
-            <timeline v-for="(item,key) in operations" :key="key">
+            <timeline v-for="(item,key) in dataList" :key="key">
                 <span slot="dot" class="mydot"></span>
-                <span>{{item.str}}</span>
+
+                    <span>【{{item.registeredTime}}】</span> &nbsp;&nbsp; <span>{{item.childName}}</span> &nbsp; 通过【{{item.byWay}}】  {{item.operation}}
+
+
+
             </timeline>
         </ul>
     </div>
@@ -20,13 +24,13 @@
         },
         data(){
             return{
-                operations:[{str:'abcde'}]
+                dataList:[]
             }
         },
         watch:{
             tabName:{
                 handler(val,oldVal){
-                    if(val!=oldVal && val == 'eight'){
+                    if(val!=oldVal && val == 'eighth'){
                         this.load();
                     }
                 }
@@ -37,13 +41,19 @@
         },
         methods:{
             load(){
-                fetcher.getCommunicationRecord({clueSubjectId:this.$route.params.id},(response)=>{
+                fetcher.source_records({clueId:this.$route.params.id},(response)=>{
                     if(response.data.code==100000){
-                        this.data = response.data.data;
+                        this.dataList = response.data.data;
+                        console.log(this.dataList)
+                    }else{
+                        this.dataList = [];
                     }
                 })
             }
         },
+        mounted(){
+            this.load();
+        }
     }
 </script>
 <style lang="css">

@@ -4,21 +4,21 @@
             <el-input v-model="clueAForm.name" placeholder="请输入姓名"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-            <el-input v-model="clueAForm.phoneNum" placeholder="请输入手机号"></el-input>
+            <el-input v-model="clueAForm.phone" placeholder="请输入手机号"></el-input>
         </el-form-item>
 
         <el-form-item label="注册时间">
-            <el-date-picker v-model="clueAForm.registerStartDate" type="date" value-format="yyyy/MM/dd" placeholder="请择开始时间" ref="start_date">
+            <el-date-picker v-model="clueAForm.registedStartDate" type="date" value-format="yyyy/MM/dd" placeholder="请择开始时间" ref="start_date">
             </el-date-picker>
             &nbsp;&nbsp;
-            <el-date-picker v-model="clueAForm.registerEndDate" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
+            <el-date-picker v-model="clueAForm.registedEndDate" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
             </el-date-picker>
         </el-form-item>
         <el-form-item label="修改时间">
-            <el-date-picker v-model="clueAForm.updateStartDate" type="date" value-format="yyyy/MM/dd" placeholder="选择开始时间" ref="start_date">
+            <el-date-picker v-model="clueAForm.updatedStartDate" type="date" value-format="yyyy/MM/dd" placeholder="选择开始时间" ref="start_date">
             </el-date-picker>
             &nbsp;&nbsp;
-            <el-date-picker v-model="clueAForm.updateEndDate" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
+            <el-date-picker v-model="clueAForm.updatedEndDate" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
             </el-date-picker>
         </el-form-item>
 

@@ -36,7 +36,7 @@
                 this.load();
             },
             load(){//  discard： Z公海'是'
-                fetcher.list(Object.assign(this.form,{discard:'否',poolId:'B',pageNum:this.meta.current_page}),(response)=>{
+                fetcher.list(Object.assign(this.form,{cluePoolId:'B',pageNum:this.meta.current_page}),(response)=>{
                     if(response.data.code === 100000){
                         let ret = response.data.data;
                         this.clueAData = ret.records;
