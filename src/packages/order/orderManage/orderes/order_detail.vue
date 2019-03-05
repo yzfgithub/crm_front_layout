@@ -14,25 +14,25 @@
                     </div>
                     <table class="table">
                         <tr>
-                            <td>学生姓名</td><td>yzf</td>
+                            <td>学生姓名</td><td>{{dataObj.student.data.name}}</td>
                         </tr>
                         <tr>
-                            <td>学生手机</td><td>yzf</td>
+                            <td>学生手机</td><td>{{dataObj.student.data.mobile}}</td>
                         </tr>
                         <tr>
-                            <td>销售</td><td>yzf</td>
+                            <td>销售</td><td>{{dataObj.admin_member.data.name}}</td>
                         </tr>
                         <tr>
-                            <td>产品名称</td><td>yzf</td>
+                            <td>产品名称</td><td>{{dataObj.product.data.name}}</td>
                         </tr>
                         <tr>
-                            <td>订单金额(单位元)</td><td>yzf</td>
+                            <td>订单金额(单位元)</td><td>{{dataObj.total-dataObj.discount}}</td>
                         </tr>
                         <tr>
-                            <td>折扣金额(单位元)</td><td>yzf</td>
+                            <td>折扣金额(单位元)</td><td>{{dataObj.discount}}</td>
                         </tr>
                         <tr>
-                            <td>状态</td><td>yzf</td>
+                            <td>状态</td><td>{{fmt_pay_status(dataObj.status)}}</td>
                         </tr>
                     </table>
                 </el-card>
@@ -59,11 +59,13 @@
     import cash_pay_logs from './cash_pay_logs'
     import outline_pay from './outline_pay'
 
+    import formater from '@/components/orderManage/formater'
+
     import fetcher from '@/fetchers/order/order'
     export default {
         data(){
             return {
-
+                dataObj:{}
             }
         },
         components:{
@@ -73,18 +75,24 @@
             closeDetail(){
                 history.back();
             },
+            fmt_pay_status(val){
 
-            // load(){
-            //     console.log(this.$route)
-            //     fetcher.details(this.$route.params.id,(response)=>{
-            //         this.dataObj = response.data.data;
-            //         console.log(this.dataObj)
-            //
-            //     })
-            // }
+                if(val){
+                    return formater.fmt_pay_status(val);
+                }else{
+                    return ''
+                }
+
+            },
+
+            load(){
+                fetcher.order_details({orderId:this.$route.params.id},(response)=>{
+                    this.dataObj = response.data.data;
+                })
+            }
         },
         mounted(){
-            // this.load()
+            this.load()
         }
     }
 </script>
@@ -114,19 +122,20 @@
         margin:0 20px;
     }
     .table{
-        width: 100%;
+        /*width: 100%;*/
         max-width: 100%;
         margin-bottom: 1rem;
         background-color: transparent;
-        border-collapse: collapse
+        border-collapse: collapse;
         /*display: table;*/
         /*border-collapse: separate;*/
         /*border-spacing: 2px;*/
         /*border-color: grey*/
+        width: 500px !important;
     }
     .table tr td{
-        border-top: 1px solid #dee2e6;
-        border-bottom: 1px solid #dee2e6;
+        /*border-top: 1px solid #dee2e6;*/
+        /*border-bottom: 1px solid #dee2e6;*/
         height: 34px;
     }
 </style>

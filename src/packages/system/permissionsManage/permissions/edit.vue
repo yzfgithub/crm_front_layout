@@ -7,16 +7,14 @@
                 <i class="el-icon-circle-close"></i>
             </div>
 
-            <!--<div class="distributor_box">-->
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
-                    <span>新建团队</span>
+                    <span>编辑权限</span>
                 </div>
 
-                <myForm :employeeForm = 'employeeForm' @onSubmit="onSubmit"></myForm>
+                <myForm :dataObj = 'dataObj' @onSubmit="onSubmit"></myForm>
 
             </el-card>
-            <!--</div>-->
 
         </div>
 
@@ -25,12 +23,12 @@
 <script type="text/ecmascript-6">
 
     import myForm from '@/components/permissionsManage/edit_form'
-    import fetcher from '@/fetchers/order/order'
+    import fetcher from '@/fetchers/system/permission'
     export default {
         data(){
             return {
 
-                employeeForm:{}
+                dataObj:{}
             }
         },
         components:{
@@ -41,20 +39,27 @@
                 history.back();
             },
             onSubmit(){
-                console.log('submit')
+                fetcher.updatePermissionById(this.dataObj,(response)=>{
+                    if(response.data.code==100000){
+                        this.$message.success('权限更新成功')
+                        history.back();
+
+                    }else{
+                        this.$message.error('权限名重复')
+                    }
+                })
             },
 
-            // load(){
+            load(){
             //     console.log(this.$route)
-            //     fetcher.details(this.$route.params.id,(response)=>{
-            //         this.dataObj = response.data.data;
-            //         console.log(this.dataObj)
-            //
-            //     })
-            // }
+                fetcher.getPermissionById({id:this.$route.params.id},(response)=>{
+                    this.dataObj = response.data.data;
+
+                })
+            }
         },
         mounted(){
-            // this.load()
+            this.load()
         }
     }
 </script>

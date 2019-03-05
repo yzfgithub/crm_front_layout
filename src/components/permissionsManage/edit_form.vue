@@ -1,10 +1,10 @@
 <template>
-    <el-form ref="form" :model="employeeForm" label-width="120px">
-        <el-form-item label="权限名称">
-            <el-input style="width: 200px;" v-model="employeeForm.name"></el-input>
+    <el-form ref="form" :model="dataObj" label-width="120px" :rules="rules" >
+        <el-form-item label="权限名称" prop="permissionName">
+            <el-input style="width: 200px;" v-model="dataObj.permissionName"></el-input>
         </el-form-item>
-        <el-form-item label="权限显示名">
-            <el-input style="width: 200px;" v-model="employeeForm.name"></el-input>
+        <el-form-item label="权限显示名" prop="permissionDesc">
+            <el-input style="width: 200px;" v-model="dataObj.permissionDesc"></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit">提交</el-button>
@@ -15,20 +15,32 @@
 <script type="text/ecmascript-6">
     export default {
         props:{
-            employeeForm:{
+            dataObj:{
                 type:Object,
                 require:true,
             }
         },
         data(){
             return{
-                checkedCities1: ['上海', '北京'],
-                cities: ['上海', '北京', '广州', '深圳'],
+                rules:{
+                    permissionName:[
+                        { required: true, message: '请输入权限名称', trigger: 'blur' },
+                    ],
+                    permissionDesc:[
+                        { required: true, message: '请输入权限显示名', trigger: 'blur' },
+                    ]
+                }
             }
         },
         methods:{
             onSubmit(){
-                this.$emit('onSubmit')
+                this.$refs['form'].validate((valid) => {
+                    if (valid) {
+                        this.$emit('onSubmit')
+                    } else {
+                        return false;
+                    }
+                });
             }
         }
     }

@@ -2,7 +2,7 @@
     <div>
         <div class="top">
             <div class="title">订单列表</div>
-            <query class="form" :orderForm = 'form'></query>
+            <query class="form" :orderForm = 'form' @onSubmit="load"></query>
         </div>
         <div class="bottom">
             <clueAForm :orderList="orderList" :meta="meta"></clueAForm>
@@ -22,7 +22,7 @@
                     current_page: 1,
                     total: 0,
                 },
-                orderList:[{name:'yzf'},{name:'ysd'},{name:'ysd'},{name:'ysd'}]
+                orderList:[]
             }
         },
         components:{
@@ -31,17 +31,16 @@
         methods:{
             load(){
                 fetcher.list(Object.assign(this.form,{pageNum:this.meta.current_page}),(response)=>{
-                    console.log(response.data)
                     this.orderList = response.data.data;
                     this.meta={
-                        current_page:response.data.data.current_page,
-                        total: response.data.data.total
+                        current_page:response.data.meta.pagination.current_page,
+                        total: response.data.meta.pagination.total_pages
                     }
                 })
             },
         },
         mounted(){
-            // this.load();
+            this.load();
         }
 
     }

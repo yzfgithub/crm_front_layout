@@ -3,25 +3,22 @@
         <div class="f_table">
             <el-table
                     ref="multipleTable"
-                    :data="clueAData"
+                    :data="dataList"
                     tooltip-effect="dark"
                     style="width: 100%;"
                     :header-cell-style="tableHeaderColor">
                 <el-table-column
-                        prop="name"
+                        prop="roleName"
                         label="名称"
                 >
-                    <template slot-scope="scope">
-                        <span @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
-                    </template>
                 </el-table-column>
                 <el-table-column
-                        prop="mobile"
+                        prop="showName"
                         label="显示名"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="province"
+                        prop="descInfo"
                         label="描述"
                 >
                 </el-table-column>
@@ -38,7 +35,7 @@
 
             </el-table>
 
-            <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-size="20" layout="total, prev, pager, next, jumper" :total="400">
+            <el-pagination class="page" @current-change="handleCurrentChange" :current-page="meta.current_page" :page-size="20" layout="total, prev, pager, next, jumper" :total="meta.total">
             </el-pagination>
         </div>
 
@@ -47,8 +44,12 @@
 <script type="text/ecmascript-6">
     export default {
         props:{
-            clueAData:{
+            dataList:{
                 type:Array,
+                require:true
+            },
+            meta:{
+                type:Object,
                 require:true
             }
         },
@@ -74,9 +75,6 @@
             },
 
             //fenye
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
             },

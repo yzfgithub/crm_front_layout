@@ -7,7 +7,6 @@
                 <i class="el-icon-circle-close"></i>
             </div>
 
-            <!--<div class="distributor_box">-->
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
                     <span>新建角色</span>
@@ -16,7 +15,6 @@
                 <myForm :employeeForm = 'employeeForm' @onSubmit="onSubmit"></myForm>
 
             </el-card>
-            <!--</div>-->
 
         </div>
 
@@ -25,7 +23,7 @@
 <script type="text/ecmascript-6">
 
 import myForm from '@/components/rolesManage/edit_form'
-    import fetcher from '@/fetchers/order/order'
+    import fetcher from '@/fetchers/system/permission'
     export default {
         data(){
             return {
@@ -44,17 +42,16 @@ import myForm from '@/components/rolesManage/edit_form'
               console.log('submit')
             },
 
-            // load(){
-            //     console.log(this.$route)
-            //     fetcher.details(this.$route.params.id,(response)=>{
-            //         this.dataObj = response.data.data;
-            //         console.log(this.dataObj)
-            //
-            //     })
-            // }
+            load(){
+                fetcher.create_permission(this.$route.params.id,(response)=>{
+                    this.dataObj = response.data.data;
+                    console.log(this.dataObj)
+
+                })
+            }
         },
         mounted(){
-            // this.load()
+            this.load()
         }
     }
 </script>

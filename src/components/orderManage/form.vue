@@ -8,31 +8,30 @@
                     style="width: 100%;"
                     :header-cell-style="tableHeaderColor">
                 <el-table-column
-                        prop="name"
+                        prop="student.data.name"
                         label="学生"
                 >
                     <template slot-scope="scope">
-                        <span @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
+                        <span @click="pathTo(scope.row.id)">{{scope.row.student.data.name}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="mobile"
+                        prop="account.data.mobile"
                         label="手机号"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="province"
+                        prop="product.data.name"
                         label="产品名称"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="province"
+                        prop="total"
                         label="订单总金额"
                 >
-                    <img src="" alt="">
                 </el-table-column>
                 <el-table-column
-                        prop="created_at"
+                        prop="discount"
                         label="折扣金额"
                 >
                 </el-table-column>
@@ -40,34 +39,41 @@
                         prop="updated_for"
                         label="订单金额"
                 >
+                    <template slot-scope="scope">
+                        {{scope.row.total-scope.row.discount}}
+                    </template>
                 </el-table-column>
                 <el-table-column
-                        prop="state"
+                        prop="created_at"
                         label="创建时间"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="state"
+                        prop="paid_at"
                         label="支付时间"
                 >
                 </el-table-column>
+                <!---->
                 <el-table-column
-                        prop="delay"
+                        prop="pay_type"
                         label="支付方式"
+                        :formatter="fmt_pay_type"
                 >
                 </el-table-column>
+                <!---->
                 <el-table-column
-                        prop="rollback"
+                        prop="status"
                         label="订单状态"
+                        :formatter="fmt_pay_status"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="rollback"
+                        prop="admin_member.data.name"
                         label="CC"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="rollback"
+                        prop="account.data.name"
                         label="下单人"
                 >
                 </el-table-column>
@@ -151,6 +157,13 @@
             }
         },
         methods:{
+            fmt_pay_type(row,column,value){
+                return formater.fmt_pay_type(value)
+            },
+            fmt_pay_status(row,column,value){
+                return formater.fmt_pay_status(value)
+            },
+
             toOrderDetail(id){
                 this.$router.push({path:`/order/detail/${id}`});
             },

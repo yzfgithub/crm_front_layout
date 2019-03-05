@@ -3,20 +3,17 @@
         <div class="f_table">
             <el-table
                     ref="multipleTable"
-                    :data="clueAData"
+                    :data="dataList"
                     tooltip-effect="dark"
                     style="width: 100%;"
                     :header-cell-style="tableHeaderColor">
                 <el-table-column
-                        prop="name"
+                        prop="permissionName"
                         label="名称"
                 >
-                    <template slot-scope="scope">
-                        <span @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
-                    </template>
                 </el-table-column>
                 <el-table-column
-                        prop="mobile"
+                        prop="permissionDesc"
                         label="显示名"
                 >
                 </el-table-column>
@@ -27,30 +24,36 @@
                     <template slot-scope="scope">
                         <span class="light-blue" @click="showEmployee(scope.row.id)">查看</span>
                         <span class="light-blue" @click="editEmployee(scope.row.id)">编辑</span>
-                        <span class="light-origin" @click="editEmployee(scope.row.id)">删除</span>
+                        <span class="light-origin" @click="deleteEmployee(scope.row.id)">删除</span>
                     </template>
                 </el-table-column>
 
             </el-table>
 
-            <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-size="20" layout="total, prev, pager, next, jumper" :total="400">
+            <el-pagination class="page" @current-change="handleCurrentChange" :current-page="meta.current_page" :page-size="20" layout="total, prev, pager, next, jumper" :total="meta.total">
             </el-pagination>
         </div>
 
     </div>
 </template>
 <script type="text/ecmascript-6">
+    import fetcher from '@/fetchers/system/permission'
+
     export default {
         props:{
-            clueAData:{
+            dataList:{
                 type:Array,
+                require:true
+            },
+            meta:{
+                type:Object,
                 require:true
             }
         },
         data(){
             return{
                 multipleSelection: [],
-                currentPage4: 4
+                currentPage4: 4,
             }
         },
         methods:{
@@ -59,6 +62,30 @@
             },
             editEmployee(id){
                 this.$router.push({path:'/system/permissions/edit/'+id})
+            },
+            deleteEmployee(id){
+                this.$confirm('确认删除该权限?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    fetcher.detelePermissionById({id:id},(response)=>{
+                        if(response.data.code==100000){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                            this.$emit('load')
+                        }
+                    })
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+
             },
 
             tableHeaderColor(){
@@ -69,11 +96,8 @@
             },
 
             //fenye
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                this.$emit('load')
             },
             pathTo(id){
                 this.$router.push({path:`/account/clue_detail/${id}`});

@@ -7,16 +7,14 @@
                 <i class="el-icon-circle-close"></i>
             </div>
 
-            <!--<div class="distributor_box">-->
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
-                    <span>员工详情</span>
+                    <span>权限详情</span>
                 </div>
 
-                <employee :employeeForm = 'employeeForm'></employee>
+                <permission :dataObj = 'dataObj'></permission>
 
             </el-card>
-            <!--</div>-->
 
         </div>
 
@@ -24,36 +22,32 @@
 </template>
 <script type="text/ecmascript-6">
 
-    import employee from '@/components/permissionsManage/permissions'
+    import permission from '@/components/permissionsManage/permissions'
+    import fetcher from '@/fetchers/system/permission'
     export default {
         data(){
             return {
 
-                employeeForm:{}
+                dataObj:{}
             }
         },
         components:{
-            employee
+            permission
         },
         methods:{
             closeDetail(){
                 history.back();
             },
-            onSubmit(){
-                console.log('submit')
-            },
 
-            // load(){
-            //     console.log(this.$route)
-            //     fetcher.details(this.$route.params.id,(response)=>{
-            //         this.dataObj = response.data.data;
-            //         console.log(this.dataObj)
-            //
-            //     })
-            // }
+            load(){
+                fetcher.getPermissionById({id:this.$route.params.id},(response)=>{
+                    this.dataObj = response.data.data;
+
+                })
+            }
         },
         mounted(){
-            // this.load()
+            this.load()
         }
     }
 </script>

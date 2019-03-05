@@ -50,8 +50,8 @@
         <el-dialog title="排班编辑" :visible.sync="defaultFormVisiable">
             <el-form :model="form" label-position="left" class="form-class" :inline="true">
 
-                <el-form-item label="库容编辑" :label-width="formLabelWidth">
-                    <el-input-number v-model="form.store_num" @change="handleChange" label="库容配额"></el-input-number>
+                <el-form-item label="时间表" :label-width="formLabelWidth">
+                    <!--<timetable_table :check_teacher_form="check_teacher_form"></timetable_table>-->
                 </el-form-item>
 
 
@@ -65,6 +65,7 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
+    // import timetable_table from './timetable_table'
     export default {
         props:{
             clueAData:{
@@ -84,6 +85,7 @@
                 },
             }
         },
+        // components:{timetable_table},
         methods:{
             handleChange(){console.log('aaa')},
             onSubmit(){

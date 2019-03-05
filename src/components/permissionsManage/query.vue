@@ -1,7 +1,7 @@
 <template>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true" :model="queryForm" class="demo-form-inline">
         <el-form-item label="权限名称">
-            <el-input v-model="clueAForm.name"></el-input>
+            <el-input v-model="queryForm.permissionName"></el-input>
         </el-form-item>
 
         <el-form-item>
@@ -16,22 +16,19 @@
 <script>
     export default {
         props:{
-            clueAForm:{
+            queryForm:{
                 type:Object,
                 require:true,
             }
         },
         data() {
             return {
-                formInline: {
-                    user: '',
-                    region: ''
-                }
             }
         },
         methods: {
             onSubmit() {
                 // console.log('submit!');
+                this.$emit('onSubmit')
             },
             createEmployee(){
                 this.$router.push({path:'/system/permissions/new'})
