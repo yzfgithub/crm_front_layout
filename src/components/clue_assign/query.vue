@@ -1,14 +1,14 @@
 <template>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true" :model="queryForm" class="demo-form-inline">
 
         <el-form-item label="线索标签">
-            <el-select v-model="formInline.region" placeholder="请选择线索标签">
+            <el-select v-model="queryForm.clueTag" placeholder="请选择线索标签">
                 <el-option label="全部" value="" key=""></el-option>
                 <el-option v-for="(val,key) in clue_labels" :label="val" :key="key" :value="val"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="生效状态">
-            <el-select v-model="formInline.region" placeholder="请选择生效状态">
+            <el-select v-model="queryForm.ruleStatus" placeholder="请选择生效状态">
                 <el-option label="全部" value="" key=""></el-option>
                 <el-option v-for="(val,key) in effective_status" :label="val" :key="key" :value="val"></el-option>
             </el-select>
@@ -26,7 +26,7 @@
     import meta from '@/utils/meta'
     export default {
         props:{
-            clueAForm:{
+            queryForm:{
                 type:Object,
                 require:true,
             }
@@ -35,9 +35,6 @@
             return {
                 clue_labels:meta.clue_labels,
                 effective_status:meta.effective_status,
-                formInline: {
-
-                }
             }
         },
         methods: {

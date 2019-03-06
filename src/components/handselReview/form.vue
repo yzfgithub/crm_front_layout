@@ -81,7 +81,7 @@
 
             </el-table>
 
-            <el-pagination class="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-size="20" layout="total, prev, pager, next, jumper" :total="400">
+            <el-pagination class="page" @current-change="handleCurrentChange" :current-page="currentPage4" :page-size="20" layout="total, prev, pager, next, jumper" :total="400">
             </el-pagination>
         </div>
 
@@ -143,9 +143,6 @@
             },
 
             //fenye
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
             },

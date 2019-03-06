@@ -1,11 +1,11 @@
 <template>
         <div class="second_box">
-            <myTab v-for="(item,key) in data" class="second_tab" :title="item.ccInfoName+'-'+item.teamInfoName+'-'+item.parentName+'-'+item.grandparentName+'-'+item.mode" :key="key">
+            <myTab v-for="(item,key) in data" class="second_tab" :title="item.user+'-'+item.orgName+'-'+item.mode" :key="key">
 
                 <audio v-if="item.mode === '电话'" :src="item.voiceUrl" controls="controls">
                 </audio>
                 <div>
-                    <span v-if="item.mode === '电话'" class="key">外呼人：</span><span class="val">{{item.ccInfoName}}</span> &nbsp;&nbsp;&nbsp;
+                    <span v-if="item.mode === '电话'" class="key">外呼人：</span><span class="val">{{item.user}}</span> &nbsp;&nbsp;&nbsp;
                     <span v-if="item.mode === '电话'" class="key">开始时间：</span><span class="val">{{item.startTime}}</span>&nbsp;&nbsp;&nbsp;
                     <span v-if="item.mode === '电话'" class="key">结束时间：</span><span class="val">{{item.endTime}}</span>
                 </div>
@@ -89,16 +89,6 @@
                 console.log('提交修改')
                 this.editVisible=false;
             },
-            //fenye
-            // handleSizeChange(val) {
-            //     console.log(`每页 ${val} 条`);
-            // },
-            // handleCurrentChange(val) {
-            //     console.log(`当前页: ${val}`);
-            // },
-            // pathTo(id){
-            //     this.$router.push({path:`/account/clue_detail/${id}`});
-            // }
             load(){
                 fetcher.getCommunicationRecord({clueSubjectId:this.$route.params.id},(response)=>{
                     if(response.data.code==100000){

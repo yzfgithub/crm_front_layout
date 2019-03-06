@@ -2,10 +2,10 @@
     <div>
         <div class="top">
             <div class="title">线索分配</div>
-            <query class="form" :clueAForm = 'form' @openEdit="openEdit"></query>
+            <query class="form" :queryForm = 'form' @openEdit="openEdit"  @onSubmit="load"></query>
         </div>
         <div class="bottom">
-            <clueAForm :clueAData="clueAData" ref="clueAssign"></clueAForm>
+            <clueAForm :dataList="dataList" :meta="meta" ref="clueAssign"></clueAForm>
         </div>
     </div>
 
@@ -19,7 +19,11 @@
                 form:{
 
                 },
-                clueAData:[
+                meta:{
+                    current_page:1,
+                    total:1,
+                },
+                dataList:[
                     {id:'11111',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
                     {id:'22222',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
                     {id:'33333',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
@@ -40,8 +44,18 @@
         methods:{
             openEdit(){
                 this.$refs.clueAssign.openEdit();
+            },
+            load(){
+                fetcher.assign_list(Object.assign(this.form,{pageNum:this.meta.current_page}),(response)=>{
+                    if(response.data.code==100000){
+                        this.dataList=response.data.data;
+                    }
+                })
             }
-        }
+        },
+        mounted(){
+            this.load()
+        },
 
     }
 </script>

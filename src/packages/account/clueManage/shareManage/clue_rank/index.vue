@@ -2,10 +2,10 @@
     <div>
         <div class="top">
             <div class="title">排名搜索</div>
-            <query class="form" :clueAForm = 'form'></query>
+            <query class="form" :queryForm = 'form' :channelArray="channelArray" @clearThird="clearThird" @resetPId="resetPId" @onSubmit="load"></query>
         </div>
         <div class="bottom">
-            <clueAForm :clueAData="clueAData"></clueAForm>
+            <clueAForm :dataList="dataList" :meta="meta"></clueAForm>
         </div>
     </div>
 
@@ -13,14 +13,19 @@
 <script type="text/ecmascript-6">
     import query from '@/components/clue_rank/query'
     import clueAForm from '@/components/clue_rank/form'
-    import axios from 'axios'
+    import fetcher from '@/fetchers/account/clueManage/shareManage'
     export default {
         data(){
             return{
                 form:{
 
                 },
-                clueAData:[
+                meta:{
+                    current_page:1,
+                    total:1,
+                },
+                channelArray:{},
+                dataList:[
                     {id:'11111',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
                     {id:'22222',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
                     {id:'33333',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
@@ -38,10 +43,29 @@
         components:{
             query,clueAForm
         },
+        methods:{
+            clearThird(){
+                this.form.id='';
+            },
+            resetPId(val){
+                this.form.grandparentId = val;
+            },
+            load(){
+                fetcher.rank_list(Object.assign(this.form,{pageNum:this.meta.current_page}),(response)=>{
+                    if(response.data.code==100000){
+                        this.dataList=response.data.data;
+                        console.log(this.dataList)
+                    }
+                })
+            }
+        },
         mounted(){
-            axios.get('http://192.168.2.59:8082/crm-order/orderList',{params:{pageNum:1}}).then((response)=>{
-                console.log(response)
+            fetcher.rank_channel_list({},(response)=>{
+                if(response.data.code==100000){
+                    this.channelArray = response.data.data;
+                }
             })
+           this.load()
         },
 
     }
