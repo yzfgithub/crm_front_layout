@@ -7,16 +7,14 @@
                 <i class="el-icon-circle-close"></i>
             </div>
 
-            <!--<div class="distributor_box">-->
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
-                    <span>新建角色</span>
+                    <span>编辑角色</span>
                 </div>
 
-                <myForm :employeeForm = 'employeeForm' @onSubmit="onSubmit"></myForm>
+                <myForm :employeeForm = 'employeeForm' :permission_list="permission_list" @onSubmit="onSubmit"></myForm>
 
             </el-card>
-            <!--</div>-->
 
         </div>
 
@@ -25,12 +23,16 @@
 <script type="text/ecmascript-6">
 
     import myForm from '@/components/rolesManage/edit_form'
-    import fetcher from '@/fetchers/order/order'
+    import permission_fetcher from '@/fetchers/system/permission'
+    import fetcher from '@/fetchers/system/role'
     export default {
         data(){
             return {
 
-                employeeForm:{}
+                employeeForm:{
+                    permissions:[{id:7587,permissionName:"公海-A类公海-查看"}],
+                },
+                permission_list:[],
             }
         },
         components:{
@@ -41,20 +43,44 @@
                 history.back();
             },
             onSubmit(){
-                console.log('submit')
+                let arr=[];
+                for(let i in this.employeeForm.permissions){
+                    let obj = this.permission_list.filter(item=>item.id==this.employeeForm.permissions[i])[0];
+                    arr.push(obj)
+                }
+                let obj = Object.assign(this.employeeForm,{
+                    permissions: arr
+                })
+                fetcher.updateRoles(obj,(response)=>{
+                    if(response.data.code==100000){
+                        this.$message.success('角色编辑成功')
+                        history.back();
+
+                    }else{
+                        this.$message.error('角色名重复')
+                    }
+                })
             },
 
-            // load(){
-            //     console.log(this.$route)
-            //     fetcher.details(this.$route.params.id,(response)=>{
-            //         this.dataObj = response.data.data;
-            //         console.log(this.dataObj)
-            //
-            //     })
-            // }
+            load(){
+                //根据id获得obj
+                permission_fetcher.getAllPermission({},(response)=>{
+                    this.permission_list = response.data.data.map(item=>{
+                        return {id:item.id,permissionName:item.permissionName}
+                    });
+
+                })
+                fetcher.getRoleInfoById({roleId:this.$route.params.id},(response)=>{
+                    this.employeeForm = Object.assign(response.data.data,{
+                        permissions:response.data.data.permissions.map(item=>{return item.id})
+                    })
+                    console.log(this.employeeForm)
+
+                })
+            }
         },
         mounted(){
-            // this.load()
+            this.load()
         }
     }
 </script>

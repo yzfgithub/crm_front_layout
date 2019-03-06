@@ -6,4 +6,9 @@ export default {
 
 
     oss_host: 'http://d.oss.kuaipeilian.com',
+
+
+    oss_endpoint: 'oss-cn-shanghai.aliyuncs.com',
+    oss_region: 'oss-cn-shanghai',
+    oss_bucket: 'dev-kpl'
 }

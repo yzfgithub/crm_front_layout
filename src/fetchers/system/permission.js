@@ -47,6 +47,16 @@ export default {
             .catch((err) => {
                 network_util.fail(err,fb);
             })
+    },
+
+    getAllPermission(params,cb,fb){
+        axios.get(config.sysUrl+'/crm-system/permission/getAllPermissions',{params:params})
+            .then((response) => {
+                network_util.success(response, cb);
+            })
+            .catch((err) => {
+                network_util.fail(err,fb);
+            })
     }
 
 };

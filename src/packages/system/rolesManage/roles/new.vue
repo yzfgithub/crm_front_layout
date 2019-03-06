@@ -12,7 +12,7 @@
                     <span>新建角色</span>
                 </div>
 
-                <myForm :employeeForm = 'employeeForm' @onSubmit="onSubmit"></myForm>
+                <myForm :employeeForm = 'employeeForm' :permission_list="permission_list" @onSubmit="onSubmit"></myForm>
 
             </el-card>
 
@@ -23,12 +23,16 @@
 <script type="text/ecmascript-6">
 
 import myForm from '@/components/rolesManage/edit_form'
-    import fetcher from '@/fetchers/system/permission'
+import permission_fetcher from '@/fetchers/system/permission'
+import fetcher from '@/fetchers/system/role'
     export default {
         data(){
             return {
 
-                employeeForm:{}
+                employeeForm:{
+                    permissions:[]
+                },
+                permission_list:[]
             }
         },
         components:{
@@ -39,13 +43,34 @@ import myForm from '@/components/rolesManage/edit_form'
                 history.back();
             },
             onSubmit(){
-              console.log('submit')
+                //根据id获得obj
+                let arr=[];
+                for(let i in this.employeeForm.permissions){
+                    let obj = this.permission_list.filter(item=>item.id==this.employeeForm.permissions[i])[0];
+                    arr.push(obj)
+                }
+                let obj = Object.assign(this.employeeForm,{
+                    permissions: arr
+                })
+                fetcher.createRoles(obj,(response)=>{
+                    if(response.data.code==100000){
+                        this.$message.success('角色添加成功')
+                        history.back();
+
+                    }else{
+                        this.$message.error('角色创建重复')
+                    }
+                    // history.back();
+                    // console.log(response)
+                })
+
             },
 
             load(){
-                fetcher.create_permission(this.$route.params.id,(response)=>{
-                    this.dataObj = response.data.data;
-                    console.log(this.dataObj)
+                permission_fetcher.getAllPermission({},(response)=>{
+                    this.permission_list = response.data.data.map(item=>{
+                        return {id:item.id,permissionName:item.permissionName}
+                    });
 
                 })
             }

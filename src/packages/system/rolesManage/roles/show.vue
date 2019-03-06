@@ -7,16 +7,14 @@
                 <i class="el-icon-circle-close"></i>
             </div>
 
-            <!--<div class="distributor_box">-->
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
                     <span>角色详情</span>
                 </div>
 
-                <employee :employeeForm = 'employeeForm'></employee>
+                <employee :dataObj = 'dataObj'></employee>
 
             </el-card>
-            <!--</div>-->
 
         </div>
 
@@ -25,12 +23,13 @@
 <script type="text/ecmascript-6">
 
     import employee from '@/components/rolesManage/roles'
-    import fetcher from '@/fetchers/order/order'
+    import fetcher from '@/fetchers/system/role'
     export default {
         data(){
             return {
 
-                employeeForm:{}
+                dataObj:{},
+                permission_list:[]
             }
         },
         components:{
@@ -40,21 +39,17 @@
             closeDetail(){
                 history.back();
             },
-            onSubmit(){
-                console.log('submit')
-            },
 
-            // load(){
-            //     console.log(this.$route)
-            //     fetcher.details(this.$route.params.id,(response)=>{
-            //         this.dataObj = response.data.data;
-            //         console.log(this.dataObj)
-            //
-            //     })
-            // }
+            load(){
+                fetcher.getRoleInfoById({roleId:this.$route.params.id},(response)=>{
+                    this.dataObj = response.data.data;
+                    console.log(this.dataObj)
+
+                })
+            }
         },
         mounted(){
-            // this.load()
+            this.load()
         }
     }
 </script>

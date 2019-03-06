@@ -12,7 +12,7 @@
                         label="学生"
                 >
                     <template slot-scope="scope">
-                        <span @click="pathTo(scope.row.id)">{{scope.row.student.data.name}}</span>
+                        <span class="light-blue" @click="pathTo(scope.row.id)">{{scope.row.student.data.name}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -82,9 +82,10 @@
                         label="操作"
                 >
                     <template slot-scope="scope">
-                        <a class="light-blue" href="javascript:void(0);" @click="toOrderDetail(scope.row.id)"> 查看 </a>
-                        <a class="hard-yellow" href="javascript:void(0);" @click="cancelOrder(scope.row.id)"> 取消 </a>
-                        <a class="light-blue" href="javascript:void(0);" @click="uploadImg(scope.row.id)"> 上传凭证 </a>
+                        <span class="light-blue" @click="toOrderDetail(scope.row.id)"> 查看 </span>
+                        <span class="light-origin" @click="cancelOrder(scope.row.id)"> 取消 </span>
+                        <br>
+                        <span class="light-blue" @click="uploadImg(scope.row.id)"> 上传凭证 </span>
                     </template>
                 </el-table-column>
 
@@ -113,11 +114,11 @@
 
         <el-dialog title="上传凭证" :visible.sync="uploadDialog">
             <el-form label-position="left" class="form-class">
-                <el-form-item label="" prop="cover">
-                    <el-upload ref="upload" action="" :http-request="submitUpload">
+                <el-form-item label="">
+                    <el-upload ref="upload" action="" :http-request="submitUpload" accept="image/*" :headers="{'Content-Type':'multipart/form-data'}">
                         <el-button slot="trigger" size="small" type="primary">选择文件</el-button>
                     </el-upload>
-                    <el-input v-model="cover" :disabled="true" ref="xml"></el-input>
+                    <el-input style="margin-top:10px;" v-model="coverUrl" :disabled="true" ref="xml"></el-input>
                 </el-form-item>
 
             </el-form>
@@ -131,6 +132,9 @@
 </template>
 <script type="text/ecmascript-6">
     import meta from '@/utils/meta'
+    import formater from './formater'
+    import fetcher from '@/fetchers/order/order'
+    import config from '@/config'
     export default {
         props:{
             orderList:{
@@ -150,10 +154,13 @@
 
                 cancel_order_reason:meta.cancel_order_reason,
                 cancel_reason:'',
-                cover:'',//UPload
+                coverUrl:'',//UPload
                 cancelOrderDialog:false,
                 uploadDialog:false,
                 formLabelWidth: '80px',
+
+                orderId:'',
+
             }
         },
         methods:{
@@ -177,41 +184,23 @@
 
 
             uploadImg(id){
+                this.orderId=id;
                 this.uploadDialog=true;
             },
             submit(){
-                console.log('img upload')
+                fetcher.submitUpload({id:this.orderId,filePath:this.coverUrl},(response)=>{
+                    this.$emit('凭证上传成功')
+                    this.uploadDialog=false;
+                })
             },
             submitUpload(options){
-            //     axios.get('/api/get_upload_assume_role')
-            //         .then( (response) => {
-            //             let Oss = OSS.Wrapper;
-            //
-            //             var ossClient = new Oss({
-            //                 region: config.oss_region,
-            //                 accessKeyId: response.data.data.AccessKeyId,
-            //                 accessKeySecret: response.data.data.AccessKeySecret,
-            //                 stsToken: response.data.data.SecurityToken,
-            //                 bucket: config.oss_bucket,
-            //                 endpoint: config.oss_endpoint,
-            //             });
-            //             var contens = options.file.name.split('.')
-            //             var ext = contens[contens.length - 1];
-            //             var filename = 'poster/' + Math.random().toString(36).substr(2) + '.' + ext;
-            //             var ret = ossClient.multipartUpload(filename, options.file, {}).then( (result) => {
-            //                 this.$emit('upload', result.name)
-            //                 // this.poster.filepath = filename
-            //                 // vm.$message({
-            //                 //     type: 'success',
-            //                 //     message: '图片上传成功'
-            //                 // });
-            //             }).catch((err) => {
-            //                 console.log(err)
-            //             })
-            //         })
-            //         .catch((err) => {
-            //             console.error(err);
-            //         })
+                let formData = new FormData()
+                formData.append('file',options.file);
+                fetcher.uploadImg(formData,(response)=>{
+                    if(response.data.code==100000){
+                        this.coverUrl=response.data.data;
+                    }
+                })
             },
 
             tableHeaderColor(){
@@ -250,9 +239,13 @@
         margin: 0 5px;
     }
     .light-blue{
-        color:#1CB5ED;
+        color:#30ABF9;
+        cursor: pointer;
+        margin: 0 5px;
     }
-    .hard-yellow{
+    .light-origin{
         color:#F8542E;
+        cursor: pointer;
+        margin: 0 5px;
     }
 </style>

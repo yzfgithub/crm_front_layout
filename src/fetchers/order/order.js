@@ -21,13 +21,24 @@ export default {
                 network_util.fail(err,fb);
             })
     },
-    cash_pay_logs_list(id,params,cb,fb){
-        axios.get('/api/orders/'+ id +'/cash_pay_logs',{params:params})
-            .then( (response) => {
-                network_util.success(response, cb)
+    uploadImg(params,cb,fb){
+        axios.post(config.mcUrl+'/crm-order/uploadCert', params)
+            .then((response) => {
+                network_util.success(response, cb);
             })
             .catch((err) => {
-                network_util.fail(err, fb)
+                network_util.fail(err,fb);
             })
     },
+    submitUpload(params,cb,fb){
+        axios.get(config.mcUrl+'/crm-order/uploadCallBack', {params:params})
+            .then((response) => {
+                network_util.success(response, cb);
+            })
+            .catch((err) => {
+                network_util.fail(err,fb);
+            })
+    },
+
+
 };
