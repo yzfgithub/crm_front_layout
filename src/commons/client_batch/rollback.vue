@@ -38,7 +38,7 @@
     </el-dialog>
 </template>
 <script type="text/ecmascript-6">
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             visiableBar:{
@@ -48,7 +48,7 @@
         },
         data(){
             return{
-                recover_reason:meta.recover_reason,
+                recover_reason:metaObj.recover_reason,
                 dialogFormVisible:false,
                 formLabelWidth: '80px',
 

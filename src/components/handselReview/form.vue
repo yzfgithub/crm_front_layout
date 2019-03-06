@@ -109,7 +109,7 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             clueAData:{
@@ -119,7 +119,7 @@
         },
         data(){
             return{
-                failed_give_review_reasons:meta.failed_give_review_reasons,
+                failed_give_review_reasons:metaObj.failed_give_review_reasons,
                 failed_give_review_reason:'',
                 multipleSelection: [],
                 currentPage4: 4,

@@ -113,7 +113,7 @@
 </template>
 <script type="text/ecmascript-6">
     import fetcher from '@/fetchers/account/clue/clue'
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             tabName:{
@@ -142,7 +142,7 @@
                 ],
                 currentPage4: 4,
 
-                cancel_order_reason:meta.cancel_order_reason,
+                cancel_order_reason:metaObj.cancel_order_reason,
                 form:{},
                 cover:'',//UPload
                 cancelOrderDialog:false,

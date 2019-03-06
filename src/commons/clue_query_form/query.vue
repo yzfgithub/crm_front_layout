@@ -35,7 +35,7 @@
     </el-form>
 </template>
 <script>
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             clueAForm:{
@@ -49,7 +49,7 @@
         },
         data() {
             return {
-                discard_reason:meta.discard_reason,
+                discard_reason:metaObj.discard_reason,
                 formInline: {
                     user: '',
                     region: ''

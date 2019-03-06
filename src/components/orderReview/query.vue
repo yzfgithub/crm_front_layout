@@ -38,7 +38,7 @@
     </el-form>
 </template>
 <script type="text/ecmascript-6">
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             clueAForm:{
@@ -48,7 +48,7 @@
         },
         data() {
             return {
-                order_status:meta.order_status,
+                order_status:metaObj.order_status,
                 formInline: {
 
                 }

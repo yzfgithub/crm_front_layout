@@ -3,37 +3,39 @@
         <div class="f_table">
             <el-table
                     ref="multipleTable"
-                    :data="clueAData"
+                    :data="dataList"
                     tooltip-effect="dark"
                     style="width: 100%;"
                     :header-cell-style="tableHeaderColor">
                 <el-table-column
-                        prop="name"
+                        prop="clueTag"
                         label="线索标签"
                 >
                 </el-table-column>
+                <!--<el-table-column-->
+                        <!--prop="mobile"-->
+                        <!--label="分配对象"-->
+                <!--&gt;-->
+                <!--</el-table-column>-->
                 <el-table-column
-                        prop="mobile"
-                        label="分配对象"
-                >
-                </el-table-column>
-                <el-table-column
-                        prop="province"
                         label="分配时间"
                 >
+                    <template slot-scope="scope">
+                        {{scope.row.repetition}}{{scope.row.startDistribution}}--{{scope.row.endDistribution}}
+                    </template>
                 </el-table-column>
                 <el-table-column
-                        prop="province"
+                        prop="distributionInterval"
                         label="分配间隔"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="created_at"
+                        prop="distributionNum"
                         label="分配数量／次／人"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="updated_at"
+                        prop="status"
                         label="生效状态"
                 >
                 </el-table-column>
@@ -191,6 +193,7 @@
                 multipleSelection: [],
                 currentPage4: 4,
 
+                editId:'',
                 defaultFormVisiable:false,
                 formLabelWidth: '80px',
                 form:{
@@ -255,10 +258,11 @@
                 this.shareDurationObj.push({startTime:'',endTime:''})
             },
             onSubmit(){
-                console.log('ok')
+                alert('编辑确认')
                 this.defaultFormVisiable=false;
             },
             edit(id){
+                this.editId = id;
                 this.defaultFormVisiable=true
             },
             tableHeaderColor(){

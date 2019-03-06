@@ -8,57 +8,57 @@
                     style="width: 100%;"
                     :header-cell-style="tableHeaderColor">
                 <el-table-column
-                        prop="name"
+                        prop="grandparentName"
                         label="一级渠道"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="mobile"
+                        prop="parentName"
                         label="二级渠道"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="province"
+                        prop="name"
                         label="渠道组"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="province"
+                        prop="tag"
                         label="线索标签"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="created_at"
+                        prop="registerNum"
                         label="注册用户数"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="updated_at"
+                        prop="appointmentNum"
                         label="预约用户数"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="updated_for"
+                        prop="experienceNum"
                         label="体验用户数"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="state"
+                        prop="payNum"
                         label="付费用户数"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="state"
+                        prop="newPaySum"
                         label="新签付费金额"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="delay"
+                        prop="newPayPrice"
                         label="新签课单价"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="rollback"
+                        prop="ranking"
                         label="渠道组排名"
                 >
                 </el-table-column>
@@ -73,7 +73,7 @@
 
             </el-table>
 
-            <el-pagination class="page" @current-change="handleCurrentChange" :current-page="meta.current_page" :page-size="20" layout="total, prev, pager, next, jumper" :total="total">
+            <el-pagination class="page" @current-change="handleCurrentChange" :current-page="meta.current_page" :page-size="20" layout="total, prev, pager, next, jumper" :total="meta.total">
             </el-pagination>
         </div>
 
@@ -184,7 +184,7 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             dataList:{
@@ -198,12 +198,13 @@
         },
         data(){
             return{
-                statistics_duration:meta.statistics_duration,
-                weight_score:meta.weight_score,
+                statistics_duration:metaObj.statistics_duration,
+                weight_score:metaObj.weight_score,
 
                 multipleSelection: [],
                 currentPage4: 4,
 
+                editId:'',
                 defaultFormVisiable:false,
                 formLabelWidth: '80px',
                 form:{
@@ -218,10 +219,11 @@
         },
         methods:{
             onSubmit(){
-                console.log('ok')
+                alert('编辑确认')
                 this.defaultFormVisiable=false;
             },
             edit(id){
+                this.editId = id;
                 this.defaultFormVisiable=true
             },
             tableHeaderColor(){

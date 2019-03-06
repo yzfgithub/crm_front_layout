@@ -118,7 +118,7 @@
 </template>
 <script type="text/ecmascript-6">
     import myTab from '@/commons/myTab/tab'
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     import fetcher from '@/fetchers/account/clue/clue'
     import tool from '@/utils/tool'
     import moment from 'moment'
@@ -131,14 +131,14 @@
         },
         data(){
             return{
-                market_feedback:meta.market_feedback,
-                bussiness_feedback:meta.bussiness_feedback,
-                intentionality:meta.intentionality,
-                sex:meta.sex,
-                learning_time:meta.learning_time,
-                planning_examination:meta.planning_examination,
-                exam_material:meta.exam_material,
-                piano_practice_problem:meta.piano_practice_problem,
+                market_feedback:metaObj.market_feedback,
+                bussiness_feedback:metaObj.bussiness_feedback,
+                intentionality:metaObj.intentionality,
+                sex:metaObj.sex,
+                learning_time:metaObj.learning_time,
+                planning_examination:metaObj.planning_examination,
+                exam_material:metaObj.exam_material,
+                piano_practice_problem:metaObj.piano_practice_problem,
                 details:{
                     clueDetailsVO:{},
                     parentalChildDetailsVO:{}

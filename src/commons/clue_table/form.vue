@@ -200,7 +200,7 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     import tool from '@/utils/tool'
     export default {
         props:{
@@ -219,8 +219,8 @@
         },
         data(){
             return{
-                discard_reason:meta.discard_reason,
-                receive_reason:meta.receive_reason,
+                discard_reason:metaObj.discard_reason,
+                receive_reason:metaObj.receive_reason,
 
                 dialogType:'',
                 title_dailog:'',

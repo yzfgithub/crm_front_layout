@@ -20,7 +20,7 @@
     </el-dialog>
 </template>
 <script type="text/ecmascript-6">
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             visiableBar:{
@@ -30,7 +30,7 @@
         },
         data(){
             return{
-                discard_reason:meta.discard_reason,
+                discard_reason:metaObj.discard_reason,
                 dialogFormVisible:false,
                 formLabelWidth: '80px',
                 discardReason_list:[{name:'YZF',id:2},{name:'YZF',id:2}],

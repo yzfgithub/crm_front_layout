@@ -56,7 +56,7 @@
     </el-form>
 </template>
 <script type="text/ecmascript-6">
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             queryForm:{
@@ -66,8 +66,8 @@
         },
         data() {
             return {
-                klass_type:meta.klass_type,
-                klass_status:meta.klass_status,
+                klass_type:metaObj.klass_type,
+                klass_status:metaObj.klass_status,
                 formInline: {
                     user: '',
                     region: ''

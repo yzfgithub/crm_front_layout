@@ -145,7 +145,7 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             klassList:{
@@ -159,7 +159,7 @@
         },
         data(){
             return{
-                cancel_order_reason:meta.cancel_order_reason,
+                cancel_order_reason:metaObj.cancel_order_reason,
                 multipleSelection: [],
                 currentPage4: 4,
 

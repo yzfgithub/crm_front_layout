@@ -47,7 +47,7 @@
 <script type="text/ecmascript-6">
     import myTab from '@/commons/myTab/tab'
     import fetcher from '@/fetchers/account/clue/clue'
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             tabName:{
@@ -57,8 +57,8 @@
         },
         data(){
             return{
-                communication_style:meta.communication_style,
-                communication_result:meta.communication_result,
+                communication_style:metaObj.communication_style,
+                communication_result:metaObj.communication_result,
                 currentPage4: 4,
                 data:[
                     {aac_file: 'asdf',str1:'aaa',str2:'sss',str3:'ssda',status:'asd',time:'sdfa',remark:'sdf'}

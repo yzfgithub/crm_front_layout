@@ -20,7 +20,7 @@
     </el-dialog>
 </template>
 <script type="text/ecmascript-6">
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             visiableBar:{
@@ -30,7 +30,7 @@
         },
         data(){
             return{
-                give_klass_reasons:meta.give_klass_reasons,
+                give_klass_reasons:metaObj.give_klass_reasons,
                 dialogFormVisible:false,
                 formLabelWidth: '80px',
                 dialog_training:true,

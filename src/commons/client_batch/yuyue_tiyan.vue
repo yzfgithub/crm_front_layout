@@ -51,7 +51,7 @@
     </el-dialog>
 </template>
 <script type="text/ecmascript-6">
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             visiableBar:{
@@ -61,10 +61,10 @@
         },
         data(){
             return{
-                subjects:meta.subjects,
-                sex:meta.sex,
-                good_at_exam:meta.good_at_exam,
-                teacher_style:meta.teacher_style,
+                subjects:metaObj.subjects,
+                sex:metaObj.sex,
+                good_at_exam:metaObj.good_at_exam,
+                teacher_style:mmetaObjeta.teacher_style,
                 exam:[],
 
                 dialogFormVisible:false,

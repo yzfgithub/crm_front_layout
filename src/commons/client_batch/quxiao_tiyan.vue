@@ -21,7 +21,7 @@
     </el-dialog>
 </template>
 <script type="text/ecmascript-6">
-    import meta from '@/utils/meta'
+    import metaObj from '@/utils/meta'
     export default {
         props:{
             visiableBar:{
@@ -31,7 +31,7 @@
         },
         data(){
             return{
-                cancel_experience_klass_reasons:meta.cancel_experience_klass_reasons,
+                cancel_experience_klass_reasons:metaObj.cancel_experience_klass_reasons,
                 dialogFormVisible:false,
                 formLabelWidth: '80px',
 
