@@ -83,9 +83,9 @@
                 >
                     <template slot-scope="scope">
                         <span class="light-blue" @click="toOrderDetail(scope.row.id)"> 查看 </span>
-                        <span class="light-origin" @click="cancelOrder(scope.row.id)"> 取消 </span>
+                        <span v-if="scope.row.status==0" class="light-origin" @click="cancelOrder(scope.row.id)"> 取消 </span>
                         <br>
-                        <span class="light-blue" @click="uploadImg(scope.row.id)"> 上传凭证 </span>
+                        <span v-if="scope.row.status==0" class="light-blue" @click="uploadImg(scope.row.id)"> 上传凭证 </span>
                     </template>
                 </el-table-column>
 
@@ -101,7 +101,7 @@
                     <span>确认取消该订单？取消后用户将无法完成支付</span>
                 </el-form-item>
                 <el-form-item label="取消原因" :label-width="formLabelWidth">
-                    <el-select v-model="cancel_reason" placeholder="请选择取消原因">
+                    <el-select v-model="cancelReason" placeholder="请选择取消原因">
                         <el-option v-for="(val, key) in cancel_order_reason" :label="val" :value="val" :key="key"></el-option>
                     </el-select>
                 </el-form-item>
@@ -153,13 +153,14 @@
                 currentPage4: 4,
 
                 cancel_order_reason:meta.cancel_order_reason,
-                cancel_reason:'',
+                cancelReason:'',
                 coverUrl:'',//UPload
                 cancelOrderDialog:false,
                 uploadDialog:false,
                 formLabelWidth: '80px',
 
                 orderId:'',
+
 
             }
         },
@@ -175,11 +176,18 @@
                 this.$router.push({path:`/order/detail/${id}`});
             },
             cancelOrder(id){
+                this.orderId=id;
                 this.cancelOrderDialog=true;
-                console.log('cancelOrder');
             },
             submitCancelOrder(){
-              console.log('cancel ok')
+                fetcher.cancelOrder({cancelReason:this.cancelReason,orderId:this.orderId},(response)=>{
+                    console.log(response.data)
+                    this.$message.success('取消订单成功')
+                    this.cancelOrderDialog=false;
+                    this.cancelReason = '';
+                    this.$emit('onSubmit')
+
+                })
             },
 
 
@@ -191,6 +199,7 @@
                 fetcher.submitUpload({id:this.orderId,filePath:this.coverUrl},(response)=>{
                     this.$emit('凭证上传成功')
                     this.uploadDialog=false;
+                    this.coverUrl = ''
                 })
             },
             submitUpload(options){
@@ -209,7 +218,7 @@
 
             //fenye
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                this.$emit('onSubmit',val)
             },
             pathTo(id){
                 this.$router.push({path:`/account/clue_detail/${id}`});

@@ -39,6 +39,14 @@ export default {
                 network_util.fail(err,fb);
             })
     },
-
+    cancelOrder(params,cb,fb){
+        axios.get(config.mcUrl+'/crm-order/cancelOrder', {params:params})
+            .then((response) => {
+                network_util.success(response, cb);
+            })
+            .catch((err) => {
+                network_util.fail(err,fb);
+            })
+    }
 
 };

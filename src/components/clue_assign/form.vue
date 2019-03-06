@@ -193,7 +193,6 @@
                 multipleSelection: [],
                 currentPage4: 4,
 
-                editId:'',
                 defaultFormVisiable:false,
                 formLabelWidth: '80px',
                 form:{
@@ -262,7 +261,6 @@
                 this.defaultFormVisiable=false;
             },
             edit(id){
-                this.editId = id;
                 this.defaultFormVisiable=true
             },
             tableHeaderColor(){

@@ -5,7 +5,7 @@
             <query class="form" :orderForm = 'form' @onSubmit="load"></query>
         </div>
         <div class="bottom">
-            <clueAForm :orderList="orderList" :meta="meta"></clueAForm>
+            <clueAForm :orderList="orderList" :meta="meta" @onSubmit="load"></clueAForm>
         </div>
     </div>
 
@@ -29,7 +29,8 @@
             query,clueAForm
         },
         methods:{
-            load(){
+            load(val){
+                this.meta.current_page = val;
                 fetcher.list(Object.assign(this.form,{pageNum:this.meta.current_page}),(response)=>{
                     this.orderList = response.data.data;
                     this.meta={

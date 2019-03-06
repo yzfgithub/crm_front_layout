@@ -82,33 +82,27 @@
 
 
                 <el-form-item label="一级渠道" :label-width="formLabelWidth">
-                    <el-select v-model="form.region1" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                    <el-select disabled v-model="form.channelGrandparentName" placeholder="请选择一级渠道">
                     </el-select>
                 </el-form-item>
                 <el-form-item label="二级渠道" :label-width="formLabelWidth">
-                    <el-select v-model="form.region2" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                    <el-select disabled v-model="form.channelParentName" placeholder="请选择二级渠道">
                     </el-select>
                 </el-form-item>
                 <br/>
                 <el-form-item label="渠道组" :label-width="formLabelWidth">
-                    <el-select v-model="form.region3" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                    <el-select disabled v-model="form.channelName" placeholder="请选择渠道组">
                     </el-select>
                 </el-form-item>
                 <el-form-item label="统计时长" :label-width="formLabelWidth">
-                    <el-select v-model="form.region4" placeholder="请选择统计时长">
+                    <el-select v-model="form.statisticalDuration" placeholder="请选择统计时长">
                         <el-option v-for="(val,key) in statistics_duration" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
                 <br/>
                 <el-form-item label="生效日期">
                     <el-date-picker
-                            v-model="form.region5"
+                            v-model="form.entryIntoForceTime"
                             type="date"
                             placeholder="请选择日期"
                             value-format='yyyy-MM-dd'>
@@ -116,57 +110,56 @@
                 </el-form-item>
                 <br/>
                 <el-form-item label="是否参与排名" >
-                    <el-radio v-model="form.region6" label="">是</el-radio>
-                    <el-radio v-model="form.region6" label="">否</el-radio>
+                    <el-radio v-model="form.participationRanking" label="是">是</el-radio>
+                    <el-radio v-model="form.participationRanking" label="否">否</el-radio>
                 </el-form-item>
                 <br/>
                 <el-form-item label="是否A+类线索标签">
-                    <el-radio v-model="form.region7" label="">是</el-radio>
-                    <el-radio v-model="form.region7" label="">否</el-radio>
+                    <el-radio v-model="form.aplus" label="是">是</el-radio>
+                    <el-radio v-model="form.aplus" label="否">否</el-radio>
                 </el-form-item>
                 <br/>
-                <el-form-item label="注册用户数得分权重" label-width="150">
-                    <el-select v-model="form.region8" placeholder="请选择统计时长">
+                <el-form-item label="注册用户数得分权重(%)" label-width="150">
+                    <el-select v-model="form.registerWeightCoefficient" placeholder="请选择统计时长">
                         <el-option v-for="(val,key) in weight_score" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="注册预约率得分权重" label-width="150">
-                    <el-select v-model="form.region9" placeholder="请选择统计时长">
+                <el-form-item label="注册预约率得分权重(%)" label-width="150">
+                    <el-select v-model="form.appointmentWeightCoefficient" placeholder="请选择统计时长">
                         <el-option v-for="(val,key) in weight_score" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="预约体验率得分权重" label-width="150">
-                    <el-select v-model="form.region10" placeholder="请选择统计时长">
+                <el-form-item label="预约体验率得分权重(%)" label-width="150">
+                    <el-select v-model="form.experienceWeightCoefficient" placeholder="请选择统计时长">
                         <el-option v-for="(val,key) in weight_score" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="体验转化率得分权重" label-width="150">
-                    <el-select v-model="form.region11" placeholder="请选择统计时长">
+                <el-form-item label="体验转化率得分权重(%)" label-width="150">
+                    <el-select v-model="form.conversionWeightCoefficient" placeholder="请选择统计时长">
                         <el-option v-for="(val,key) in weight_score" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="新签客单价得分权重" label-width="150">
-                    <el-select v-model="form.region12" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                <el-form-item label="新签客单价得分权重(%)" label-width="150">
+                    <el-select v-model="form.newPriceWeightCoefficient" placeholder="请选择新签客单价得分权重">
+                        <el-option v-for="(val,key) in weight_score" :label="val" :key="key" :value="val"></el-option>
                     </el-select>
                 </el-form-item>
                 <br/>
                 <el-form-item label="A类线索" :label-width="formLabelWidth">
-                    第&nbsp;<el-input class="clue-num" disabled placeholder="请输入内容" :value="1"></el-input>
-                    &nbsp;～&nbsp;<el-input class="clue-num" v-model="form.region13" placeholder="请输入内容"></el-input>
+                    第&nbsp;<el-input class="clue-num" v-model="form.clueRankingDistributionRuleEntities[0].startRanking" disabled placeholder="请输入内容" :value="1"></el-input>
+                    &nbsp;～&nbsp;<el-input class="clue-num" v-model="form.clueRankingDistributionRuleEntities[0].endRanking" placeholder="请输入内容"></el-input>
                     &nbsp;名
                 </el-form-item>
                 <br/>
                 <el-form-item label="B类线索" :label-width="formLabelWidth">
-                    第&nbsp;<el-input class="clue-num" v-model="form.region14" placeholder="请输入内容"></el-input>
-                    &nbsp;～&nbsp;<el-input class="clue-num" v-model="form.region15" placeholder="请输入内容"></el-input>
+                    第&nbsp;<el-input class="clue-num" v-model="form.clueRankingDistributionRuleEntities[1].startRanking" placeholder="请输入内容"></el-input>
+                    &nbsp;～&nbsp;<el-input class="clue-num" v-model="form.clueRankingDistributionRuleEntities[1].endRanking" placeholder="请输入内容"></el-input>
                     &nbsp;名
                 </el-form-item>
                 <br/>
                 <el-form-item label="C类线索" :label-width="formLabelWidth">
-                    第&nbsp;<el-input class="clue-num" v-model="form.region16" placeholder="请输入内容"></el-input>
-                    &nbsp;～&nbsp;<el-input class="clue-num" disabled value="末" placeholder="请输入内容"></el-input>
+                    第&nbsp;<el-input class="clue-num" v-model="form.clueRankingDistributionRuleEntities[2].startRanking" placeholder="请输入内容"></el-input>
+                    &nbsp;～&nbsp;<el-input class="clue-num" v-model="form.clueRankingDistributionRuleEntities[2].endRanking" disabled value="末" placeholder="请输入内容"></el-input>
                     &nbsp;名
                 </el-form-item>
 
@@ -185,6 +178,7 @@
 </template>
 <script type="text/ecmascript-6">
     import metaObj from '@/utils/meta'
+    import fetcher from '@/fetchers/account/clueManage/shareManage'
     export default {
         props:{
             dataList:{
@@ -204,27 +198,39 @@
                 multipleSelection: [],
                 currentPage4: 4,
 
-                editId:'',
                 defaultFormVisiable:false,
                 formLabelWidth: '80px',
                 form:{
-                    discardReason:0,
-                    batchReasion:0,
-                    team_id:0,
-                    zu_id:0,
-                    cc_id:0,
+                    clueRankingDistributionRuleEntities:[{},{},{}]
                 },
 
             }
         },
         methods:{
             onSubmit(){
-                alert('编辑确认')
+                let sum =parseInt(this.form.registerWeightCoefficient)
+                    +parseInt(this.form.appointmentWeightCoefficient)
+                    +parseInt(this.form.experienceWeightCoefficient)
+                    +parseInt(this.form.conversionWeightCoefficient)
+                    +parseInt(this.form.newPriceWeightCoefficient);
+                console.log(sum)
+                if(sum!=100){
+                    this.$message.error('得分权重不等于100%')
+                    return false;
+                }
+                fetcher.updateRankById(this.form,(response)=>{
+                    if(response.data.code==100000){
+                        this.$message.success('编辑成功')
+                    }
+                })
                 this.defaultFormVisiable=false;
             },
             edit(id){
-                this.editId = id;
                 this.defaultFormVisiable=true
+                fetcher.getRankById({channelId:id},(response)=>{
+                    this.form = response.data.data
+
+                })
             },
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'

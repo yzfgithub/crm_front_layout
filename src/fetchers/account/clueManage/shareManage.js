@@ -23,6 +23,24 @@ export default {
                 network_util.fail(err,fb);
             })
     },
+    getRankById(params,cb,fb){
+        axios.get(config.hostUrl+'/crm-customer/channelrankingrule/get/details', {params:params})
+            .then((response) => {
+                network_util.success(response, cb);
+            })
+            .catch((err) => {
+                network_util.fail(err,fb);
+            })
+    },
+    updateRankById(params,cb,fb){
+        axios.post(config.hostUrl+'/crm-customer/channelrankingrule/update/details', params)
+            .then((response) => {
+                network_util.success(response, cb);
+            })
+            .catch((err) => {
+                network_util.fail(err,fb);
+            })
+    },
 
 
     assign_list(params,cb,fb){
@@ -33,5 +51,5 @@ export default {
             .catch((err) => {
                 network_util.fail(err,fb);
             })
-    }
+    },
 };
