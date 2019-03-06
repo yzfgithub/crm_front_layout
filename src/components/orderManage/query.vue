@@ -4,10 +4,10 @@
             <el-input v-model="orderForm.name" placeholder="请输入学生姓名"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-            <el-input v-model="orderForm.phone" placeholder="请输入学生手机号"></el-input>
+            <el-input v-model="orderForm.phone" placeholder="请输入手机号"></el-input>
         </el-form-item>
         <el-form-item label="支付方式">
-            <el-select v-model="orderForm.payType" placeholder="请选择CC">
+            <el-select v-model="orderForm.payType" placeholder="请选择支付方式">
                 <el-option label="全部" value="" key=""></el-option>
                 <el-option v-for="(val,key) in pay_type" :label="val" :key="key" :value="val"></el-option>
             </el-select>
@@ -15,21 +15,21 @@
         <el-form-item label="订单状态">
             <el-select v-model="orderForm.status" placeholder="请选择订单状态">
                 <el-option label="全部" value="" key=""></el-option>
-                <el-option v-for="(val,key) in pay_status" :label="val" :key="key" :value="val"></el-option>
+                <el-option v-for="(val,key) in pay_status" :label="val" :key="key" :value="key"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="创建时间">
-            <el-date-picker v-model="orderForm.startTime" type="date" value-format="yyyy/MM/dd" placeholder="选择开始时间" ref="start_date">
+            <el-date-picker v-model="orderForm.startTime" type="date" value-format="yyyy-MM-dd" placeholder="选择开始时间" ref="start_date">
             </el-date-picker>
             &nbsp;&nbsp;
-            <el-date-picker v-model="orderForm.endTime" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
+            <el-date-picker v-model="orderForm.endTime" type="date" value-format="yyyy-MM-dd" placeholder="选择结束时间">
             </el-date-picker>
         </el-form-item>
         <el-form-item label="支付时间">
-            <el-date-picker v-model="orderForm.payStartTime" type="date" value-format="yyyy/MM/dd" placeholder="选择开始时间" ref="start_date">
+            <el-date-picker v-model="orderForm.payStartTime" type="date" value-format="yyyy-MM-dd" placeholder="选择开始时间" ref="start_date">
             </el-date-picker>
             &nbsp;&nbsp;
-            <el-date-picker v-model="orderForm.payEndTime" type="date" value-format="yyyy/MM/dd" placeholder="选择结束时间">
+            <el-date-picker v-model="orderForm.payEndTime" type="date" value-format="yyyy-MM-dd" placeholder="选择结束时间">
             </el-date-picker>
         </el-form-item>
         <el-form-item label="销售团队">

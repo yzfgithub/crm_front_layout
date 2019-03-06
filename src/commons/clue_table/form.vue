@@ -97,8 +97,8 @@
                     <th class="my_th_th">手机号</th>
                     <th class="my_th_th">省份</th>
 
-                    <th class="my_th_th">注册时间</th>
-                    <th class="my_th_th">最新修改时间</th>
+                    <th class="my_th_th" width="180">注册时间</th>
+                    <th class="my_th_th" width="180">最新修改时间</th>
 
                     <th class="my_th_th">修改人</th>
                     <th class="my_th_th">有效／接通／拨打</th>
@@ -123,8 +123,8 @@
                         </td>
                         <td class="my_tb_td">{{item.province}}</td>
 
-                        <td class="my_tb_td">{{item.registedDate}}</td>
-                        <td class="my_tb_td">{{item.updatedDate}}</td>
+                        <td class="my_tb_td" width="180">{{item.registedDate}}</td>
+                        <td class="my_tb_td" width="180">{{item.updatedDate}}</td>
 
                         <td class="my_tb_td">{{item.updater}}</td>
                         <td class="my_tb_td">{{item.validNum}}/{{item.connectedNum}}/{{item.dialledNum}}</td>
