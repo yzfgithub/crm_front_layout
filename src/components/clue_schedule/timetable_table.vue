@@ -2,103 +2,116 @@
 
 
     <div class="box">
-        <div class="swith_box_check" v-if="activeName =='second'">
-            <el-tooltip content='解锁列表开关' placement="top">
-                <el-switch
-                        v-model="lock"
-                        inactive-text="列表解锁"
-                        active-color="#13ce66"
-                        inactive-color="#606266"
-                        active-value="1"
-                        inactive-value="0">
-                </el-switch>
-            </el-tooltip>
-        </div>
-        <div class="swith_box_check" v-if="activeName == 'first'">
+        <div class="swith_box_check">
             <el-button-group>
                 <el-button icon='el-icon-arrow-left' @click="prev"/>
                 <el-button icon='el-icon-arrow-right'  @click="next"/>
             </el-button-group>
         </div>
-        <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane name="first" label="时间占用表">
-                <el-table :data="days" :show-header="false" ref="days_table">
-                    <el-table-column prop="hour" :align="'center'"></el-table-column>
-                    <el-table-column prop="0" :align="'center'"></el-table-column>
-                    <el-table-column prop="1" :align="'center'"></el-table-column>
-                    <el-table-column prop="2" :align="'center'"></el-table-column>
-                    <el-table-column prop="3" :align="'center'"></el-table-column>
-                    <el-table-column prop="4" :align="'center'"></el-table-column>
-                    <el-table-column prop="5" :align="'center'"></el-table-column>
-                    <el-table-column prop="6" :align="'center'"></el-table-column>
-                </el-table>
-                <el-table disabled :data="occupies" border @cell-click="select" :show-header="false" height="400" :cell-style="cell_style">
-                    <el-table-column prop="hour" :formatter="format_hour" :align="'center'"></el-table-column>
-                    <el-table-column label="周一" prop="0" :formatter="format_cell_2" :align="'center'"></el-table-column>
-                    <el-table-column label="周二" prop="1" :formatter="format_cell_2" :align="'center'"></el-table-column>
-                    <el-table-column label="周三" prop="2" :formatter="format_cell_2" :align="'center'"></el-table-column>
-                    <el-table-column label="周四" prop="3" :formatter="format_cell_2" :align="'center'"></el-table-column>
-                    <el-table-column label="周五" prop="4" :formatter="format_cell_2" :align="'center'"></el-table-column>
-                    <el-table-column label="周六" prop="5" :formatter="format_cell_2" :align="'center'"></el-table-column>
-                    <el-table-column label="周日" prop="6" :formatter="format_cell_2" :align="'center'"></el-table-column>
-                </el-table>
-            </el-tab-pane>
-            <el-tab-pane name="second" label="时间表">
-                <el-table disabled :data="chours" border @cell-click="select" height="400">
-                    <el-table-column prop="hour" :formatter="format_hour" :align="'center'"></el-table-column>
-                    <el-table-column label="周一" prop="0" :formatter="format_cell" :align="'center'"></el-table-column>
-                    <el-table-column label="周二" prop="1" :formatter="format_cell" :align="'center'"></el-table-column>
-                    <el-table-column label="周三" prop="2" :formatter="format_cell" :align="'center'"></el-table-column>
-                    <el-table-column label="周四" prop="3" :formatter="format_cell" :align="'center'"></el-table-column>
-                    <el-table-column label="周五" prop="4" :formatter="format_cell" :align="'center'"></el-table-column>
-                    <el-table-column label="周六" prop="5" :formatter="format_cell" :align="'center'"></el-table-column>
-                    <el-table-column label="周日" prop="6" :formatter="format_cell" :align="'center'"></el-table-column>
-                </el-table>
-            </el-tab-pane>
-        </el-tabs>
+        <div>
+            <el-table :data="days" border :show-header="false" ref="days_table">
+                <el-table-column prop="hour" :align="'center'"></el-table-column>
+                <el-table-column prop="0" :align="'center'"></el-table-column>
+                <el-table-column prop="1" :align="'center'"></el-table-column>
+                <el-table-column prop="2" :align="'center'"></el-table-column>
+                <el-table-column prop="3" :align="'center'"></el-table-column>
+                <el-table-column prop="4" :align="'center'"></el-table-column>
+                <el-table-column prop="5" :align="'center'"></el-table-column>
+                <el-table-column prop="6" :align="'center'"></el-table-column>
+            </el-table>
+            <el-table disabled :data="occupies" border :show-header="false">
+                <el-table-column prop="hour" :formatter="format_hour" :align="'center'"></el-table-column>
+                <el-table-column label="周一" prop="0" :align="'center'">
+                    <template slot-scope="scope">
+                        <el-switch
+                                v-model="scope.row[scope.column.property]"
+                                :disabled="isCurrentWeek"
+                                active-color="#13ce66"
+                                inactive-color="#ff4949">
+                        </el-switch>
+                    </template>
+                </el-table-column>
+                <el-table-column label="周二" prop="1" :align="'center'">
+                    <template slot-scope="scope">
+                        <el-switch
+                                v-model="scope.row[scope.column.property]"
+                                :disabled="isCurrentWeek"
+                                active-color="#13ce66"
+                                inactive-color="#ff4949">
+                        </el-switch>
+                    </template>
+                </el-table-column>
+                <el-table-column label="周三" prop="2" :align="'center'">
+                    <template slot-scope="scope">
+                        <el-switch
+                                v-model="scope.row[scope.column.property]"
+                                :disabled="isCurrentWeek"
+                                active-color="#13ce66"
+                                inactive-color="#ff4949">
+                        </el-switch>
+                    </template>
+                </el-table-column>
+                <el-table-column label="周四" prop="3" :align="'center'">
+                    <template slot-scope="scope">
+                        <el-switch
+                                v-model="scope.row[scope.column.property]"
+                                :disabled="isCurrentWeek"
+                                active-color="#13ce66"
+                                inactive-color="#ff4949">
+                        </el-switch>
+                    </template>
+                </el-table-column>
+                <el-table-column label="周五" prop="4" :align="'center'">
+                    <template slot-scope="scope">
+                        <el-switch
+                                v-model="scope.row[scope.column.property]"
+                                :disabled="isCurrentWeek"
+                                active-color="#13ce66"
+                                inactive-color="#ff4949">
+                        </el-switch>
+                    </template>
+                </el-table-column>
+                <el-table-column label="周六" prop="5" :align="'center'">
+                    <template slot-scope="scope">
+                        <el-switch
+                                v-model="scope.row[scope.column.property]"
+                                :disabled="isCurrentWeek"
+                                active-color="#13ce66"
+                                inactive-color="#ff4949">
+                        </el-switch>
+                    </template>
+                </el-table-column>
+                <el-table-column label="周日" prop="6" :align="'center'">
+                    <template slot-scope="scope">
+                        <el-switch
+                                v-model="scope.row[scope.column.property]"
+                                :disabled="isCurrentWeek"
+                                active-color="#13ce66"
+                                inactive-color="#ff4949">
+                        </el-switch>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import utility from '@/components/utility';
-    import fetcher from '@/components/check_teachers/fetcher'
+    import fetcher from '@/fetchers/account/clueManage/shareManage'
     import moment from 'moment'
-    import chour_fetcher from '@/components/chours/fetcher'
+    moment.locale('zh_CN')
 
     export default {
         props:{
-            check_teacher_form:{
-                required:true,
-                type:Object
+            userId:{
+                type:String,
+                required:true
             },
         },
         data(){
             return {
-                activeName:'first',
-                lock:'',
-                chour_id:'',
-                teacher_id:'',
                 start_date:moment().format('YYYY-MM-DD'),
-                chours: function () {
-                    var [b, e] =[18,44]
-
-                    var ret = []
-
-                    for(var h=b ;h < e; h++){
-                        ret.push({
-                            hour: h,
-                            0: 0,
-                            1: 0,
-                            2: 0,
-                            3: 0,
-                            4: 0,
-                            5: 0,
-                            6: 0
-                        })
-                    }
-                    return ret
-                }(),
                 occupies:function () {
-                    var [b, e] =[18,44]
+                    var [b, e] =[0,3]
 
                     var ret = []
 
@@ -123,126 +136,117 @@
                     }
                     return days;
                 }(),
-
             }
         },
-        watch:{
-            'check_teacher_form.check_teacher_id':function (val,oldVal) {
-                if(val!=''){
-                    this.lock='';
-                    this.teacher_id = val;
-                    this.load(val);
-                    this.getOccupyList(val);
+        computed:{
+            isCurrentWeek:function () {
+
+                console.log()
+                let date = moment().format('YYYY-MM-DD');
+                if(moment(date).isSame(this.start_date)){
+                    return false;
+                }else{
+                    console.log('aaa')
+                    return true;
                 }
             }
         },
         methods:{
             prev () {
-                this.start_date = moment(this.start_date).subtract(7, 'days')
+                this.start_date = moment(this.start_date).subtract(7, 'days').format('YYYY-MM-DD');
                 let _days=[{}];
                 for(var i=0; i<7; i++){
                     _days[0][i+'']=moment(this.start_date).add(i,'days').format('YYYY-MM-DD(ddd)')
                 }
                 this.days = _days;
-                this.getOccupyList(this.teacher_id);
+
+                //如果在当前日期之前，那么应该重新请求数据，如果在当前时间之后，那么数据不变
+
+                if(moment(this.start_date).isBefore(moment().format('YYYY-MM-DD'))){
+                    //getlist
+                    this.getOccupyList(this.start_date);
+                }else{
+                   return false;
+                }
             },
             next () {
-                this.start_date = moment(this.start_date).add(7, 'days')
+                this.start_date = moment(this.start_date).add(7, 'days').format('YYYY-MM-DD');
                 let _days=[{}];
                 for(var i=0; i<7; i++){
                     _days[0][i+'']=moment(this.start_date).add(i,'days').format('YYYY-MM-DD(ddd)')
                 }
                 this.days = _days;
-                this.getOccupyList(this.teacher_id);
-            },
-            format_date(row,column,value,index){
-                return value;
-            },
-            cell_style (data){
-                let row = data.row;
-                let column = data['columnIndex'];
-                if(column >= 1){
-                    if(row[data.columnIndex-1]=='1'){
-                        return 'background-color:lightgreen'
-                    }else if(row[data.columnIndex-1] !='1' && row[data.columnIndex-1] !=''){
-                        return 'background-color:red'
-                    }
-                }
-            },
-            handleClick(){
-            },
-            select(row, column, cell,event) {
-                if(this.lock=='1'){
-                    let timeblock = row.hour+parseInt(column.property)*48;
-                    if(row[column.property]){
-                        fetcher.change_status(this.chour_id,timeblock,0,(response)=>{
-                            row[column.property]=0;
-                            this.getOccupyList(this.teacher_id);
-                            this.$message('操作成功');
-                        })
-                    }else{
-                        fetcher.change_status(this.chour_id,timeblock,1,(response)=>{
-                            row[column.property]=1;
-                            this.getOccupyList(this.teacher_id);
-                            this.$message('操作成功');
-                        })
-                    }
-                }else{
+
+                //如果在当前日期之前，那么应该重新请求数据，如果在当前时间之后，那么数据不变
+                if(moment(this.start_date).isAfter(moment().format('YYYY-MM-DD'))){
                     return false;
+                }else{
+                    this.getOccupyList(this.start_date);
                 }
             },
+
             format_hour (row, column) {
-                return utility.format_hour(row.hour) + ' - ' + utility.format_hour(row.hour+1)
-            },
-            format_cell (row, column, cellValue,index) {
-                if(cellValue){
-                    return '√'
+                if(row.hour==0){
+                    return '9:00 ~ 12:00';
+                }else if(row.hour ==1){
+                    return '14:00 ~ 18:00';
+                }else if(row.hour == 2){
+                    return '19:00 ~ 21:00';
+                }else{
+                    return ''
                 }
-            },
-            format_cell_2(row,column,cellValue,index){
-                if(cellValue && cellValue != '1'){
-                    return cellValue
-                }else if(cellValue){
-                    return '当前时间可预约'
-                }
-            },
-            load(val){
-                fetcher.get_chours_table(val, (response) => {
-                    this.chour_id = response.data.data.id
-                    for(var i = 0; i < 7; i++){
-                        for(var j = 0; j < 48; j++){
-                            var idx = (i * 48) + j;
-                            var hour = idx%48
-                            if(hour>=18 && hour<44){
-                                var wday = Math.floor(idx/48);
-                                var [row, column] = [hour-18,wday];
-                                this.chours[row][column] = response.data.data['timeblock_' + idx]
-                            }
-                        }
-                    }
-                })
             },
             getOccupyList(val){
-                let start = moment(this.start_date).format('YYYY-MM-DD');
-                let end = moment(this.start_date).add(6,'days').format('YYYY-MM-DD')
-                fetcher.get_occupy_table(val,{start_date:start,end_date:end},(response)=>{
+                fetcher.scheduling_list({userId:1,dateStr:val},(response)=>{
+                    let detail = response.data.data;
+                    //取数据
+                    let _days=[];//日期数组
+                    let myData=[];//需要数据
+                    let date = moment(val).format('YYYY-MM-DD');
+
+                    for(var i=0; i<7; i++){
+                        _days.push(moment(date).add(i,'days').format('YYYY-MM-DD'))
+                    }
+                    for(let i=0;i<7;i++){
+                        let arr = detail[_days[i]]
+                        myData.push(arr.morning)
+                        myData.push(arr.afternoon)
+                        myData.push(arr.night)
+                    }
                     for(var i = 0; i < 7; i++){
-                        for(var j = 0; j < 48; j++){
-                            var idx = (i * 48) + j;
-                            var hour = idx%48
-                            if(hour>=18 && hour<44){
-                                var wday = Math.floor(idx/48);
-                                var [row, column] = [hour-18,wday];
-                                //get 周几  周一是第天
-                                let num = moment().weekday()
-                                this.occupies[row][column] = response.data.data[(idx+num*48)%336]?response.data.data[(idx+num*48)%336].length>4?response.data.data[(idx+num*48)%336][5]:'1':'';
-                            }
+                        for(let j=0;j<3;j++){
+                            let idx = (i*3)+j; //zong shu
+                            let hour = idx%3;
+                            let wday = Math.floor(idx/3);
+                            let [row,column] = [hour,wday];
+
+                            this.occupies[row][column] = myData[idx]=='1'?true:false;
                         }
                     }
                 })
+            },
+            submit(){
+                let array=this.occupies;
+
+                for(let i=0;i<7;i++){
+                    for(let j=0;j<3;j++){
+                        array[j][i] = this.occupies[j][i] ? '1':'0';
+                    }
+                }
+
+                fetcher.edit_scheduling_list({userId:this.userId,schedulingDTOS:array},(response)=>{
+                    if(response.data.code==100000){
+                        this.$message.success('修改成功')
+                    }
+                })
+            },
+            load(){
+                let dateStr = moment(this.start_date).format('YYYY-MM-DD');
+                this.getOccupyList(dateStr);
             }
         },
         mounted () {
+
         }
     }
 </script>
@@ -256,8 +260,8 @@
     .swith_box_check{
         box-sizing: border-box;
         padding: 0 0 20px 0;
-        position: absolute;
-        right: 0;
-        top: -60px;
+        /*position: absolute;*/
+        /*right: 0;*/
+        /*top: -60px;*/
     }
 </style>

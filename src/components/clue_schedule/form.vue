@@ -47,25 +47,25 @@
             </el-pagination>
         </div>
 
-        <el-dialog title="排班编辑" :visible.sync="defaultFormVisiable">
+        <el-dialog title="排班编辑" :visible.sync="defaultFormVisiable" custom-class="schedule-class">
             <el-form :model="form" label-position="left" class="form-class" :inline="true">
 
                 <el-form-item label="时间表" :label-width="formLabelWidth">
-                    <!--<timetable_table :check_teacher_form="check_teacher_form"></timetable_table>-->
+                    <timetable_table ref="timetable" :userId="userId"></timetable_table>
                 </el-form-item>
 
 
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click='defaultFormVisiable=false'>取 消</el-button>
-                <el-button type="primary" @click="onSubmit">确 定</el-button>
+                <el-button type="primary" @click="submitEdit">确 定</el-button>
             </div>
         </el-dialog>
 
     </div>
 </template>
 <script type="text/ecmascript-6">
-    // import timetable_table from './timetable_table'
+    import timetable_table from './timetable_table'
     export default {
         props:{
             clueAData:{
@@ -83,24 +83,31 @@
                 form:{
                     store_num:1,
                 },
+
+                userId:'',
             }
         },
-        // components:{timetable_table},
+        components:{timetable_table},
         methods:{
             handleChange(){console.log('aaa')},
-            onSubmit(){
-                console.log('ok')
+            submitEdit(){
+                this.$refs.timetable.submit();
                 this.defaultFormVisiable=false;
             },
             edit(id){
+                this.userId = id;
                 this.defaultFormVisiable=true
+                setTimeout(function () {
+                    this.$refs.timetable.load();
+                }.bind(this),100)
+
             },
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
             },
             //fenye
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                this.$emit('onSubmit',val)
             },
         }
 
@@ -119,5 +126,8 @@
         color:#30ABF9;
         cursor: pointer;
         margin: 0 5px;
+    }
+    .schedule-class{
+        min-width: 900px !important;
     }
 </style>

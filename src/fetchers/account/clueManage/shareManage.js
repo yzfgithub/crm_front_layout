@@ -52,4 +52,26 @@ export default {
                 network_util.fail(err,fb);
             })
     },
+
+    //排班
+    scheduling_list(params,cb,fb){
+        axios.get(config.hostUrl+'/crm-customer/scheduling/get/details', {params:params})
+            .then((response) => {
+                network_util.success(response, cb);
+            })
+            .catch((err) => {
+                network_util.fail(err,fb);
+            })
+    },
+    edit_scheduling_list(params,cb,fb){
+        axios.post(config.hostUrl+'/crm-customer/scheduling/save/list', params)
+            .then((response) => {
+                network_util.success(response, cb);
+            })
+            .catch((err) => {
+                network_util.fail(err,fb);
+            })
+    },
+
+
 };

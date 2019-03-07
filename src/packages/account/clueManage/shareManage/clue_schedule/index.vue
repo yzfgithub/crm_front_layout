@@ -5,7 +5,7 @@
             <query class="form" :clueAForm = 'form'></query>
         </div>
         <div class="bottom">
-            <clueAForm :clueAData="clueAData"></clueAForm>
+            <clueAForm :clueAData="clueAData" @onSubmit="load"></clueAForm>
         </div>
     </div>
 
@@ -18,6 +18,10 @@
             return{
                 form:{
 
+                },
+                meta:{
+                  current_page:1,
+                  total:1 ,
                 },
                 clueAData:[
                     {id:'11111',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
@@ -36,7 +40,16 @@
         },
         components:{
             query,clueAForm
+        },
+        methods:{
+            load(val){
+                if(val){
+                    this.current_page = val;
+                }
+                //fetcher
+            }
         }
+
 
     }
 </script>
