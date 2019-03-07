@@ -4,7 +4,7 @@ import config from '@/config'
 
 export default {
     list(params,cb,fb){
-        axios.get(config.sysUrl+'/crm-system/permission/getPermissionList', {params:params})
+        axios.get(config.sysUrl+'/permission/getPermissionList', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -13,7 +13,7 @@ export default {
             })
     },
     create_permission(params,cb,fb){
-        axios.post(config.sysUrl+'/crm-system/permission/createPermission', params)
+        axios.post(config.sysUrl+'/permission/createPermission', params)
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -22,7 +22,7 @@ export default {
             })
     },
     getPermissionById(params,cb,fb){
-        axios.get(config.sysUrl+'/crm-system/permission/getPermissionById', {params:params})
+        axios.get(config.sysUrl+'/permission/getPermissionById', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -31,7 +31,7 @@ export default {
             })
     },
     updatePermissionById(params,cb,fb){
-        axios.get(config.sysUrl+'/crm-system/permission/savePermission', {params:params})
+        axios.get(config.sysUrl+'/permission/savePermission', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -40,7 +40,7 @@ export default {
             })
     },
     detelePermissionById(params,cb,fb){
-        axios.get(config.sysUrl+'/crm-system/permission/delPermission', {params:params})
+        axios.get(config.sysUrl+'/permission/delPermission', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -50,7 +50,7 @@ export default {
     },
 
     getAllPermission(params,cb,fb){
-        axios.get(config.sysUrl+'/crm-system/permission/getAllPermissions',{params:params})
+        axios.get(config.sysUrl+'/permission/getAllPermissions',{params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })

@@ -315,7 +315,9 @@ export default {
     employee_status:{
         "1":"正常",
         "2":"离职",
-    }
+    },
+
+
 
 
 

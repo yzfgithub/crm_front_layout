@@ -4,7 +4,7 @@ import config from '@/config'
 
 export default {
     list(params,cb,fb){
-        axios.get(config.sysUrl+'/crm-system/role/getRoleList', {params:params})
+        axios.get(config.sysUrl+'/role/getRoleList', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -13,7 +13,7 @@ export default {
             })
     },
     createRoles(params,cb,fb){
-        axios.post(config.sysUrl+'/crm-system/role/createRole', params)
+        axios.post(config.sysUrl+'/role/createRole', params)
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -22,7 +22,7 @@ export default {
             })
     },
     getRoleInfoById(params,cb,fb){
-        axios.get(config.sysUrl+'/crm-system/role/getRoleInfoById', {params:params})
+        axios.get(config.sysUrl+'/role/getRoleInfoById', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -31,7 +31,7 @@ export default {
             })
     },
     updateRoles(params,cb,fb){
-        axios.post(config.sysUrl+'/crm-system/role/saveRolePermissions', params)
+        axios.post(config.sysUrl+'/role/saveRolePermissions', params)
             .then((response) => {
                 network_util.success(response, cb);
             })

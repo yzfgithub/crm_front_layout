@@ -1,7 +1,7 @@
 <template>
     <el-form :inline="true" :model="orderForm" class="demo-form-inline">
         <el-form-item label="学生">
-            <el-input v-model="orderForm.name" placeholder="请输入学生姓名"></el-input>
+            <el-input v-model="orderForm.studentName" placeholder="请输入学生姓名"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
             <el-input v-model="orderForm.phone" placeholder="请输入手机号"></el-input>

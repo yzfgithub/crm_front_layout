@@ -114,7 +114,7 @@
         <presentation :visiableBar="presentationBar" @close="closeBtn"></presentation>
         <myDiscard :visiableBar="discardBar" @close="closeBtn"></myDiscard>
         <rollback :visiableBar="rollbackBar" @close="closeBtn"></rollback>
-        <quxiao_device :visiableBar="quxiaoDeviceBar" @close="closeBtn"></quxiao_device>
+        <quxiao_device :visiableBar="quxiaoDeviceBar" @close="closeBtn" :multipleSelectionIds="multipleSelectionIds"></quxiao_device>
 
     </div>
 </template>
@@ -172,6 +172,14 @@
             quxiao_device
         },
         methods:{
+            isEmpty(){
+                if(!this.multipleSelectionIds.length){
+                    this.$message.warning('请先选中线索')
+                    return false
+                }else{
+                    return true
+                }
+            },
             yuyueDeviceClick(){
                 this.yuyueDeviceBar = true;
             },
@@ -191,7 +199,9 @@
                 this.rollbackBar = true;
             },
             quxiaoDeviceClick(){
-                this.quxiaoDeviceBar = true;
+                if(this.isEmpty()){
+                    this.quxiaoDeviceBar = true;
+                }
             },
             closeBtn(){
                 this.yuyueDeviceBar=false

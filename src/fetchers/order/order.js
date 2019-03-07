@@ -4,7 +4,7 @@ import config from '@/config'
 
 export default {
     list(params,cb,fb){
-        axios.get(config.mcUrl+'/crm-order/orderList', {params:params})
+        axios.get(config.mcUrl+'/orderList', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -13,7 +13,7 @@ export default {
             })
     },
     order_details(params,cb,fb){
-        axios.get(config.mcUrl+'/crm-order/orderDetail', {params:params})
+        axios.get(config.mcUrl+'/orderDetail', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -22,7 +22,7 @@ export default {
             })
     },
     uploadImg(params,cb,fb){
-        axios.post(config.mcUrl+'/crm-order/uploadCert', params)
+        axios.post(config.mcUrl+'/uploadCert', params)
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -31,7 +31,7 @@ export default {
             })
     },
     submitUpload(params,cb,fb){
-        axios.get(config.mcUrl+'/crm-order/uploadCallBack', {params:params})
+        axios.get(config.mcUrl+'/uploadCallBack', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -40,7 +40,7 @@ export default {
             })
     },
     cancelOrder(params,cb,fb){
-        axios.get(config.mcUrl+'/crm-order/cancelOrder', {params:params})
+        axios.get(config.mcUrl+'/cancelOrder', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })

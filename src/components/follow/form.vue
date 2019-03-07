@@ -103,10 +103,10 @@
             </el-pagination>
         </div>
 
-        <yuyue_device :visiableBar="yuyueDeviceBar" @close="closeBtn"></yuyue_device>
+        <yuyue_device :visiableBar="yuyueDeviceBar" @close="closeBtn" :multipleSelectionIds="multipleSelectionIds"></yuyue_device>
         <yuyue_tiyan :visiableBar="yuyueTiyanBar" @close="closeBtn"></yuyue_tiyan>
         <create :visiableBar="createBar" @close="closeBtn" :productList="productList" :multipleSelectionIds="multipleSelectionIds"></create>
-        <presentation :visiableBar="presentationBar" @close="closeBtn"></presentation>
+        <presentation :visiableBar="presentationBar" @close="closeBtn" :multipleSelectionIds="multipleSelectionIds"></presentation>
         <myDiscard :visiableBar="discardBar" @close="closeBtn"></myDiscard>
         <rollback :visiableBar="rollbackBar" @close="closeBtn"></rollback>
     </div>
@@ -165,23 +165,43 @@
             myDiscard
         },
         methods:{
+            isEmpty(){
+                if(!this.multipleSelectionIds.length){
+                    this.$message.warning('请先选中线索')
+                    return false
+                }else{
+                    return true
+                }
+            },
             yuyueDeviceClick(){
-                this.yuyueDeviceBar = true;
+                if(this.isEmpty()){
+                    this.yuyueDeviceBar = true;
+                }
             },
             yuyueTiyanClick(){
-                this.yuyueTiyanBar = true;
+                if(this.isEmpty()){
+                    this.yuyueTiyanBar = true;
+                }
             },
             createClick(){
-                this.createBar = true;
+                if(this.isEmpty()){
+                    this.createBar = true;
+                }
             },
             presentationClick(){
-                this.presentationBar = true;
+                if(this.isEmpty()){
+                    this.presentationBar = true;
+                }
             },
             discardClick(){
-                this.discardBar = true;
+                if(this.isEmpty()){
+                    this.discardBar = true;
+                }
             },
             rollbackClick(){
-                this.rollbackBar = true;
+                if(this.isEmpty()){
+                    this.rollbackBar = true;
+                }
             },
             closeBtn(){
                 this.yuyueDeviceBar=false

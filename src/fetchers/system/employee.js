@@ -4,7 +4,7 @@ import config from '@/config'
 
 export default {
     employee_list(params,cb,fb){
-        axios.get(config.sysUrl+'/crm-system/adminmember/getAdminMemberList', {params:params})
+        axios.get(config.sysUrl+'/adminmember/getAdminMemberList', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -16,7 +16,7 @@ export default {
     * 还没写的
     * */
     getEmployeeById(params,cb,fb){
-        axios.get(config.sysUrl+'/crm-system/adminmember/getAdminMemberList', {params:params})
+        axios.get(config.sysUrl+'/adminmember/getAdminMemberList', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -25,7 +25,7 @@ export default {
             })
     },
     getRoleList(){
-        axios.get(config.sysUrl+'/crm-system/adminmember/getAdminMemberList', {params:params})
+        axios.get(config.sysUrl+'/adminmember/getAdminMemberList', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -34,7 +34,7 @@ export default {
             })
     },
     updateEmployee(params,cb,fb){
-        axios.post(config.sysUrl+'/crm-system/adminmember/getAdminMemberList', params)
+        axios.post(config.sysUrl+'/adminmember/getAdminMemberList', params)
             .then((response) => {
                 network_util.success(response, cb);
             })

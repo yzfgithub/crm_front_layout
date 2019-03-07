@@ -6,7 +6,7 @@ import config from '@/config'
 export default {
 //我的客户各阶段列表
     rank_channel_list(params,cb,fb){
-        axios.get(config.hostUrl+'/crm-customer/channel/list/name', {params:params})
+        axios.get(config.hostUrl+'/channel/list/name', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -15,7 +15,7 @@ export default {
             })
     },
     rank_list(params,cb,fb){
-        axios.get(config.hostUrl+'/crm-customer/channel/list/rank/page', {params:params})
+        axios.get(config.hostUrl+'/channel/list/rank/page', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -24,7 +24,7 @@ export default {
             })
     },
     getRankById(params,cb,fb){
-        axios.get(config.hostUrl+'/crm-customer/channelrankingrule/get/details', {params:params})
+        axios.get(config.hostUrl+'/channelrankingrule/get/details', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -33,7 +33,7 @@ export default {
             })
     },
     updateRankById(params,cb,fb){
-        axios.post(config.hostUrl+'/crm-customer/channelrankingrule/update/details', params)
+        axios.post(config.hostUrl+'/channelrankingrule/update/details', params)
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -44,7 +44,7 @@ export default {
 
 
     assign_list(params,cb,fb){
-        axios.get(config.hostUrl+'/crm-customer/cluedistributionrule/get/list', {params:params})
+        axios.get(config.hostUrl+'/cluedistributionrule/get/list', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -55,7 +55,7 @@ export default {
 
     //排班
     scheduling_list(params,cb,fb){
-        axios.get(config.hostUrl+'/crm-customer/scheduling/get/details', {params:params})
+        axios.get(config.hostUrl+'/scheduling/get/details', {params:params})
             .then((response) => {
                 network_util.success(response, cb);
             })
@@ -64,7 +64,7 @@ export default {
             })
     },
     edit_scheduling_list(params,cb,fb){
-        axios.post(config.hostUrl+'/crm-customer/scheduling/save/list', params)
+        axios.post(config.hostUrl+'/scheduling/save/list', params)
             .then((response) => {
                 network_util.success(response, cb);
             })

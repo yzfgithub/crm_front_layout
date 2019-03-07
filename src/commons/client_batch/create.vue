@@ -65,8 +65,9 @@
         },
         methods:{
             submitOperate(){
-                let salesId = this.multipleSelectionIds[0];
-                fetcher.createOrder(Object.assign(this.form,{account_id:'002572e0-f53b-11e8-bd7e-0f94b72428fb',salesId:'123'}),(response)=>{
+                //salesId销售id
+                let account_id = this.multipleSelectionIds[0];
+                fetcher.createOrder(Object.assign(this.form,{account_id:account_id,salesId:'123'}),(response)=>{
                     if(response.data.code==100000){
                         this.$message.success('创建订单成功')
                         this.form={};
