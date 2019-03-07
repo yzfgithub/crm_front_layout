@@ -3,7 +3,7 @@
         <div class="f_table">
             <el-table
                     ref="multipleTable"
-                    :data="clueAData"
+                    :data="detaList"
                     tooltip-effect="dark"
                     style="width: 100%;"
                     :header-cell-style="tableHeaderColor">
@@ -11,22 +11,19 @@
                         prop="name"
                         label="姓名"
                 >
-                    <template slot-scope="scope">
-                        <span @click="pathTo(scope.row.id)">{{scope.row.name}}</span>
-                    </template>
                 </el-table-column>
                 <el-table-column
-                        prop="mobile"
+                        prop="userName"
                         label="登陆名"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="province"
+                        prop="department"
                         label="角色"
                 >
                 </el-table-column>
                 <el-table-column
-                        prop="province"
+                        prop="status"
                         label="状态"
                 >
                 </el-table-column>
@@ -42,7 +39,7 @@
 
             </el-table>
 
-            <el-pagination class="page" @current-change="handleCurrentChange" :current-page="currentPage4" :page-size="20" layout="total, prev, pager, next, jumper" :total="400">
+            <el-pagination class="page" @current-change="handleCurrentChange" :current-page="meta.current_page" :page-size="20" layout="total, prev, pager, next, jumper" :total="meta.total">
             </el-pagination>
         </div>
 
@@ -51,15 +48,18 @@
 <script type="text/ecmascript-6">
     export default {
         props:{
-            clueAData:{
+            detaList:{
                 type:Array,
+                require:true
+            },
+            meta:{
+                type:Object,
                 require:true
             }
         },
         data(){
             return{
-                multipleSelection: [],
-                currentPage4: 4
+
             }
         },
         methods:{
@@ -73,13 +73,11 @@
             tableHeaderColor(){
                 return 'background-color:#EFF3F5;height:40px;'
             },
-            handleSelectionChange(val) {
-                this.multipleSelection = val;
-            },
+
 
             //fenye
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                this.$emit('onSubmit',val)
             },
             pathTo(id){
                 this.$router.push({path:`/account/clue_detail/${id}`});

@@ -14,4 +14,27 @@ export default {
                 network_util.fail(err,fb);
             })
     },
+
+
+
+
+    //product
+    getProductList(params,cb,fb){
+        axios.get(config.mcUrl+'/crm-order/productList', {params:params})
+            .then((response) => {
+                network_util.success(response, cb);
+            })
+            .catch((err) => {
+                network_util.fail(err,fb);
+            })
+    },
+    createOrder(params,cb,fb){
+        axios.get(config.mcUrl+'/crm-order/createOrder', {params:params})
+            .then((response) => {
+                network_util.success(response, cb);
+            })
+            .catch((err) => {
+                network_util.fail(err,fb);
+            })
+    }
 };

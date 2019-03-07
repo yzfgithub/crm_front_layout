@@ -7,16 +7,14 @@
                 <i class="el-icon-circle-close"></i>
             </div>
 
-            <!--<div class="distributor_box">-->
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
-                    <span>新建团队</span>
+                    <span>新建角色</span>
                 </div>
 
-                <myForm :employeeForm = 'employeeForm' @onSubmit="onSubmit"></myForm>
+                <myForm :employeeForm = 'employeeForm' @onSubmit="onSubmit" :roleList="roleList"></myForm>
 
             </el-card>
-            <!--</div>-->
 
         </div>
 
@@ -25,12 +23,13 @@
 <script type="text/ecmascript-6">
 
     import myForm from '@/components/employeeManage/edit_form'
-    import fetcher from '@/fetchers/order/order'
+    import fetcher from '@/fetchers/system/employee'
     export default {
         data(){
             return {
 
-                employeeForm:{}
+                employeeForm:{},
+                roleList:[]
             }
         },
         components:{
@@ -41,20 +40,28 @@
                 history.back();
             },
             onSubmit(){
-                console.log('submit')
+                fetcher.updateEmployee(this.employeeForm,(response)=>{
+                    if(response.data.code==100000){
+                        this.$message.success('员工修改成功')
+                    }
+                })
             },
 
-            // load(){
-            //     console.log(this.$route)
-            //     fetcher.details(this.$route.params.id,(response)=>{
-            //         this.dataObj = response.data.data;
-            //         console.log(this.dataObj)
-            //
-            //     })
-            // }
+            load(){
+                fetcher.getEmployeeById({id:this.$route.params.id},(response)=>{
+                    if(response.data.code==100000){
+                        this.employeeForm = response.data.data;
+                    }
+                })
+            }
         },
         mounted(){
-            // this.load()
+            fetcher.getRoleList({},(response)=>{
+                if(response.data.code==100000){
+                    this.roleList = response.data.data;
+                }
+            })
+            this.load()
         }
     }
 </script>

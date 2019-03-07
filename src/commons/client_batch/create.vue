@@ -2,25 +2,23 @@
     <el-dialog title="新建订单" :visible="visiableBar" @close='closeDialog'>
         <el-form :model="form" label-position="left" class="form-class">
 
-
             <el-form-item label="产品名称" :label-width="formLabelWidth">
-                <el-select v-model="form.region" placeholder="请选择产品名称">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                <el-select v-model="form.product_id" placeholder="请选择产品名称">
+                    <el-option v-for="(item,key) in productList" :label="item.name" :value="item.id" :key="key"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="订单金额：（单位元）">
-               <span>0</span>
+               <span>{{pay_money}}</span>
             </el-form-item>
 
             <el-form-item label="折扣金额：（单位元）">
-                <span>0</span>
+                <span>{{discount_money}}</span>
             </el-form-item>
 
             <el-form-item label="信用卡分期订单">
-                <el-radio v-model="form.region" label="1">是</el-radio>
-                <el-radio v-model="form.region" label="2">否</el-radio>
+                <el-radio v-model="form.is_stages" label="1">是</el-radio>
+                <el-radio v-model="form.is_stages" label="0">否</el-radio>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -30,31 +28,53 @@
     </el-dialog>
 </template>
 <script type="text/ecmascript-6">
+    import fetcher from "@/fetchers/account/client/client";
     export default {
         props:{
             visiableBar:{
                 type:Boolean,
                 require:true,
             },
+            productList:{
+                type:Array,
+                require:true,
+            },
+            multipleSelectionIds:{
+                type:Array,
+                require:true,
+            }
         },
         data(){
             return{
                 formLabelWidth: '80px',
-                dialog_training:true,
-                form:{
-                    discardReason:0,
-                    batchReasion:0,
-                    team_id:0,
-                    zu_id:0,
-                    cc_id:0,
-                },
-                batchReasion_list:[{name:'1'},{name:'2'}],
-                discardReason_list:[{name:'1'},{name:'2'}]
+                form:{},
+                pay_money:'',
+                discount_money:'',
+            }
+        },
+        watch:{
+            'form.product_id':{
+                handler(val,oldVal){
+                    if(val){
+                        let obj = this.productList.filter(item=>{return item.id==val})[0];
+                        this.pay_money=(obj.real_price /100).toFixed(2) ;
+                        this.discount_money=(obj.discount_amount /100).toFixed(2);
+                    }
+                }
             }
         },
         methods:{
             submitOperate(){
-                this.$emit('close')
+                let salesId = this.multipleSelectionIds[0];
+                fetcher.createOrder(Object.assign(this.form,{account_id:'002572e0-f53b-11e8-bd7e-0f94b72428fb',salesId:'123'}),(response)=>{
+                    if(response.data.code==100000){
+                        this.$message.success('创建订单成功')
+                        this.form={};
+                        this.pay_money='';
+                        this.discount_money=''
+                        this.$emit('close')
+                    }
+                })
             },
             closeDialog(){
                 this.$emit('close')

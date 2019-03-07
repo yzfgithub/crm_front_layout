@@ -2,10 +2,10 @@
     <div>
         <div class="top">
             <div class="title">员工管理／员工列表</div>
-            <query class="form" :clueAForm = 'form'></query>
+            <query class="form" :queryForm = 'form' @onSubmit="load"></query>
         </div>
         <div class="bottom">
-            <clueAForm :clueAData="clueAData"></clueAForm>
+            <clueAForm :detaList="detaList" :meta="meta" @onSubmit="load"></clueAForm>
         </div>
     </div>
 
@@ -13,29 +13,45 @@
 <script type="text/ecmascript-6">
     import query from '@/components/employeeManage/query'
     import clueAForm from '@/components/employeeManage/form'
+    import fetcher from '@/fetchers/system/employee'
     export default {
         data(){
             return{
-                form:{
-
+                form:{},
+                meta:{
+                    current_page:1,
+                    total:1,
                 },
-                clueAData:[
-                    {id:'11111',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'22222',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'33333',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'44444',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'55555',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'66666',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'77777',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'88888',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'99999',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'12345',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                    {id:'23456',name:'yzf',mobile:'234',province:'bj',created_at:'123',updated_at:'345',updated_for:'tl',state:'0/0/0',delay:'10s',rollback:'20',like:'0'},
-                ]
+                detaList:[]
             }
         },
         components:{
             query,clueAForm
+        },
+        methods:{
+            load(val){
+                if(val){
+                    this.meta.current_page = val;
+                }
+                fetcher.employee_list(Object.assign(this.form,{pageNum:this.meta.current_page}),(response)=>{
+                    if(response.data.code==100000){
+                        this.dataList=response.data.data.records;
+                        this.meta={
+                            current_page:response.data.data.current,
+                            total:response.data.data.total,
+                        }
+                    }else{
+                        this.dataList = [];
+                        this.meta={
+                            current_page:1,
+                            total:1,
+                        }
+                    }
+                })
+            }
+        },
+        mounted(){
+            this.load();
         }
 
     }

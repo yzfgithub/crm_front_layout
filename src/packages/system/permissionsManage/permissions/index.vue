@@ -33,10 +33,18 @@
         methods:{
             load(){
                 fetcher.list(Object.assign(this.form,{pageNum:this.meta.current_page}),(response)=>{
-                    this.dataList = response.data.data.records;
-                    this.meta={
-                        current_page:response.data.data.current,
-                        total: response.data.meta.total
+                    if(response.data.code==100000){
+                        this.dataList=response.data.data.records;
+                        this.meta={
+                            current_page:response.data.data.current,
+                            total:response.data.data.total,
+                        }
+                    }else{
+                        this.dataList = [];
+                        this.meta={
+                            current_page:1,
+                            total:1,
+                        }
                     }
                 })
             },

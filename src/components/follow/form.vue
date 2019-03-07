@@ -105,7 +105,7 @@
 
         <yuyue_device :visiableBar="yuyueDeviceBar" @close="closeBtn"></yuyue_device>
         <yuyue_tiyan :visiableBar="yuyueTiyanBar" @close="closeBtn"></yuyue_tiyan>
-        <create :visiableBar="createBar" @close="closeBtn"></create>
+        <create :visiableBar="createBar" @close="closeBtn" :productList="productList" :multipleSelectionIds="multipleSelectionIds"></create>
         <presentation :visiableBar="presentationBar" @close="closeBtn"></presentation>
         <myDiscard :visiableBar="discardBar" @close="closeBtn"></myDiscard>
         <rollback :visiableBar="rollbackBar" @close="closeBtn"></rollback>
@@ -119,6 +119,7 @@
     import myDiscard from '@/commons/client_batch/discard'
     import rollback from '@/commons/client_batch/rollback'
     import tool from '@/utils/tool'
+    import fetcher from "@/fetchers/account/client/client";
 
 
     export default {
@@ -136,7 +137,7 @@
             return{
                 multipleSelection: [],
                 multipleSelectionIds:[],
-                currentPage4: 4,
+                productList:[],
 
                 yuyueDeviceBar:false,
                 yuyueTiyanBar:false,
@@ -213,6 +214,11 @@
                 return tool.delayTime(val)
             }
 
+        },
+        mounted(){
+            fetcher.getProductList({},(response)=>{
+                this.productList = response.data.data;
+            })
         }
 
     }

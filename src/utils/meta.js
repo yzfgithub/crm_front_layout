@@ -311,6 +311,12 @@ export default {
         "5":"课异常",
     },
 
+    //system
+    employee_status:{
+        "1":"正常",
+        "2":"离职",
+    }
+
 
 
 }

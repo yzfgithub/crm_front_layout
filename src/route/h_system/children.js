@@ -1,12 +1,10 @@
 //EmployeeManage
 import employee from '@/packages/system/employeeManage/employee/index'
-import employee_new from '@/packages/system/employeeManage/employee/new'
 import employee_edit from '@/packages/system/employeeManage/employee/edit'
 import employee_show from '@/packages/system/employeeManage/employee/show'
 
 //architectureManage
 import architecture from '@/packages/system/architectureManage/architecture/index'
-import architecture_new from '@/packages/system/architectureManage/architecture/new'
 import architecture_edit from '@/packages/system/architectureManage/architecture/edit'
 import architecture_show from '@/packages/system/architectureManage/architecture/show'
 
@@ -32,14 +30,6 @@ export default {
             components:{default:employee},
         },
         {
-            name:'系统管理 > 员工管理 > 员工管理 > 新建员工',
-            path:'/system/employee/new',
-            meta:{
-                flag:true
-            },
-            components:{default:employee_new},
-        },
-        {
             name:'系统管理 > 员工管理 > 员工管理 > 编辑员工',
             path:'/system/employee/edit/:id',
             meta:{
@@ -61,14 +51,6 @@ export default {
                 flag:true
             },
             components:{default:architecture},
-        },
-        {
-            name:'系统管理 > 架构管理 > 架构管理 > 新建团队',
-            path:'/system/architecture/new',
-            meta:{
-                flag:true
-            },
-            components:{default:architecture_new},
         },
         {
             name:'系统管理 > 架构管理 > 架构管理 > 编辑团队',

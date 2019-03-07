@@ -23,9 +23,6 @@
             <el-button type="primary" @click="onSubmit">查询</el-button>
         </el-form-item>
 
-        <el-form-item class="new_create">
-            <el-button type="success" @click = 'createEmployee'>新建团队</el-button>
-        </el-form-item>
     </el-form>
 </template>
 <script>
@@ -48,10 +45,6 @@
             onSubmit() {
                 console.log('submit!');
             },
-            createEmployee(){
-                this.$router.push({path:'/system/architecture/new'})
-                //to add new
-            }
         }
     }
 </script>

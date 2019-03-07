@@ -64,7 +64,7 @@
                 subjects:metaObj.subjects,
                 sex:metaObj.sex,
                 good_at_exam:metaObj.good_at_exam,
-                teacher_style:mmetaObjeta.teacher_style,
+                teacher_style:metaObj.teacher_style,
                 exam:[],
 
                 dialogFormVisible:false,

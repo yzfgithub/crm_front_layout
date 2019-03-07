@@ -1,22 +1,19 @@
 <template>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true" :model="queryForm" class="demo-form-inline">
         <el-form-item label="员工">
-            <el-input v-model="clueAForm.name"></el-input>
+            <el-input v-model="queryForm.name"></el-input>
         </el-form-item>
 
         <el-form-item>
             <el-button type="primary" @click="onSubmit">查询</el-button>
         </el-form-item>
 
-        <el-form-item class="new_create">
-            <el-button type="success" @click = 'createEmployee'>新建员工</el-button>
-        </el-form-item>
     </el-form>
 </template>
 <script>
     export default {
         props:{
-            clueAForm:{
+            queryForm:{
                 type:Object,
                 require:true,
             }
@@ -31,12 +28,8 @@
         },
         methods: {
             onSubmit() {
-                console.log('submit!');
+                this.$emit('onSubmit')
             },
-            createEmployee(id){
-                this.$router.push({path:'/system/employee/new'})
-                //to add new
-            }
         }
     }
 </script>
